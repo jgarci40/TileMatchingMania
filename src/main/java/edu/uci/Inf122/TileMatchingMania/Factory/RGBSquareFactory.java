@@ -26,10 +26,14 @@ public abstract class RGBSquareFactory implements Factory<RGBSquareFactory>{
     }
 
     public RGBSquareFactory (RGBSquareFactory otherRGBSquareFactory){
-        return this(otherRGBSquareFactory.r, otherRGBSquareFactory.g, otherRGBSquareFactory.b, otherRGBSquareFactory.width, otherRGBSquareFactory.height);
+        this.r = otherRGBSquareFactory.r;
+        this.b = otherRGBSquareFactory.b;
+        this.g = otherRGBSquareFactory.g;
+        this.width = otherRGBSquareFactory.width;
+        this.height = otherRGBSquareFactory.height;
     }
 
-    public RGBSquareFactory RGBSquareFactory(){
+    private RGBSquareFactory RGBSquareFactory(){
         return this;
     }
 

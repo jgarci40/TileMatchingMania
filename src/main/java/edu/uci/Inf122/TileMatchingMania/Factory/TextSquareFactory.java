@@ -17,30 +17,28 @@ public abstract class TextSquareFactory implements Factory<TextSquareFactory>{
     public static final String DEFAULT_TEXT = "";
 
 
-    public void TextSquareFactory(String fontFamily, int fontStyle, int fontSize, int width, int height, String text) {
+    public TextSquareFactory(String fontFamily, int fontStyle, int fontSize, int width, int height, String text) {
         this.font = new Font(fontFamily, fontStyle, fontSize);
         this.width = width;
         this.height = height;
         this.text = text;
     }
 
-    public void TextSquareFactory(Font font, int width, int height, String text) {
+    public TextSquareFactory(Font font, int width, int height, String text) {
         this.font = font;
         this.width = width;
         this.height = height;
         this.text = text;
     }
 
-    public void TextSquareFactory(TextSquareFactory otherTextSquareFactory){
+    public TextSquareFactory(TextSquareFactory otherTextSquareFactory){
         this.width = otherTextSquareFactory.width;
         this.height = otherTextSquareFactory.height;
         this.text = otherTextSquareFactory.text;
         this.font = otherTextSquareFactory.font;
     }
 
-
-
-    public TextSquareFactory TextSquareFactory(){
+    private TextSquareFactory TextSquareFactory(){
         return this;
     }
 
