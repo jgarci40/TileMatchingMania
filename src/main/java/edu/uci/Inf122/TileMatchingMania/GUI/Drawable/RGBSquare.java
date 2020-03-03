@@ -9,11 +9,11 @@ public class RGBSquare implements Drawable {
     private int g;
     private int width;
     private int height;
-    private static final int DEFAULT_WIDTH = 256;
-    private static final int DEFAULT_HEIGHT = 256;
-    private static final int DEFAULT_R = 0;
-    private static final int DEFAULT_G = 0;
-    private static final int DEFAULT_B = 0;
+    public static final int DEFAULT_WIDTH = 256;
+    public static final int DEFAULT_HEIGHT = 256;
+    public static final int DEFAULT_R = 0;
+    public static final int DEFAULT_G = 0;
+    public static final int DEFAULT_B = 0;
 
     public RGBSquare() {
         this(DEFAULT_R, DEFAULT_G, DEFAULT_B, DEFAULT_WIDTH, DEFAULT_HEIGHT);
