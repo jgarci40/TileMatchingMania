@@ -2,12 +2,12 @@ package edu.uci.Inf122.TileMatchingMania.Factory;
 
 import java.awt.*;
 
-public class TileFactory implements Factory<TileFactory>{
+public abstract class TextSquareFactory implements Factory<TextSquareFactory>{
 
-    private int width;
-    private int height;
-    private Font font;
-    private String text;
+    private int width = DEFAULT_WIDTH;
+    private int height = DEFAULT_HEIGHT;
+    private Font font = new Font(DEFAULT_FONT_FAMILY, DEFAULT_FONT_STYLE, DEFAULT_FONT_SIZE);
+    private String text = DEFAULT_TEXT;
 
     public static final String DEFAULT_FONT_FAMILY = "Serif";
     public static final int DEFAULT_FONT_STYLE = Font.PLAIN;
@@ -16,12 +16,39 @@ public class TileFactory implements Factory<TileFactory>{
     public static final int DEFAULT_HEIGHT = 256;
     public static final String DEFAULT_TEXT = "";
 
-    private TileFactory TileFactory(){
-        return new TileFactory();
+
+    public void TextSquareFactory(String fontFamily, int fontStyle, int fontSize, int width, int height, String text) {
+        this.font = new Font(fontFamily, fontStyle, fontSize);
+        this.width = width;
+        this.height = height;
+        this.text = text;
+    }
+
+    public void TextSquareFactory(Font font, int width, int height, String text) {
+        this.font = font;
+        this.width = width;
+        this.height = height;
+        this.text = text;
+    }
+
+    public void TextSquareFactory(TextSquareFactory otherTextSquareFactory){
+        this.width = otherTextSquareFactory.width;
+        this.height = otherTextSquareFactory.height;
+        this.text = otherTextSquareFactory.text;
+        this.font = otherTextSquareFactory.font;
+    }
+
+
+
+    public TextSquareFactory TextSquareFactory(){
+        return this;
     }
 
     @Override
-    public TileFactory create() {
-        return TileFactory();
+    public TextSquareFactory create() {
+        return TextSquareFactory();
     }
+
+    public abstract Image draw();
+
 }
