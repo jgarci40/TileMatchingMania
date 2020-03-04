@@ -125,7 +125,7 @@ public class MasonicTestGame extends JFrame {
         setResizable(false);
         int rows = 10;
         int cols = 10;
-        int boxSize = 32;
+        int boxSize = 64;
         drawables1 = new Drawable[rows][cols];
         drawables2 = new Drawable[rows][cols];
         BasicMouseListener bml = new BasicMouseListener();
@@ -137,19 +137,19 @@ public class MasonicTestGame extends JFrame {
             for(int j = 0; j < cols; j++) {
                 if(i % 2 == 0) {
                     if(j % 2 == 0) {
-                        drawables1[i][j] = new WhiteSquare(32, 32);
-                        drawables2[i][j] = new BlackSquare(32, 32);
+                        drawables1[i][j] = new WhiteSquare(boxSize, boxSize);
+                        drawables2[i][j] = new BlackSquare(boxSize, boxSize);
                     } else {
-                        drawables1[i][j] = new BlackSquare(32, 32);
-                        drawables2[i][j] = new WhiteSquare(32, 32);
+                        drawables1[i][j] = new BlackSquare(boxSize, boxSize);
+                        drawables2[i][j] = new WhiteSquare(boxSize, boxSize);
                     }
                 } else {
                     if(j % 2 == 0) {
-                        drawables1[i][j] = new BlackSquare(32, 32);
-                        drawables2[i][j] = new WhiteSquare(32, 32);
+                        drawables1[i][j] = new BlackSquare(boxSize, boxSize);
+                        drawables2[i][j] = new WhiteSquare(boxSize, boxSize);
                     } else {
-                        drawables1[i][j] = new WhiteSquare(32, 32);
-                        drawables2[i][j] = new BlackSquare(32, 32);
+                        drawables1[i][j] = new WhiteSquare(boxSize, boxSize);
+                        drawables2[i][j] = new BlackSquare(boxSize, boxSize);
                     }
                 }
             }
