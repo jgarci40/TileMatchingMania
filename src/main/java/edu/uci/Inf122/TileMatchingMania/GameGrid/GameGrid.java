@@ -14,14 +14,12 @@ public class GameGrid {
     private int cols;
     private StateCollection stateCollection;
 
-    public GameGrid(int rows, int cols, State defaultState) throws Exception {
-        if(defaultState == null) throw new Exception("default state may not be null");
+    public GameGrid(int rows, int cols, StateCollection sc) throws Exception {
         this.rows = rows;
         this.cols = cols;
         grid = new Tile[rows][cols];
 
-        stateCollection = new StateCollection();
-        stateCollection.setDefaultState(defaultState);
+        stateCollection = sc;
 
         fillGrid();
         connectGrid();
@@ -84,11 +82,7 @@ public class GameGrid {
         return cols;
     }
 
-    public void addValidState(State state) {
-        stateCollection.addState(state);
-    }
-
-    public boolean isValidState(State state) {
+    private boolean isValidState(State state) {
         return stateCollection.containsState(state);
     }
 
