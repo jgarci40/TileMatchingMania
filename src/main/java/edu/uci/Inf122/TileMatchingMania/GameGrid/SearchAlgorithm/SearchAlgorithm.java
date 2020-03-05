@@ -1,4 +1,4 @@
-package edu.uci.Inf122.TileMatchingMania.GameGrid.SearchHeuristics;
+package edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm;
 
 import edu.uci.Inf122.TileMatchingMania.GameGrid.CollectionConditions.CollectionCondition;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.ContinuePaths.ContinuePath;
@@ -10,7 +10,7 @@ import edu.uci.Inf122.TileMatchingMania.GameGrid.ValidPaths;
  * as a combination of a path search algorithm and a collection or 
  * matching condition.
  */
-public class SearchHeuristic {
+public class SearchAlgorithm {
     private ContinuePath ct;
     private CollectionCondition cd;
 
@@ -20,7 +20,7 @@ public class SearchHeuristic {
      * @param ct The way a game searches the grid.
      * @param The way the game collects or matches tiles.
      */
-    public SearchHeuristic(ContinuePath ct, CollectionCondition cd) {
+    public SearchAlgorithm(ContinuePath ct, CollectionCondition cd) {
         this.ct = ct;
         this.cd = cd;
     }

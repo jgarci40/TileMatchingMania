@@ -1,6 +1,6 @@
 package edu.uci.Inf122.TileMatchingMania.GameGrid;
 
-import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchHeuristics.SearchHeuristic;
+import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.SearchAlgorithm;
 import edu.uci.Inf122.TileMatchingMania.State.State;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
@@ -165,48 +165,48 @@ public class GameGrid {
         grid[row][col].setState(stateCollection.getDefaultState());
     }
 
-    public ArrayList<Tile> graphSearch(Tile tile, SearchHeuristic searchHeuristic) {
+    public ArrayList<Tile> graphSearch(Tile tile, SearchAlgorithm searchAlgorithm) {
         HashSet<Tile> visited = new HashSet<>();
         ArrayList<Tile> collected = new ArrayList<>();
-        graphSearch(tile, searchHeuristic, visited, collected);
+        graphSearch(tile, searchAlgorithm, visited, collected);
         return collected;
     }
 
-    public void graphSearch(Tile tile, SearchHeuristic searchHeuristic, Set<Tile> visited, ArrayList<Tile> collected) {
+    public void graphSearch(Tile tile, SearchAlgorithm searchAlgorithm, Set<Tile> visited, ArrayList<Tile> collected) {
         if(visited.contains(tile)) {
             return;
         } else {
             visited.add(tile);
         }
 
-        if(searchHeuristic.collectionCondition(tile)) {
+        if(searchAlgorithm.collectionCondition(tile)) {
             collected.add(tile);
         }
 
-        ValidPaths vps = searchHeuristic.continuePath(tile);
+        ValidPaths vps = searchAlgorithm.continuePath(tile);
         if(vps.getDown()) {
-            graphSearch((Tile)tile.getDown(), searchHeuristic, visited, collected);
+            graphSearch((Tile)tile.getDown(), searchAlgorithm, visited, collected);
         }
 
         if(vps.getUp()) {
-            graphSearch((Tile)tile.getUp(), searchHeuristic, visited, collected);
+            graphSearch((Tile)tile.getUp(), searchAlgorithm, visited, collected);
 
         }
 
         if(vps.getLeft()) {
-            graphSearch((Tile)tile.getLeft(), searchHeuristic, visited, collected);
+            graphSearch((Tile)tile.getLeft(), searchAlgorithm, visited, collected);
         }
 
         if(vps.getRight()) {
-            graphSearch((Tile)tile.getRight(), searchHeuristic, visited, collected);
+            graphSearch((Tile)tile.getRight(), searchAlgorithm, visited, collected);
         }
     }
 
-    public ArrayList<Tile> search(SearchHeuristic searchHeuristic) {
+    public ArrayList<Tile> search(SearchAlgorithm searchAlgorithm) {
         ArrayList<Tile> collected = new ArrayList<>();
         for(Tile[] tileArr : grid) {
             for(Tile tile : tileArr) {
-                if(searchHeuristic.collectionCondition(tile)) collected.add(tile);
+                if(searchAlgorithm.collectionCondition(tile)) collected.add(tile);
             }
         }
         return collected;

@@ -1,4 +1,4 @@
-package edu.uci.Inf122.TileMatchingMania.GameGrid.SearchHeuristics;
+package edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm;
 
 import edu.uci.Inf122.TileMatchingMania.GameGrid.CollectionConditions.NeighborCondition;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.ContinuePaths.NeighborPath;
@@ -10,8 +10,8 @@ import edu.uci.Inf122.TileMatchingMania.GameGrid.ContinuePaths.NeighborPath;
  * share State objects (meaning tiles have identical States such as both being
  * red or both being the number 4). 
  */
-public class NeighborHeuristic extends SearchHeuristic {
-    public NeighborHeuristic() {
+public class NeighborAlgorithm extends SearchAlgorithm {
+    public NeighborAlgorithm() {
         super(new NeighborPath(), new NeighborCondition());
     }
 }

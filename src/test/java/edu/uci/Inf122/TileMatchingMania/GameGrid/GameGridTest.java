@@ -1,6 +1,6 @@
 package edu.uci.Inf122.TileMatchingMania.GameGrid;
 
-import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchHeuristics.NeighborHeuristic;
+import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.NeighborAlgorithm;
 import edu.uci.Inf122.TileMatchingMania.State.State;
 import edu.uci.Inf122.TileMatchingMania.State.TestState;
 import org.junit.jupiter.api.Test;
@@ -215,7 +215,7 @@ class GameGridTest {
         GameGrid gg = new GameGrid(rows, cols, state);
         Tile tile = gg.getTile(0,1);
         gg.addValidState(state2);
-        NeighborHeuristic nh = new NeighborHeuristic();
+        NeighborAlgorithm nh = new NeighborAlgorithm();
         ArrayList<Tile> tiles = gg.graphSearch(tile, nh);
         assertEquals(tiles.size(), 25);
 
@@ -240,7 +240,7 @@ class GameGridTest {
 
         Tile tile = gg.getTile(0,1);
 
-        NeighborHeuristic nh = new NeighborHeuristic();
+        NeighborAlgorithm nh = new NeighborAlgorithm();
         ArrayList<Tile> tiles = gg.graphSearch(tile, nh);
         assertEquals(tiles.size(), 5);
     }
@@ -261,7 +261,7 @@ class GameGridTest {
 
         Tile tile = gg.getTile(2,1);
 
-        NeighborHeuristic nh = new NeighborHeuristic();
+        NeighborAlgorithm nh = new NeighborAlgorithm();
         ArrayList<Tile> tiles = gg.graphSearch(tile, nh);
         assertEquals(tiles.size(), 5);
 
@@ -284,7 +284,7 @@ class GameGridTest {
         gg.setState(3,2, state2);
         gg.setState(1,3, state2);
 
-        NeighborHeuristic nh = new NeighborHeuristic();
+        NeighborAlgorithm nh = new NeighborAlgorithm();
         ArrayList<Tile> tiles = gg.search(nh);
         assertEquals(tiles.size(), 25);
     }
@@ -300,7 +300,7 @@ class GameGridTest {
         gg.setState(4,3, state2);
         gg.setState(3,4, state2);
 
-        NeighborHeuristic nh = new NeighborHeuristic();
+        NeighborAlgorithm nh = new NeighborAlgorithm();
         ArrayList<Tile> tiles = gg.search(nh);
         assertEquals(tiles.size(), 22);
 
