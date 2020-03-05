@@ -2,7 +2,21 @@ package edu.uci.Inf122.TileMatchingMania.GameGrid.CollectionConditions;
 
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 
+/*
+ * This class collects tiles based on a neighborhood condition;
+ * meaning Tiles are matched with each other if they have the 
+ * same State and are left, right, up, or down neighbors. 
+ */
 public class NeighborCondition extends CollectionCondition {
+	/*
+	 * Collect the 4 neighboring tiles if the State for each
+	 * Title is the same as the starting tile.
+	 * 
+	 * @param tile This is the current Tile evaluating it's 4 neighbors.
+	 * 
+	 * @return boolean False if no match candidate exists, true otherwise
+	 * if 1 of the 4 neighbors are a match. 
+	 */
     public boolean collectionCondition(Tile tile) {
         Tile tL = (Tile)tile.getLeft();
         if(tL != null) {
