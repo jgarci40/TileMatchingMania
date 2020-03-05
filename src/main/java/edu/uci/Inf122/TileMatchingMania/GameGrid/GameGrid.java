@@ -2,6 +2,7 @@ package edu.uci.Inf122.TileMatchingMania.GameGrid;
 
 import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchHeuristics.SearchHeuristic;
 import edu.uci.Inf122.TileMatchingMania.State.State;
+import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,25 +12,25 @@ public class GameGrid {
     private Tile[][] grid;
     private int rows;
     private int cols;
-    private State defaultState;
-    HashSet<Class> validStates;
+    private StateCollection stateCollection;
 
     public GameGrid(int rows, int cols, State defaultState) throws Exception {
         if(defaultState == null) throw new Exception("default state may not be null");
         this.rows = rows;
         this.cols = cols;
         grid = new Tile[rows][cols];
-        validStates = new HashSet<>();
-        validStates.add(defaultState.getClass());
-        this.defaultState = defaultState;
+
+        stateCollection = new StateCollection();
+        stateCollection.setDefaultState(defaultState);
+
         fillGrid();
         connectGrid();
     }
 
-    private void fillGrid() {
+    private void fillGrid() throws Exception {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                grid[i][j] = new Tile(i, j, defaultState);
+                grid[i][j] = new Tile(i, j, stateCollection.getDefaultState());
             }
         }
     }
@@ -84,11 +85,11 @@ public class GameGrid {
     }
 
     public void addValidState(State state) {
-        validStates.add(state.getClass());
+        stateCollection.addState(state);
     }
 
     public boolean isValidState(State state) {
-        return validStates.contains(state.getClass());
+        return stateCollection.containsState(state);
     }
 
     private boolean outOfBounds(int upBound, int num) {
@@ -140,7 +141,7 @@ public class GameGrid {
     public void clear() throws Exception {
         for(int i = 0; i < rows; i++) {
             for(int j = 0; j < cols; j++) {
-                grid[i][j].setState(defaultState);
+                grid[i][j].setState(stateCollection.getDefaultState());
             }
         }
     }
@@ -148,20 +149,20 @@ public class GameGrid {
     public void clearRow(int row) throws Exception {
         checkBounds(row, 0);
         for(int i = 0; i < cols; i++) {
-            grid[row][i].setState(defaultState);
+            grid[row][i].setState(stateCollection.getDefaultState());
         }
     }
 
     public void clearCol(int col) throws Exception {
         checkBounds(0, col);
         for(int i = 0; i < rows; i++) {
-            grid[i][col].setState(defaultState);
+            grid[i][col].setState(stateCollection.getDefaultState());
         }
     }
 
     public void clearPostion(int row, int col) throws Exception {
         checkBounds(row, col);
-        grid[row][col].setState(defaultState);
+        grid[row][col].setState(stateCollection.getDefaultState());
     }
 
     public ArrayList<Tile> graphSearch(Tile tile, SearchHeuristic searchHeuristic) {

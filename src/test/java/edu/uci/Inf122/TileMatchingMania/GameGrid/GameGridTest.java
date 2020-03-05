@@ -2,15 +2,12 @@ package edu.uci.Inf122.TileMatchingMania.GameGrid;
 
 import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchHeuristics.NeighborHeuristic;
 import edu.uci.Inf122.TileMatchingMania.State.State;
+import edu.uci.Inf122.TileMatchingMania.State.TestState;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-class TestState extends State {
-
-}
 
 class TestTile extends Tile {
     public TestTile(int row, int col) {
