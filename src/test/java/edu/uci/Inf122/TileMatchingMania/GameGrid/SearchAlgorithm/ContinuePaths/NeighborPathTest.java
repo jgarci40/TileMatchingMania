@@ -4,13 +4,11 @@ import edu.uci.Inf122.TileMatchingMania.GameGrid.GameGrid;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.ValidPaths;
 import edu.uci.Inf122.TileMatchingMania.State.State;
+import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
+import edu.uci.Inf122.TileMatchingMania.State.TestState;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-class TestState extends State {
-
-}
 
 class NeighborPathTest {
 
@@ -25,8 +23,11 @@ class NeighborPathTest {
         int cols = 5;
         State state = new State(){};
         State state2 = new TestState();
-        GameGrid gg = new GameGrid(rows, cols, state);
-        gg.addValidState(state2);
+
+        StateCollection sc = new StateCollection();
+        sc.setDefaultState(state);
+        GameGrid gg = new GameGrid(rows, cols, sc);
+        sc.addState(state2);
 
         Tile t1 = gg.getTile(1, 1);
         ValidPaths vps = np.continuePaths(t1);
