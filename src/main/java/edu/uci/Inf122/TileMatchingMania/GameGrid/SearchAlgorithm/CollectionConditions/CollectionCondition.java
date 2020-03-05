@@ -1,4 +1,4 @@
-package edu.uci.Inf122.TileMatchingMania.GameGrid.CollectionConditions;
+package edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.CollectionConditions;
 
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 

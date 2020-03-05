@@ -1,7 +1,7 @@
 package edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm;
 
-import edu.uci.Inf122.TileMatchingMania.GameGrid.CollectionConditions.CollectionCondition;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.ContinuePaths.ContinuePath;
+import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.CollectionConditions.CollectionCondition;
+import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.ContinuePaths.ContinuePath;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.ValidPaths;
 

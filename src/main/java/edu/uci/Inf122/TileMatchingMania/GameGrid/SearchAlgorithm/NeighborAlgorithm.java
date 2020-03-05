@@ -1,7 +1,7 @@
 package edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm;
 
-import edu.uci.Inf122.TileMatchingMania.GameGrid.CollectionConditions.NeighborCondition;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.ContinuePaths.NeighborPath;
+import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.CollectionConditions.NeighborCondition;
+import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.ContinuePaths.NeighborPath;
 
 /*
  * This class is a type of SearchHeuristic whereby searching is 

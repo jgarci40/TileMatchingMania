@@ -1,4 +1,4 @@
-package edu.uci.Inf122.TileMatchingMania.GameGrid.ContinuePaths;
+package edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.ContinuePaths;
 
 import edu.uci.Inf122.TileMatchingMania.GameGrid.GameGrid;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
