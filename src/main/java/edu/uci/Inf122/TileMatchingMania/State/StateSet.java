@@ -22,6 +22,7 @@ public class StateSet {
     }
 
     public boolean add(State state) {
+        if(state == null) return false;
         if(validStates.contains(stateClass(state))) {
             return false;
         } else {
@@ -40,6 +41,7 @@ public class StateSet {
     }
 
     public boolean contains(State state) {
+        if(state == null) return false;
         return validStates.contains(stateClass(state));
     }
 

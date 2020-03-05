@@ -6,10 +6,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TestState extends State {}
-class TestState1 extends State {}
-class TestState2 extends State {}
-
 class StateSetTest {
     @Test
     void runAll() {
@@ -32,6 +28,7 @@ class StateSetTest {
         boolean boolRet = ss.add(s);
         assertEquals(1, ss.size());
         assertEquals(true, boolRet);
+        assertFalse(ss.add(null));
 
         // no duplicates of same class
         State s1 = new TestState();
@@ -99,5 +96,7 @@ class StateSetTest {
 
         List<State> states = ss.getStates();
         assertEquals(2, states.size());
+        assertEquals(s1.getClass(), states.get(0).getClass());
+        assertEquals(s2.getClass(), states.get(1).getClass());
     }
 }
