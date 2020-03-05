@@ -3,7 +3,25 @@ package edu.uci.Inf122.TileMatchingMania.GameGrid.ContinuePaths;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.ValidPaths;
 
+/*
+ * This class provides a path algorithm to find its 4
+ * neighboring nodes based on a matching condition of 
+ * belonging to the same State. For example, two tiles
+ * that are colored blue will share the same State and so
+ * will meet the matching condition to be on the same path.
+ */
 public class NeighborPath extends ContinuePath {
+	
+	/*
+	 * This method will search a path of 
+	 * tiles in a grid and return valid paths.
+	 * 
+	 * @param tile The search starting point is a tile 
+	 * in the grid.
+	 * 
+	 * @return ValidPaths The object that records what paths
+	 * exists in a 4-way direction.
+	 */
     @Override
     public ValidPaths continuePaths(Tile tile) {
         ValidPaths vp = new ValidPaths();
