@@ -1,6 +1,6 @@
 package edu.uci.Inf122.TileMatchingMania.GameGrid;
 
-import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.NeighborAlgorithm;
+import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.Algorithms.NeighborAlgorithm;
 import edu.uci.Inf122.TileMatchingMania.State.*;
 import org.junit.jupiter.api.Test;
 
