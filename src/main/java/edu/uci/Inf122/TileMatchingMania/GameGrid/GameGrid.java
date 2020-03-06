@@ -38,6 +38,11 @@ public class GameGrid {
         }
     }
 
+    //TODO remove this in favor of a visitor like method
+    public Tile[][] getGameGrid() {
+        return grid;
+    }
+
     public void fillGrid(FillProcess fillProcess, FillGenerator fillGenerator) throws Exception {
         fillProcess.fillProcess(grid, fillGenerator);
     }
