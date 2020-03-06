@@ -1,15 +1,14 @@
-package edu.uci.Inf122.TileMatchingMania.Games.Tests.RandomGrid.src;
+package edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
 import edu.uci.Inf122.TileMatchingMania.GUI.Grid.GridsCanvas;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.FillGenerator.RandomGenerator;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.FillProcess.LinearFillProcess;
+import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.Algorithms.RandomFillAlgorithm;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.GameGrid;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.RandomGrid.src.Drawable.BlackSquare;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.RandomGrid.src.Drawable.WhiteSquare;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.RandomGrid.src.State.BlackState;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.RandomGrid.src.State.WhiteState;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.Drawable.BlackSquare;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.Drawable.WhiteSquare;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.BlackState;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import javax.swing.*;
@@ -24,7 +23,7 @@ public class RandomGridTestGame extends JFrame {
     GameGrid gameGrid;
 
     private void randomFillGrid() throws Exception {
-        gameGrid.fillGrid(new LinearFillProcess(stateCollection), new RandomGenerator(stateCollection));
+        gameGrid.fillGrid(new RandomFillAlgorithm(stateCollection));
     }
 
     private Drawable tileToDrawable(Tile tile) throws Exception {
@@ -39,7 +38,7 @@ public class RandomGridTestGame extends JFrame {
 
     private Drawable[][] convertGridToDrawable() throws Exception {
         Drawable[][] drawables = new Drawable[rows][cols];
-        Tile[][] tmpGrid = gameGrid.getGameGrid();
+        Tile[][] tmpGrid = gameGrid.getGrid();
         int i = 0;
         for(Tile[] row : tmpGrid) {
             int j = 0;
