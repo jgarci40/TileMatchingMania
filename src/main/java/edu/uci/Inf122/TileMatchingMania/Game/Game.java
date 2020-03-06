@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Game {
-    GameGrid gameGrid;
-    int rows;
-    int cols;
-    Map<String, StateCollection> collections;
-    int score;
+    protected GameGrid gameGrid;
+    protected int rows;
+    protected int cols;
+    protected Map<String, StateCollection> collections;
+    protected int score;
 
     public Game(int rows, int cols) {
         this.rows = rows;
