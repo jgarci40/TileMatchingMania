@@ -16,7 +16,7 @@ public class LinearFillProcess extends FillProcess {
         this.stateCollection = stateCollection;
     }
 
-    public void fillProcess(Tile[][] tileGrid, FillGenerator fg) {
+    public void fillProcess(Tile[][] tileGrid, FillGenerator fg) throws Exception {
         for(Tile[] row : tileGrid) {
             for(Tile tile : row) {
                 fillTile(tile, fg);
@@ -24,7 +24,7 @@ public class LinearFillProcess extends FillProcess {
         }
     }
 
-    void fillTile(Tile tile, FillGenerator fg) {
+    void fillTile(Tile tile, FillGenerator fg) throws Exception {
         tile.setState(fg.fillGenerator(tile));
     }
 }

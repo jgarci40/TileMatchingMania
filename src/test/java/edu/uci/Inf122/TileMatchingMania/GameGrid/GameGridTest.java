@@ -1,9 +1,7 @@
 package edu.uci.Inf122.TileMatchingMania.GameGrid;
 
 import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.NeighborAlgorithm;
-import edu.uci.Inf122.TileMatchingMania.State.State;
-import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
-import edu.uci.Inf122.TileMatchingMania.State.TestState;
+import edu.uci.Inf122.TileMatchingMania.State.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -43,7 +41,7 @@ class GameGridTest {
         int rows = 5;
         int cols = 5;
         StateCollection sc = new StateCollection();
-        State state = new State(){};
+        State state = new TestState();
         sc.setDefaultState(state);
         GameGrid gg = new GameGrid(rows, cols, sc);
         assertEquals(rows, gg.getRows());
@@ -53,7 +51,7 @@ class GameGridTest {
         int rows = 5;
         int cols = 5;
         StateCollection sc = new StateCollection();
-        State state = new State(){};
+        State state = new TestState();
         sc.setDefaultState(state);
         GameGrid gg = new GameGrid(rows, cols, sc);
         assertEquals(cols, gg.getCols());
@@ -63,7 +61,7 @@ class GameGridTest {
         int rows = 5;
         int cols = 5;
         StateCollection sc = new StateCollection();
-        State state = new State(){};
+        State state = new TestState();
         sc.setDefaultState(state);
         GameGrid gg = new GameGrid(rows, cols, sc);
         Tile t1 = gg.getTile(4, 1);
@@ -81,7 +79,7 @@ class GameGridTest {
         int rows = 5;
         int cols = 5;
         StateCollection sc = new StateCollection();
-        State state = new State(){};
+        State state = new TestState();
         sc.setDefaultState(state);
         GameGrid gg = new GameGrid(rows, cols, sc);
 
@@ -97,7 +95,7 @@ class GameGridTest {
         int cols = 5;
 
         StateCollection sc = new StateCollection();
-        State state = new State(){};
+        State state = new TestState();
         sc.setDefaultState(state);
         GameGrid gg = new GameGrid(rows, cols, sc);
 
@@ -127,8 +125,8 @@ class GameGridTest {
     void testClearRow() throws Exception {
         int rows = 5;
         int cols = 5;
-        State state = new State() {};
-        State state2 = new State(){};
+        State state = new TestState1();
+        State state2 = new TestState2();
 
         StateCollection sc = new StateCollection();
         sc.setDefaultState(state);
@@ -148,8 +146,8 @@ class GameGridTest {
     void testClearCol() throws Exception {
         int rows = 5;
         int cols = 5;
-        State state = new State() {};
-        State state2 = new State(){};
+        State state = new TestState1();
+        State state2 = new TestState2();
 
         StateCollection sc = new StateCollection();
         sc.setDefaultState(state);
@@ -169,8 +167,8 @@ class GameGridTest {
     void testClearPos() throws Exception {
         int rows = 5;
         int cols = 5;
-        State state = new State() {};
-        State state2 = new State(){};
+        State state = new TestState1();
+        State state2 = new TestState2();
 
         StateCollection sc = new StateCollection();
         sc.setDefaultState(state);
@@ -191,8 +189,8 @@ class GameGridTest {
     void testClear() throws Exception {
         int rows = 5;
         int cols = 5;
-        State state = new State() {};
-        State state2 = new State(){};
+        State state = new TestState1();
+        State state2 = new TestState2();
 
         StateCollection sc = new StateCollection();
         sc.setDefaultState(state);
@@ -218,8 +216,8 @@ class GameGridTest {
     void testGraphSearch1() throws Exception {
         int rows = 5;
         int cols = 5;
-        State state = new State() {};
-        State state2 = new State() {};
+        State state = new TestState1();
+        State state2 = new TestState2();
 
         StateCollection sc = new StateCollection();
         sc.setDefaultState(state);
@@ -239,8 +237,8 @@ class GameGridTest {
     void testGraphSearch2() throws Exception {
         int rows = 5;
         int cols = 5;
-        State state = new State() {};
-        State state2 = new State() {};
+        State state = new TestState1();
+        State state2 = new TestState2();
         StateCollection sc = new StateCollection();
         sc.setDefaultState(state);
         GameGrid gg = new GameGrid(rows, cols, sc);
@@ -262,8 +260,8 @@ class GameGridTest {
     void testGraphSearch3() throws Exception {
         int rows = 5;
         int cols = 5;
-        State state = new State() {};
-        State state2 = new State() {};
+        State state = new TestState1();
+        State state2 = new TestState2();
         StateCollection sc = new StateCollection();
         sc.setDefaultState(state);
         GameGrid gg = new GameGrid(rows, cols, sc);
@@ -289,8 +287,8 @@ class GameGridTest {
     void testSearch1() throws Exception {
         int rows = 5;
         int cols = 5;
-        State state = new State() {};
-        State state2 = new State() {};
+        State state = new TestState1();
+        State state2 = new TestState2();
         StateCollection sc = new StateCollection();
         sc.setDefaultState(state);
         GameGrid gg = new GameGrid(rows, cols, sc);
@@ -310,8 +308,8 @@ class GameGridTest {
     void testSearch2() throws Exception {
         int rows = 5;
         int cols = 5;
-        State state = new State() {};
-        State state2 = new State() {};
+        State state = new TestState1();
+        State state2 = new TestState2();
         StateCollection sc = new StateCollection();
         sc.setDefaultState(state);
         GameGrid gg = new GameGrid(rows, cols, sc);

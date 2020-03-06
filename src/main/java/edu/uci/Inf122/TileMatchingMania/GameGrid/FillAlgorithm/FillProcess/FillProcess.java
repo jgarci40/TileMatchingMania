@@ -6,7 +6,7 @@ import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 public abstract class FillProcess {
     StateCollection stateCollection;
-    public abstract void fillProcess(Tile[][] tileGrid, FillGenerator fg);
+    public abstract void fillProcess(Tile[][] tileGrid, FillGenerator fg) throws Exception;
 
-    abstract void fillTile(Tile tile, FillGenerator fg);
+    abstract void fillTile(Tile tile, FillGenerator fg) throws Exception;
 }

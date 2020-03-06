@@ -1,5 +1,9 @@
 package edu.uci.Inf122.TileMatchingMania.GameGrid;
 
+import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.FillGenerator.DefaultGenerator;
+import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.FillGenerator.FillGenerator;
+import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.FillProcess.FillProcess;
+import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.FillProcess.LinearFillProcess;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.SearchAlgorithm;
 import edu.uci.Inf122.TileMatchingMania.State.State;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
@@ -22,6 +26,7 @@ public class GameGrid {
         stateCollection = sc;
 
         fillGrid();
+        fillGrid(new LinearFillProcess(sc), new DefaultGenerator(sc));
         connectGrid();
     }
 
@@ -31,6 +36,10 @@ public class GameGrid {
                 grid[i][j] = new Tile(i, j, stateCollection.getDefaultState());
             }
         }
+    }
+
+    public void fillGrid(FillProcess fillProcess, FillGenerator fillGenerator) throws Exception {
+        fillProcess.fillProcess(grid, fillGenerator);
     }
 
     private Tile findAbove(int row, int col) {
