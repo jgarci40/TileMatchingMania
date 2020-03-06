@@ -2,6 +2,7 @@ package edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
 import edu.uci.Inf122.TileMatchingMania.GUI.Grid.GridsCanvas;
+import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.Algorithms.CheckerBoardAlgorithm;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.Algorithms.RandomFillAlgorithm;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.GameGrid;
@@ -10,6 +11,7 @@ import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.St
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.Drawable.BlackSquare;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.Drawable.WhiteSquare;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.Game.MasonicV2TestGame;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import javax.swing.*;
@@ -22,16 +24,11 @@ public class MasonicV2Frame extends JFrame {
     int rows;
     int cols;
     int boxSize;
-    GameGrid gameGrid;
     Drawable[][] drawables;
     StateCollection stateCollection;
+    MasonicV2TestGame mtg;
 
     GridsCanvas xyz;
-
-    private void checkerboardFillGrid() throws Exception {
-        gameGrid.fillGrid(new CheckerBoardAlgorithm(stateCollection));
-    }
-
 
     private Drawable tileToDrawable(Tile tile) throws Exception {
         if(tile.getState().equivalent(new BlackState())) {
@@ -43,9 +40,8 @@ public class MasonicV2Frame extends JFrame {
         }
     }
 
-    private Drawable[][] convertGridToDrawable() throws Exception {
+    private Drawable[][] convertGridToDrawable(Tile[][] tmpGrid) throws Exception {
         Drawable[][] drawables = new Drawable[rows][cols];
-        Tile[][] tmpGrid = gameGrid.getGrid();
         int i = 0;
         for(Tile[] row : tmpGrid) {
             int j = 0;
@@ -58,19 +54,23 @@ public class MasonicV2Frame extends JFrame {
         return drawables;
     }
 
+    private void updateView() {
+        try {
+            drawables = convertGridToDrawable(mtg.getGrid());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        xyz.setGrid(drawables);
+        revalidate();
+        repaint();
+    }
+
     class BasicKeyListener implements KeyListener {
         @Override
         public void keyPressed(KeyEvent event) {
-//            printEventInfo("Key Pressed", event);
-//            if(drawable1) {
-//                drawable1 = !drawable1;
-//                xyz.setGrid(drawables2);
-//            } else {
-//                drawable1 = !drawable1;
-//                xyz.setGrid(drawables1);
-//            }
-//            revalidate();
-//            repaint();
+            printEventInfo("Key Pressed", event);
+            mtg.nextInput(new Input() {});
+            updateView();
         }
 
         @Override
@@ -142,17 +142,10 @@ public class MasonicV2Frame extends JFrame {
         }
 
         public void mouseClicked(MouseEvent e) {
-//            saySomething("XPos: "
-//                    + e.getX() + " YPos: " + e.getY() + ")", e);
-//            if(drawable1) {
-//                drawable1 = !drawable1;
-//                xyz.setGrid(drawables2);
-//            } else {
-//                drawable1 = !drawable1;
-//                xyz.setGrid(drawables1);
-//            }
-//            revalidate();
-//            repaint();
+            saySomething("XPos: "
+                    + e.getX() + " YPos: " + e.getY() + ")", e);
+            mtg.nextInput(new Input() {});
+            updateView();
         }
 
         void saySomething(String eventDescription, MouseEvent e) {
@@ -173,37 +166,11 @@ public class MasonicV2Frame extends JFrame {
         this.addMouseListener(bml);
         this.addKeyListener(bkl);
 
-//        for(int i = 0; i < rows; i++) {
-//            for(int j = 0; j < cols; j++) {
-//                if(i % 2 == 0) {
-//                    if(j % 2 == 0) {
-//                        drawables1[i][j] = new WhiteSquare(boxSize, boxSize);
-//                        drawables2[i][j] = new BlackSquare(boxSize, boxSize);
-//                    } else {
-//                        drawables1[i][j] = new BlackSquare(boxSize, boxSize);
-//                        drawables2[i][j] = new WhiteSquare(boxSize, boxSize);
-//                    }
-//                } else {
-//                    if(j % 2 == 0) {
-//                        drawables1[i][j] = new BlackSquare(boxSize, boxSize);
-//                        drawables2[i][j] = new WhiteSquare(boxSize, boxSize);
-//                    } else {
-//                        drawables1[i][j] = new WhiteSquare(boxSize, boxSize);
-//                        drawables2[i][j] = new BlackSquare(boxSize, boxSize);
-//                    }
-//                }
-//            }
-//        }
-
-        stateCollection = new StateCollection();
-        stateCollection.setDefaultState(new BlackState());
-        stateCollection.addState(new WhiteState());
-        gameGrid = new GameGrid(rows, cols, stateCollection);
-        checkerboardFillGrid();
-        drawables = convertGridToDrawable();
-
+        mtg = new MasonicV2TestGame();
         xyz = new GridsCanvas(rows, cols, boxSize);
-        xyz.setGrid(drawables);
+
+        updateView();
+
         add(xyz);
         pack();
     }
