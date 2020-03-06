@@ -25,9 +25,7 @@ public class MasonicV2Frame extends JFrame {
     int cols;
     int boxSize;
     Drawable[][] drawables;
-    StateCollection stateCollection;
     MasonicV2TestGame mtg;
-
     GridsCanvas xyz;
 
     private Drawable tileToDrawable(Tile tile) throws Exception {
@@ -157,21 +155,22 @@ public class MasonicV2Frame extends JFrame {
 
     public MasonicV2Frame() throws Exception {
         setResizable(false);
-        rows = 10;
-        cols = 10;
         boxSize = 64;
         drawables = new Drawable[rows][cols];
+
         BasicMouseListener bml = new BasicMouseListener();
         BasicKeyListener bkl = new BasicKeyListener();
         this.addMouseListener(bml);
         this.addKeyListener(bkl);
 
         mtg = new MasonicV2TestGame();
+        rows = mtg.getRows();
+        cols = mtg.getCols();
         xyz = new GridsCanvas(rows, cols, boxSize);
-
-        updateView();
 
         add(xyz);
         pack();
+
+        updateView();
     }
 }

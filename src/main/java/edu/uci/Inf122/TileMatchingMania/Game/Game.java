@@ -26,6 +26,10 @@ public abstract class Game {
 
     public abstract boolean initGame() throws Exception;
 
+    public int getRows() { return rows; }
+
+    public int getCols() { return cols; }
+
     public int getScore() { return score; }
 
     public void setScore(int score) { this.score = score; }
