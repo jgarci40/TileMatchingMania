@@ -8,9 +8,14 @@ import java.util.List;
 
 // TODO Add tests for this code
 public abstract class FillGenerator {
-    StateCollection stateCollection;
-    List<State> currStates;
-    void updateStates() {
+    protected StateCollection stateCollection;
+    protected List<State> currStates;
+
+    public FillGenerator(StateCollection stateCollection) {
+        setStateCollection(stateCollection);
+    }
+
+    protected void updateStates() {
         currStates = stateCollection.getValidStates();
     }
 

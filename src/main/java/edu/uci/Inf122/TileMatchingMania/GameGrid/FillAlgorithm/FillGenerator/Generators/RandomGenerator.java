@@ -1,5 +1,6 @@
-package edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.FillGenerator;
+package edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.FillGenerator.Generators;
 
+import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.FillGenerator.FillGenerator;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 import edu.uci.Inf122.TileMatchingMania.State.State;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
@@ -11,8 +12,7 @@ public class RandomGenerator extends FillGenerator {
     Random ran;
 
     public RandomGenerator(StateCollection stateCollection) {
-        this.stateCollection = stateCollection;
-        updateStates();
+        super(stateCollection);
         ran = new Random();
     }
 

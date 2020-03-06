@@ -1,5 +1,6 @@
-package edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.FillGenerator;
+package edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.FillGenerator.Generators;
 
+import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.FillGenerator.FillGenerator;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 import edu.uci.Inf122.TileMatchingMania.State.State;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
@@ -8,8 +9,7 @@ import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 public class DefaultGenerator extends FillGenerator {
 
     public DefaultGenerator(StateCollection stateCollection) {
-        this.stateCollection = stateCollection;
-        updateStates();
+        super(stateCollection);
     }
 
     public State fillGenerator(Tile tile) throws Exception {
