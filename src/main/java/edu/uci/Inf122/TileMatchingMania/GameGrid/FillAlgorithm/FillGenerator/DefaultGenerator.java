@@ -4,22 +4,18 @@ import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 import edu.uci.Inf122.TileMatchingMania.State.State;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
-import java.util.Random;
-
 // TODO Add tests for this code
-public class RandomGenerator extends FillGenerator {
-    Random ran;
+public class DefaultGenerator extends FillGenerator {
 
-    public RandomGenerator(StateCollection stateCollection) {
+    public DefaultGenerator(StateCollection stateCollection) {
         this.stateCollection = stateCollection;
         updateStates();
-        ran = new Random();
     }
 
-    public State fillGenerator(Tile tile) {
+    public State fillGenerator(Tile tile) throws Exception {
         if(currStates == null) {
             updateStates();
         }
-        return currStates.get(ran.nextInt(currStates.size()));
+        return stateCollection.getDefaultState();
     }
 }
