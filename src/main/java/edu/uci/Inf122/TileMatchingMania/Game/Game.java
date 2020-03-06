@@ -15,14 +15,16 @@ public abstract class Game {
     protected Map<String, StateCollection> collections;
     protected int score;
 
-    public Game(int rows, int cols) {
+    public Game(int rows, int cols, StateCollection defaultCollection) throws Exception {
         this.rows = rows;
         this.cols = cols;
         this.collections = new HashMap<>();
         this.score = 0;
+        collections.put("default", defaultCollection);
+        gameGrid = new GameGrid(this.rows, this.cols, collections.get("default"));
     }
 
-    public abstract boolean initGame();
+    public abstract boolean initGame() throws Exception;
 
     public int getScore() { return score; }
 
