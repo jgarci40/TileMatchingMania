@@ -1,4 +1,4 @@
-package edu.uci.Inf122.TileMatchingMania.Games.Tests.Masonic.src.Drawable;
+package edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.Drawable;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare;
 
