@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+//TODO replace two-D arrays with collections and return unmodifiable collections
+
 public class GameGrid {
     private Tile[][] grid;
     private int rows;
@@ -38,8 +40,7 @@ public class GameGrid {
         }
     }
 
-    //TODO remove this in favor of a visitor like method
-    public Tile[][] getGameGrid() {
+    public Tile[][] getGrid() {
         return grid;
     }
 
