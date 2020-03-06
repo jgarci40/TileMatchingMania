@@ -1,9 +1,9 @@
-package edu.uci.Inf122.TileMatchingMania.Games.Tests.Masonic.src;
+package edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame01_Masonic.src;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
 import edu.uci.Inf122.TileMatchingMania.GUI.Grid.GridsCanvas;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.Masonic.src.Drawable.BlackSquare;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.Masonic.src.Drawable.WhiteSquare;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame01_Masonic.src.Drawable.BlackSquare;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame01_Masonic.src.Drawable.WhiteSquare;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
