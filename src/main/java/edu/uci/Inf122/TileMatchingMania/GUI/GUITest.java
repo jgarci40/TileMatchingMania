@@ -1,7 +1,7 @@
 package edu.uci.Inf122.TileMatchingMania.GUI;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare;
+import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.RGBSquare;
 import edu.uci.Inf122.TileMatchingMania.GUI.Grid.GridsCanvas;
 
 import javax.swing.*;
