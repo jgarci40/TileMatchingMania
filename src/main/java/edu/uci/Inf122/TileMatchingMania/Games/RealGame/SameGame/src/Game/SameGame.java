@@ -67,7 +67,21 @@ public class SameGame extends Game {
     }
 
     private void moveDown() throws Exception {
-        for (int col = gameGrid.getCols() - 1; col >= 0; --col) {
+        // for every column in the grid
+        for (int col = 0; col < gameGrid.getCols(); ++col) {
+            for (int row = 0; row < gameGrid.getRows(); ++row) {
+                // for every tile in that column
+                for (int tile = 0; tile < gameGrid.getRows() - 1; ++tile) {
+                    Tile t = gameGrid.getTile(tile, col);
+                    Tile down = (Tile) t.getDown();
+                    if (!(t.getState() instanceof EmptyState) && (down.getState() instanceof EmptyState)) {
+                        down.setState(t.getState());
+                        t.setState(new EmptyState());
+                    }
+                }
+            }
+        }
+        /*for (int col = gameGrid.getCols() - 1; col >= 0; --col) {
             for (int row = gameGrid.getRows() - 1; row >= 0; --row) {
                 boolean changed = false;
 
@@ -88,6 +102,8 @@ public class SameGame extends Game {
                 }
             }
         }
+
+         */
     }
 
 
