@@ -1,6 +1,8 @@
 package edu.uci.Inf122.TileMatchingMania.GUI;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
+import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.BlackSquare;
+import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.WhiteSquare;
 import edu.uci.Inf122.TileMatchingMania.GUI.Grid.GridsCanvas;
 import edu.uci.Inf122.TileMatchingMania.Game.Game;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
@@ -30,9 +32,9 @@ public class GamePanel extends JPanel {
 
     private Drawable tileToDrawable(Tile tile) throws Exception {
         if(tile.getState().equivalent(new BlackState())) {
-            return new edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.Drawable.BlackSquare();
+            return new BlackSquare();
         } else if(tile.getState().equivalent(new WhiteState())) {
-            return new edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.Drawable.WhiteSquare();
+            return new WhiteSquare();
         } else {
             throw new Exception("Invalid state");
         }
