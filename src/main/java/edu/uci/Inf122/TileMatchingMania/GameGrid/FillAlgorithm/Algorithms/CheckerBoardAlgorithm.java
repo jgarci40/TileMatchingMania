@@ -50,6 +50,6 @@ class CheckerBoardGenerator extends FillGenerator {
 
 public class CheckerBoardAlgorithm extends FillAlgorithm {
     public CheckerBoardAlgorithm(StateCollection stateCollection) throws Exception {
-        super(new LinearFillProcess(stateCollection), new CheckerBoardGenerator(stateCollection));
+        super(new LinearFillProcess(), new CheckerBoardGenerator(stateCollection));
     }
 }
