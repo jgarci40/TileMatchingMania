@@ -7,10 +7,6 @@ import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 //TODO add tests for this class
 public class LinearFillProcess extends FillProcess {
-    public LinearFillProcess(StateCollection stateCollection) {
-        super(stateCollection);
-    }
-
     public void fillProcess(Tile[][] tileGrid, FillGenerator fg) throws Exception {
         for(Tile[] row : tileGrid) {
             for(Tile tile : row) {

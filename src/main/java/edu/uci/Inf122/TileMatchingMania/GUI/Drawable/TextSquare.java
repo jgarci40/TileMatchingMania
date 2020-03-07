@@ -11,40 +11,38 @@ public class TextSquare implements Drawable {
     private Font font;
     private String text;
 
-    public static final String DEFAULT_FONT_FAMILY = "Serif";
+    public static final String DEFAULT_FONT_FAMILY = "TimesRoman";
     public static final int DEFAULT_FONT_STYLE = Font.PLAIN;
     public static final int DEFAULT_FONT_SIZE = 256;
     public static final int DEFAULT_WIDTH = 256;
     public static final int DEFAULT_HEIGHT = 256;
     public static final String DEFAULT_TEXT = "";
 
-    TextSquare() {
+    public TextSquare() {
         this(DEFAULT_FONT_FAMILY, DEFAULT_FONT_STYLE, DEFAULT_FONT_SIZE, DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_TEXT);
     }
 
-    TextSquare(String fontFamily, int fontStyle, int fontSize, int width, int height, String text) {
+    public TextSquare(String fontFamily, int fontStyle, int fontSize, int width, int height, String text) {
         this(new Font(fontFamily, fontStyle, fontSize),
                 width,
                 height,
                 text);
     }
 
-    TextSquare(Font font, int width, int height, String text) {
+    public TextSquare(Font font, int width, int height, String text) {
         this.font = font;
         this.width = width;
         this.height = height;
         this.text = text;
     }
 
-    TextSquare(TextSquare ts) {
+    public TextSquare(TextSquare ts) {
         this(ts.font, ts.width, ts.height, ts.text);
     }
 
     public Image draw() {
         BufferedImage bufImg = new BufferedImage(width, height, 1);
         Graphics2D g2d = bufImg.createGraphics();
-        g2d.setFont(font);
-
         FontRenderContext frc =
                 new FontRenderContext(null, true, true);
 
@@ -58,6 +56,7 @@ public class TextSquare implements Drawable {
         int b = (height / 2) - (int)(rHeight * 0.45) - rY;
 
         g2d.setFont(font);
+        g2d.setColor(new Color(255, 255,255));
         g2d.drawString(text, a, b);
         g2d.dispose();
 

@@ -8,6 +8,6 @@ import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 public class RandomFillAlgorithm extends FillAlgorithm {
     public RandomFillAlgorithm(StateCollection stateCollection) {
-        super(new LinearFillProcess(stateCollection), new RandomGenerator(stateCollection));
+        super(new LinearFillProcess(), new RandomGenerator(stateCollection));
     }
 }

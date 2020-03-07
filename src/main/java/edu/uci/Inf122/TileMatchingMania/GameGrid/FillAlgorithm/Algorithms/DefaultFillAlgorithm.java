@@ -7,6 +7,6 @@ import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 public class DefaultFillAlgorithm extends FillAlgorithm {
     public DefaultFillAlgorithm(StateCollection stateCollection) {
-        super(new LinearFillProcess(stateCollection), new DefaultGenerator(stateCollection));
+        super(new LinearFillProcess(), new DefaultGenerator(stateCollection));
     }
 }
