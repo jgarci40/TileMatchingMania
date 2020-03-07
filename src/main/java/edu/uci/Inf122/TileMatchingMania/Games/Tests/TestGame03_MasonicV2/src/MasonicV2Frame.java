@@ -156,7 +156,6 @@ public class MasonicV2Frame extends JFrame {
     public MasonicV2Frame() throws Exception {
         setResizable(false);
         boxSize = 64;
-        drawables = new Drawable[rows][cols];
 
         BasicMouseListener bml = new BasicMouseListener();
         BasicKeyListener bkl = new BasicKeyListener();
