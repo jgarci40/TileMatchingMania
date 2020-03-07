@@ -45,6 +45,7 @@ public class SameGame extends Game {
 
     public boolean initGame() throws Exception {
         checkerboardFillGrid(collections.get("default"));
+        moveTilesDown();
         return true;
     }
 
@@ -58,15 +59,11 @@ public class SameGame extends Game {
             System.out.println("row: " + t.getRow() + "\t" + "col: " + t.getCol());
             t.setState(new EmptyState());
         }
-        moveDown();
-
-        //List<Tile> blackStates = gameGrid.search(new SearchAlgorithm(new NeighborPath(), new StateCondition(new BlackState())));
-        //List<Tile> whiteStates = gameGrid.search(new SearchAlgorithm(new NeighborPath(), new StateCondition(new WhiteState())));
-        //blackStates.forEach(e -> e.setState(new WhiteState()));
-        //whiteStates.forEach((e -> e.setState(new BlackState())));
+        moveTilesDown();
+        moveTilesLeft();
     }
 
-    private void moveDown() throws Exception {
+    private void moveTilesDown() throws Exception {
         // for every column in the grid
         for (int col = 0; col < gameGrid.getCols(); ++col) {
             for (int row = 0; row < gameGrid.getRows(); ++row) {
@@ -81,29 +78,23 @@ public class SameGame extends Game {
                 }
             }
         }
-        /*for (int col = gameGrid.getCols() - 1; col >= 0; --col) {
-            for (int row = gameGrid.getRows() - 1; row >= 0; --row) {
-                boolean changed = false;
+    }
 
-                while (true) {
-                    changed = false;
-                    Tile tile = gameGrid.getTile(row, col);
-                    Tile down = (Tile) tile.getDown();
-
-                    if ((down != null) && (down.getState() instanceof EmptyState) && !(tile.getState() instanceof EmptyState)) {
-                        down.setState(tile.getState());
-                        tile.setState(new EmptyState());
-                        changed = true;
+    private void moveTilesLeft() throws Exception {
+        for (int i = 0; i < gameGrid.getCols(); ++i) {
+            for (int col = 1; col < gameGrid.getCols(); ++col) {
+                Tile prevCol = gameGrid.getTile(gameGrid.getRows() -1, col-1);
+                // if the previous column is empty, shift left
+                if (prevCol.getState() instanceof EmptyState) {
+                    for (int row = 0; row < gameGrid.getRows(); ++row) {
+                        Tile t = gameGrid.getTile(row, col);
+                        Tile left = (Tile) t.getLeft();
+                        left.setState(t.getState());
+                        t.setState(new EmptyState());
                     }
-
-
-                    if (changed == false)
-                        break;
                 }
             }
         }
-
-         */
     }
 
 
