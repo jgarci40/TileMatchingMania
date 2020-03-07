@@ -56,7 +56,6 @@ public class TextSquare implements Drawable {
         int b = (height / 2) - (int)(rHeight * 0.45) - rY;
 
         g2d.setFont(font);
-        g2d.setColor(new Color(255, 255,255));
         g2d.drawString(text, a, b);
         g2d.dispose();
 
