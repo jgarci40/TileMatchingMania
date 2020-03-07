@@ -1,12 +1,7 @@
 package edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src;
 
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
 import edu.uci.Inf122.TileMatchingMania.GUI.GamePanel;
-import edu.uci.Inf122.TileMatchingMania.GUI.Grid.GridsCanvas;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.BlackState;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.Game.MasonicV2TestGame;
 
 import javax.swing.*;
@@ -16,8 +11,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class MasonicV2Frame extends JFrame {
-    int rows;
-    int cols;
     int boxSize;
     MasonicV2TestGame mtg;
     GamePanel gamePanel;
