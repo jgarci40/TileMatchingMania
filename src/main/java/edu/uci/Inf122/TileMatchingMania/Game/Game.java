@@ -38,5 +38,5 @@ public abstract class Game {
         return gameGrid.getGrid();
     }
 
-    public abstract void nextInput(Input input);
+    public abstract void nextInput(Input input) throws Exception;
 }

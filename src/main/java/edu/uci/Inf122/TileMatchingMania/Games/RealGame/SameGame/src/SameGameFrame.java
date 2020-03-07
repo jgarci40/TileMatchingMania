@@ -2,6 +2,7 @@ package edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
 import edu.uci.Inf122.TileMatchingMania.GUI.Grid.GridsCanvas;
+import edu.uci.Inf122.TileMatchingMania.GUI.Input.CoordinateInput;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.Game.SameGame;
@@ -67,7 +68,12 @@ public class SameGameFrame extends JFrame {
         @Override
         public void keyPressed(KeyEvent event) {
             printEventInfo("Key Pressed", event);
-            sg.nextInput(new Input() {});
+            try {
+                sg.nextInput(new CoordinateInput());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
             updateView();
         }
 
@@ -142,7 +148,20 @@ public class SameGameFrame extends JFrame {
         public void mouseClicked(MouseEvent e) {
             saySomething("XPos: "
                     + e.getX() + " YPos: " + e.getY() + ")", e);
-            sg.nextInput(new Input() {});
+
+            int row = e.getY() / boxSize;
+            int col = e.getX() / boxSize;
+
+            CoordinateInput input = new CoordinateInput(row, col);
+
+            try {
+                sg.nextInput(input);
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+                ex.printStackTrace();
+            }
+
+
             updateView();
         }
 
