@@ -15,6 +15,7 @@ import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.GreenS
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.RedState;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.BlackState;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
+import edu.uci.Inf122.TileMatchingMania.State.State;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import java.util.List;
@@ -57,6 +58,7 @@ public class SameGame extends Game {
             System.out.println("row: " + t.getRow() + "\t" + "col: " + t.getCol());
             t.setState(new EmptyState());
         }
+        moveDown();
 
         //List<Tile> blackStates = gameGrid.search(new SearchAlgorithm(new NeighborPath(), new StateCondition(new BlackState())));
         //List<Tile> whiteStates = gameGrid.search(new SearchAlgorithm(new NeighborPath(), new StateCondition(new WhiteState())));
@@ -64,8 +66,28 @@ public class SameGame extends Game {
         //whiteStates.forEach((e -> e.setState(new BlackState())));
     }
 
-    private void moveDown() {
+    private void moveDown() throws Exception {
+        for (int col = gameGrid.getCols() - 1; col >= 0; --col) {
+            for (int row = gameGrid.getRows() - 1; row >= 0; --row) {
+                boolean changed = false;
 
+                while (true) {
+                    changed = false;
+                    Tile tile = gameGrid.getTile(row, col);
+                    Tile down = (Tile) tile.getDown();
+
+                    if ((down != null) && (down.getState() instanceof EmptyState) && !(tile.getState() instanceof EmptyState)) {
+                        down.setState(tile.getState());
+                        tile.setState(new EmptyState());
+                        changed = true;
+                    }
+
+
+                    if (changed == false)
+                        break;
+                }
+            }
+        }
     }
 
 
