@@ -1,14 +1,15 @@
-package edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src;
+package edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
 import edu.uci.Inf122.TileMatchingMania.GUI.Grid.GridsCanvas;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.CoordinateInput;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.Game.SameGame;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.BlueState;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.EmptyState;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.RedState;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.GreenState;
+
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.EmptyBlock;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.TwoBlock;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Game.The2048;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.EmptyBlockState;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.TwoBlockState;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -16,23 +17,19 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class SameGameFrame extends JFrame {
+public class The2048Frame extends JFrame {
     int rows;
     int cols;
     int boxSize;
     Drawable[][] drawables;
-    SameGame sg;
+    The2048 the2048;
     GridsCanvas xyz;
 
     private Drawable tileToDrawable(Tile tile) throws Exception {
-        if(tile.getState().equivalent(new RedState())) {
-            return new edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.Drawable.RedSquare();
-        } else if(tile.getState().equivalent(new BlueState())) {
-            return new edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.Drawable.BlueSquare();
-        } else if(tile.getState().equivalent(new GreenState())) {
-            return new edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.Drawable.GreenSquare();
-        } else if(tile.getState().equivalent(new EmptyState())) {
-            return new edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.Drawable.EmptySquare();
+        if(tile.getState().equivalent(new TwoBlockState())) {
+            return new TwoBlock();
+        } else if(tile.getState().equivalent(new EmptyBlockState())) {
+            return new EmptyBlock();
         } else {
             throw new Exception("Invalid state");
         }
@@ -54,7 +51,7 @@ public class SameGameFrame extends JFrame {
 
     private void updateView() {
         try {
-            drawables = convertGridToDrawable(sg.getGrid());
+            drawables = convertGridToDrawable(the2048.getGrid());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,7 +65,7 @@ public class SameGameFrame extends JFrame {
         public void keyPressed(KeyEvent event) {
             printEventInfo("Key Pressed", event);
             try {
-                sg.nextInput(new CoordinateInput());
+                the2048.nextInput(new CoordinateInput());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
@@ -154,7 +151,7 @@ public class SameGameFrame extends JFrame {
             CoordinateInput input = new CoordinateInput(row, col);
 
             try {
-                sg.nextInput(input);
+                the2048.nextInput(input);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
                 ex.printStackTrace();
@@ -171,19 +168,19 @@ public class SameGameFrame extends JFrame {
         }
     }
 
-    public SameGameFrame() throws Exception {
+    public The2048Frame() throws Exception {
         setResizable(false);
         boxSize = 64;
         drawables = new Drawable[rows][cols];
 
-        SameGameFrame.BasicMouseListener bml = new SameGameFrame.BasicMouseListener();
-        SameGameFrame.BasicKeyListener bkl = new SameGameFrame.BasicKeyListener();
+        The2048Frame.BasicMouseListener bml = new The2048Frame.BasicMouseListener();
+        The2048Frame.BasicKeyListener bkl = new The2048Frame.BasicKeyListener();
         this.addMouseListener(bml);
         this.addKeyListener(bkl);
 
-        sg = new SameGame();
-        rows = sg.getRows();
-        cols = sg.getCols();
+        the2048 = new The2048();
+        rows = the2048.getRows();
+        cols = the2048.getCols();
         xyz = new GridsCanvas(rows, cols, boxSize);
 
         add(xyz);

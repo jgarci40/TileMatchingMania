@@ -6,10 +6,10 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class TextSquare implements Drawable {
-    private int width;
-    private int height;
-    private Font font;
-    private String text;
+    protected int width;
+    protected int height;
+    protected Font font;
+    protected String text;
 
     public static final String DEFAULT_FONT_FAMILY = "Serif";
     public static final int DEFAULT_FONT_STYLE = Font.PLAIN;
@@ -18,25 +18,25 @@ public class TextSquare implements Drawable {
     public static final int DEFAULT_HEIGHT = 256;
     public static final String DEFAULT_TEXT = "";
 
-    TextSquare() {
+    public TextSquare() {
         this(DEFAULT_FONT_FAMILY, DEFAULT_FONT_STYLE, DEFAULT_FONT_SIZE, DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_TEXT);
     }
 
-    TextSquare(String fontFamily, int fontStyle, int fontSize, int width, int height, String text) {
+    public TextSquare(String fontFamily, int fontStyle, int fontSize, int width, int height, String text) {
         this(new Font(fontFamily, fontStyle, fontSize),
                 width,
                 height,
                 text);
     }
 
-    TextSquare(Font font, int width, int height, String text) {
+    public TextSquare(Font font, int width, int height, String text) {
         this.font = font;
         this.width = width;
         this.height = height;
         this.text = text;
     }
 
-    TextSquare(TextSquare ts) {
+    public TextSquare(TextSquare ts) {
         this(ts.font, ts.width, ts.height, ts.text);
     }
 
