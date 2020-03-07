@@ -24,8 +24,6 @@ public class GUITest extends JFrame {
         drawables[5][5] = new TextSquare(TextSquare.DEFAULT_FONT_FAMILY,
                 TextSquare.DEFAULT_FONT_STYLE,
                 64,
-                64,
-                64,
                 "1");
 
         GridsCanvas xyz = new GridsCanvas(rows, cols, boxSize);
