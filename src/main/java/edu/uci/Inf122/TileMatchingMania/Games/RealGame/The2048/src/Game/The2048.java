@@ -19,9 +19,16 @@ class The2048DefaultCollection extends StateCollection {
         super();
         setDefaultState(new Block2State());
         addState(new EmptyBlockState());
-        //addState(new Block4State());
-        //addState(new Block8State());
-        //addState(new Block16State());
+        addState(new Block4State());
+        addState(new Block8State());
+        addState(new Block16State());
+        addState(new Block32State());
+        addState(new Block64State());
+        addState(new Block128State());
+        addState(new Block256State());
+        addState(new Block512State());
+        addState(new Block1024State());
+        addState(new Block2048State());
 
     }
 }
@@ -208,6 +215,18 @@ public class The2048 extends Game {
         }
         else if (state instanceof Block64State) {
             t.setState(new Block128State());
+        }
+        else if (state instanceof Block128State) {
+            t.setState(new Block256State());
+        }
+        else if (state instanceof Block256State) {
+            t.setState(new Block512State());
+        }
+        else if (state instanceof Block512State) {
+            t.setState(new Block1024State());
+        }
+        else if (state instanceof Block1024State) {
+            t.setState(new Block2048State());
         }
         else {
             t.setState(new EmptyBlockState());

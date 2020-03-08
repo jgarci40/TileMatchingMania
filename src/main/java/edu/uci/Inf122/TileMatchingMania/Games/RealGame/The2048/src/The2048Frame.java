@@ -42,6 +42,14 @@ public class The2048Frame extends JFrame {
             return new Block64();
         } else if(tile.getState().equivalent(new Block128State())) {
             return new Block128();
+        } else if(tile.getState().equivalent(new Block256State())) {
+            return new Block256();
+        } else if(tile.getState().equivalent(new Block512State())) {
+            return new Block512();
+        } else if(tile.getState().equivalent(new Block1024State())) {
+            return new Block1024();
+        } else if(tile.getState().equivalent(new Block2048State())) {
+            return new Block2048();
         } else {
             throw new Exception("Invalid state");
         }
@@ -182,19 +190,6 @@ public class The2048Frame extends JFrame {
             saySomething("XPos: "
                     + e.getX() + " YPos: " + e.getY() + ")", e);
 
-            int row = e.getY() / boxSize;
-            int col = e.getX() / boxSize;
-
-            CoordinateInput input = new CoordinateInput(row, col);
-
-            try {
-                the2048.nextInput(input);
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage());
-                ex.printStackTrace();
-            }
-
-
             updateView();
         }
 
@@ -222,7 +217,6 @@ public class The2048Frame extends JFrame {
 
         add(xyz);
         pack();
-
         updateView();
     }
 }
