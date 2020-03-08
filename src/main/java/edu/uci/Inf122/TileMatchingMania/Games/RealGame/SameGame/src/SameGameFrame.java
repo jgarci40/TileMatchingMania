@@ -192,7 +192,8 @@ public class SameGameFrame extends JFrame {
 
         add(xyz);
         pack();
-
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle("Same Game");
         updateView();
     }
 }

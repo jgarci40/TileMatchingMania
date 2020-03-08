@@ -217,6 +217,8 @@ public class The2048Frame extends JFrame {
 
         add(xyz);
         pack();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle("2048");
         updateView();
     }
 }
