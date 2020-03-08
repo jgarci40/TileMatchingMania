@@ -61,6 +61,11 @@ public class SameGame extends Game {
         }
         moveTilesDown();
         moveTilesLeft();
+
+        //List<Tile> blackStates = gameGrid.search(new SearchAlgorithm(new NeighborPath(), new StateCondition(new BlackState())));
+        //List<Tile> whiteStates = gameGrid.search(new SearchAlgorithm(new NeighborPath(), new StateCondition(new WhiteState())));
+        //blackStates.forEach(e -> e.setState(new WhiteState()));
+        //whiteStates.forEach((e -> e.setState(new BlackState())));
     }
 
     private void moveTilesDown() throws Exception {
