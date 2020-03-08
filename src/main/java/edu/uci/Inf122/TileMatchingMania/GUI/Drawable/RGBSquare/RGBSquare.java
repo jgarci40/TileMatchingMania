@@ -1,4 +1,6 @@
-package edu.uci.Inf122.TileMatchingMania.GUI.Drawable;
+package edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare;
+
+import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

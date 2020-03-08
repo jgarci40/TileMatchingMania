@@ -1,6 +1,4 @@
-package edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.Drawable;
-
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare;
+package edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare;
 
 public class WhiteSquare extends RGBSquare {
     public WhiteSquare() {

@@ -1,6 +1,4 @@
-package edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame01_Masonic.src.Drawable;
-
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare;
+package edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare;
 
 public class BlackSquare extends RGBSquare {
     public BlackSquare() {

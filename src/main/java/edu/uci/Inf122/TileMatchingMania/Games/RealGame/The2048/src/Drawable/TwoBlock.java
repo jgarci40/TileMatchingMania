@@ -7,18 +7,18 @@ import java.awt.*;
 public class TwoBlock extends TextSquare {
 
     public TwoBlock() {
-        super(DEFAULT_FONT_FAMILY, DEFAULT_FONT_STYLE, DEFAULT_FONT_SIZE, DEFAULT_WIDTH, DEFAULT_HEIGHT, "2");
+        super(DEFAULT_FONT_FAMILY, DEFAULT_FONT_STYLE, 64, "2", DEFAULT_COLOR);
     }
 
-    public TwoBlock(String fontFamily, int fontStyle, int fontSize, int width, int height, String text) {
-        super(fontFamily, fontStyle, fontSize, width, height, text);
+    public TwoBlock(String fontFamily, int fontStyle, int fontSize, String text, Color color) {
+        super(fontFamily, fontStyle, fontSize, text, color);
     }
 
-    public TwoBlock(Font font, int width, int height, String text) {
-        super(font, width, height, text);
+    public TwoBlock(Font font, String text, Color color) {
+        super(font, text, color);
     }
 
-    public TwoBlock(TwoBlock t) {
-        super(t.font, t.width, t.height, t.text);
+    public TwoBlock(TwoBlock tb) {
+        super(tb);
     }
 }

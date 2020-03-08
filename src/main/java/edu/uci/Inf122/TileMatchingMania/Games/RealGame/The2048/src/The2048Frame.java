@@ -6,9 +6,11 @@ import edu.uci.Inf122.TileMatchingMania.GUI.Input.CoordinateInput;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.EmptyBlock;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.FourBlock;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.TwoBlock;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Game.The2048;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.EmptyBlockState;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.FourBlockState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.TwoBlockState;
 
 import javax.swing.*;
@@ -30,6 +32,8 @@ public class The2048Frame extends JFrame {
             return new TwoBlock();
         } else if(tile.getState().equivalent(new EmptyBlockState())) {
             return new EmptyBlock();
+        } else if(tile.getState().equivalent(new FourBlockState())) {
+            return new FourBlock();
         } else {
             throw new Exception("Invalid state");
         }

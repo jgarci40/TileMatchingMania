@@ -1,29 +1,33 @@
-package edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src;
+package edu.uci.Inf122.TileMatchingMania.GUI;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.BlackSquare;
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.WhiteSquare;
 import edu.uci.Inf122.TileMatchingMania.GUI.Grid.GridsCanvas;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.Algorithms.RandomFillAlgorithm;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.GameGrid;
+import edu.uci.Inf122.TileMatchingMania.Game.Game;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.BlackState;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
-import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import javax.swing.*;
 
-public class RandomGridTestGame extends JFrame {
+public class GamePanel extends JPanel {
     int rows;
     int cols;
     int boxSize;
     Drawable[][] drawables;
-    StateCollection stateCollection;
-    GridsCanvas xyz;
-    GameGrid gameGrid;
+    Game game;
+    GridsCanvas gridCanvas;
 
-    private void randomFillGrid() throws Exception {
-        gameGrid.fillGrid(new RandomFillAlgorithm(stateCollection));
+    public void updateView() {
+        try {
+            drawables = convertGridToDrawable(game.getGrid());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        gridCanvas.setGrid(drawables);
+        revalidate();
+        repaint();
     }
 
     private Drawable tileToDrawable(Tile tile) throws Exception {
@@ -36,9 +40,8 @@ public class RandomGridTestGame extends JFrame {
         }
     }
 
-    private Drawable[][] convertGridToDrawable() throws Exception {
+    private Drawable[][] convertGridToDrawable(Tile[][] tmpGrid) throws Exception {
         Drawable[][] drawables = new Drawable[rows][cols];
-        Tile[][] tmpGrid = gameGrid.getGrid();
         int i = 0;
         for(Tile[] row : tmpGrid) {
             int j = 0;
@@ -51,22 +54,13 @@ public class RandomGridTestGame extends JFrame {
         return drawables;
     }
 
-    public RandomGridTestGame() throws Exception {
-        setResizable(false);
-        rows = 10;
-        cols = 10;
-        boxSize = 64;
-        drawables = new Drawable[rows][cols];
-        stateCollection = new StateCollection();
-        stateCollection.setDefaultState(new BlackState());
-        stateCollection.addState(new WhiteState());
-        gameGrid = new GameGrid(rows, cols, stateCollection);
-        randomFillGrid();
-        drawables = convertGridToDrawable();
+    public GamePanel(Game game, int boxSize) {
+        this.game = game;
+        this.boxSize = boxSize;
+        rows = game.getRows();
+        cols = game.getCols();
 
-        xyz = new GridsCanvas(rows, cols, boxSize);
-        xyz.setGrid(drawables);
-        add(xyz);
-        pack();
+        gridCanvas = new GridsCanvas(rows, cols, boxSize);
+        add(gridCanvas);
     }
 }

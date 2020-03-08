@@ -1,6 +1,4 @@
-package edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.Drawable;
-
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare;
+package edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare;
 
 public class RedSquare extends RGBSquare {
     public RedSquare() {

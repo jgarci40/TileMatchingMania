@@ -10,6 +10,7 @@ import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.SearchAlgorithm
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.EmptyBlockState;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.FourBlockState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.TwoBlockState;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
@@ -19,7 +20,8 @@ class The2048DefaultCollection extends StateCollection {
     public The2048DefaultCollection() throws Exception {
         super();
         setDefaultState(new TwoBlockState());
-        addState(new TwoBlockState());
+        addState(new EmptyBlockState());
+        addState(new FourBlockState());
     }
 }
 

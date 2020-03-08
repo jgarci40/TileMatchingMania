@@ -1,18 +1,8 @@
 package edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src;
 
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
-import edu.uci.Inf122.TileMatchingMania.GUI.Grid.GridsCanvas;
+import edu.uci.Inf122.TileMatchingMania.GUI.GamePanel;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.Algorithms.CheckerBoardAlgorithm;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.Algorithms.RandomFillAlgorithm;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.GameGrid;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.BlackState;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.Drawable.BlackSquare;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.Drawable.WhiteSquare;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.Game.MasonicV2TestGame;
-import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -21,54 +11,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class MasonicV2Frame extends JFrame {
-    int rows;
-    int cols;
     int boxSize;
-    Drawable[][] drawables;
     MasonicV2TestGame mtg;
-    GridsCanvas xyz;
-
-    private Drawable tileToDrawable(Tile tile) throws Exception {
-        if(tile.getState().equivalent(new BlackState())) {
-            return new edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.Drawable.BlackSquare();
-        } else if(tile.getState().equivalent(new WhiteState())) {
-            return new edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.Drawable.WhiteSquare();
-        } else {
-            throw new Exception("Invalid state");
-        }
-    }
-
-    private Drawable[][] convertGridToDrawable(Tile[][] tmpGrid) throws Exception {
-        Drawable[][] drawables = new Drawable[rows][cols];
-        int i = 0;
-        for(Tile[] row : tmpGrid) {
-            int j = 0;
-            for(Tile tile : row) {
-                drawables[i][j] = tileToDrawable(tile);
-                j++;
-            }
-            i++;
-        }
-        return drawables;
-    }
-
-    private void updateView() {
-        try {
-            drawables = convertGridToDrawable(mtg.getGrid());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        xyz.setGrid(drawables);
-        revalidate();
-        repaint();
-    }
+    GamePanel gamePanel;
 
     class BasicKeyListener implements KeyListener {
         @Override
         public void keyPressed(KeyEvent event) {
             printEventInfo("Key Pressed", event);
             mtg.nextInput(new Input() {});
-            updateView();
+            gamePanel.updateView();
         }
 
         @Override
@@ -143,7 +95,7 @@ public class MasonicV2Frame extends JFrame {
             saySomething("XPos: "
                     + e.getX() + " YPos: " + e.getY() + ")", e);
             mtg.nextInput(new Input() {});
-            updateView();
+            gamePanel.updateView();
         }
 
         void saySomething(String eventDescription, MouseEvent e) {
@@ -163,13 +115,10 @@ public class MasonicV2Frame extends JFrame {
         this.addKeyListener(bkl);
 
         mtg = new MasonicV2TestGame();
-        rows = mtg.getRows();
-        cols = mtg.getCols();
-        xyz = new GridsCanvas(rows, cols, boxSize);
 
-        add(xyz);
+        gamePanel = new GamePanel(mtg, boxSize);
+        add(gamePanel);
         pack();
-
-        updateView();
+        gamePanel.updateView();
     }
 }

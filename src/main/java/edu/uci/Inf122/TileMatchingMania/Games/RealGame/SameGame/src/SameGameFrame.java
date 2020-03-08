@@ -1,6 +1,10 @@
 package edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
+import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.BlackSquare;
+import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.BlueSquare;
+import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.GreenSquare;
+import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.RedSquare;
 import edu.uci.Inf122.TileMatchingMania.GUI.Grid.GridsCanvas;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.CoordinateInput;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
@@ -26,13 +30,13 @@ public class SameGameFrame extends JFrame {
 
     private Drawable tileToDrawable(Tile tile) throws Exception {
         if(tile.getState().equivalent(new RedState())) {
-            return new edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.Drawable.RedSquare();
+            return new RedSquare();
         } else if(tile.getState().equivalent(new BlueState())) {
-            return new edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.Drawable.BlueSquare();
+            return new BlueSquare();
         } else if(tile.getState().equivalent(new GreenState())) {
-            return new edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.Drawable.GreenSquare();
+            return new GreenSquare();
         } else if(tile.getState().equivalent(new EmptyState())) {
-            return new edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.Drawable.EmptySquare();
+            return new BlackSquare();
         } else {
             throw new Exception("Invalid state");
         }
