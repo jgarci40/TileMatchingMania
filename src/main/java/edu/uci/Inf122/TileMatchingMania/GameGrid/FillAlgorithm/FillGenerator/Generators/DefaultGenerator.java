@@ -5,6 +5,10 @@ import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 import edu.uci.Inf122.TileMatchingMania.State.State;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
+/*
+ * Fill each tile with default state.
+ */
+
 // TODO Add tests for this code
 public class DefaultGenerator extends FillGenerator {
 
