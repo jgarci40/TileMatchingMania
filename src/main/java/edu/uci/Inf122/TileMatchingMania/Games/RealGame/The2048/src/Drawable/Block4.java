@@ -5,20 +5,20 @@ import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.TextSquare;
 import java.awt.*;
 
 
-public class FourBlock extends TextSquare {
-    public FourBlock() {
+public class Block4 extends TextSquare {
+    public Block4() {
         super(DEFAULT_FONT_FAMILY, DEFAULT_FONT_STYLE, 64, "4", Color.ORANGE);
     }
 
-    public FourBlock(String fontFamily, int fontStyle, int fontSize, String text, Color color) {
+    public Block4(String fontFamily, int fontStyle, int fontSize, String text, Color color) {
         super(fontFamily, fontStyle, fontSize, text, color);
     }
 
-    public FourBlock(Font font, String text, Color color) {
+    public Block4(Font font, String text, Color color) {
         super(font, text, color);
     }
 
-    public FourBlock(FourBlock fb) {
+    public Block4(Block4 fb) {
         super(fb);
     }
 }

@@ -1,35 +1,28 @@
 package edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Game;
 
-import edu.uci.Inf122.TileMatchingMania.GUI.Input.CoordinateInput;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.Direction;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.KeyInput;
 import edu.uci.Inf122.TileMatchingMania.Game.Game;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.Algorithms.RandomFillAlgorithm;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.CollectionCondition.Conditions.NeighborCondition;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.ContinuePath.Paths.NeighborPath;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.SearchAlgorithm;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.EmptyState;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.Block8State;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.EmptyBlockState;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.FourBlockState;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.TwoBlockState;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.*;
 import edu.uci.Inf122.TileMatchingMania.State.State;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 class The2048DefaultCollection extends StateCollection {
     public The2048DefaultCollection() throws Exception {
         super();
-        setDefaultState(new TwoBlockState());
+        setDefaultState(new Block2State());
         addState(new EmptyBlockState());
-        addState(new FourBlockState());
-        addState(new Block8State());
+        //ddState(new Block4State());
+        //addState(new Block8State());
+        //addState(new Block16State());
+
     }
 }
 
@@ -195,11 +188,24 @@ public class The2048 extends Game {
     }
 
     private State upgradeState(Tile t) {
-        if (t.getState() instanceof TwoBlockState) {
-            return new FourBlockState();
+        State state = t.getState();
+        if (state instanceof Block2State) {
+            return new Block4State();
         }
-        else if (t.getState() instanceof FourBlockState) {
+        else if (state instanceof Block4State) {
             return new Block8State();
+        }
+        else if (state instanceof Block8State) {
+            return new Block16State();
+        }
+        else if (state instanceof Block16State) {
+            return new Block32State();
+        }
+        else if (state instanceof Block32State) {
+            return new Block64State();
+        }
+        else if (state instanceof Block64State) {
+            return new Block128State();
         }
 
         return new EmptyBlockState();

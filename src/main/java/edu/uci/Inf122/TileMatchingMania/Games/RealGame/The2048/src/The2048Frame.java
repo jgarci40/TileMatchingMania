@@ -7,15 +7,9 @@ import edu.uci.Inf122.TileMatchingMania.GUI.Input.Direction;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.KeyInput;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.Block8;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.EmptyBlock;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.FourBlock;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.TwoBlock;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.*;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Game.The2048;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.Block8State;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.EmptyBlockState;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.FourBlockState;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.TwoBlockState;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.*;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -32,14 +26,22 @@ public class The2048Frame extends JFrame {
     GridsCanvas xyz;
 
     private Drawable tileToDrawable(Tile tile) throws Exception {
-        if(tile.getState().equivalent(new TwoBlockState())) {
-            return new TwoBlock();
+        if(tile.getState().equivalent(new Block2State())) {
+            return new Block2();
         } else if(tile.getState().equivalent(new EmptyBlockState())) {
             return new EmptyBlock();
-        } else if(tile.getState().equivalent(new FourBlockState())) {
-            return new FourBlock();
+        } else if(tile.getState().equivalent(new Block4State())) {
+            return new Block4();
         } else if(tile.getState().equivalent(new Block8State())) {
             return new Block8();
+        } else if(tile.getState().equivalent(new Block16State())) {
+            return new Block16();
+        } else if(tile.getState().equivalent(new Block32State())) {
+            return new Block32();
+        } else if(tile.getState().equivalent(new Block64State())) {
+            return new Block64();
+        } else if(tile.getState().equivalent(new Block128State())) {
+            return new Block128();
         } else {
             throw new Exception("Invalid state");
         }

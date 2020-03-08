@@ -17,7 +17,7 @@ public class Block8 extends TextSquare {
         super(font, text, color);
     }
 
-    public Block8(FourBlock fb) {
+    public Block8(Block4 fb) {
         super(fb);
     }
 }
