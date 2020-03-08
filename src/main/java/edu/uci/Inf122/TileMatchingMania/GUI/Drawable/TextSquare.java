@@ -14,7 +14,7 @@ public class TextSquare implements Drawable {
     private String text;
     private Color color;
 
-    public static final String DEFAULT_FONT_FAMILY = "TimesRoman";
+    public static final String DEFAULT_FONT_FAMILY = "Arial";//"TimesRoman";
     public static final int DEFAULT_FONT_STYLE = Font.PLAIN;
     public static final int DEFAULT_FONT_SIZE = 256;
     public static final String DEFAULT_TEXT = "";

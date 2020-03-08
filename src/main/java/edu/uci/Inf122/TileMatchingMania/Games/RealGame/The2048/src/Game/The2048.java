@@ -21,15 +21,15 @@ class The2048DefaultCollection extends StateCollection {
         super();
         setDefaultState(new EmptyBlockState());
         //addState(new EmptyBlockState());
-        addState(new Block4State());
+        //addState(new Block4State());
         //addState(new Block8State());
         //addState(new Block16State());
         //addState(new Block32State());
-        addState(new Block64State());
+        //addState(new Block64State());
         //addState(new Block128State());
         //addState(new Block256State());
-        addState(new Block512State());
-        addState(new Block1024State());
+        //addState(new Block512State());
+        //addState(new Block1024State());
         //addState(new Block2048State());
 
     }
