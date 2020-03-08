@@ -7,10 +7,12 @@ import edu.uci.Inf122.TileMatchingMania.GUI.Input.Direction;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.KeyInput;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.Block8;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.EmptyBlock;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.FourBlock;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.TwoBlock;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Game.The2048;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.Block8State;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.EmptyBlockState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.FourBlockState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.TwoBlockState;
@@ -36,6 +38,8 @@ public class The2048Frame extends JFrame {
             return new EmptyBlock();
         } else if(tile.getState().equivalent(new FourBlockState())) {
             return new FourBlock();
+        } else if(tile.getState().equivalent(new Block8State())) {
+            return new Block8();
         } else {
             throw new Exception("Invalid state");
         }

@@ -12,9 +12,11 @@ import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.SearchAlgorithm
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.EmptyState;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.Block8State;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.EmptyBlockState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.FourBlockState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.TwoBlockState;
+import edu.uci.Inf122.TileMatchingMania.State.State;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ class The2048DefaultCollection extends StateCollection {
         setDefaultState(new TwoBlockState());
         addState(new EmptyBlockState());
         addState(new FourBlockState());
+        addState(new Block8State());
     }
 }
 
@@ -53,17 +56,51 @@ public class The2048 extends Game {
         if (ki.getDirection() == Direction.LEFT) {
             System.out.println("You pressed LEFT");
             swipeLeft();
+            ArrayList<Tile> tiles;
+            for (int row = 0; row < gameGrid.getRows(); ++row) {
+                tiles = gameGrid.getRow(row);
+                for (Tile tile : tiles) {
+                    merge(tile, (Tile) tile.getRight());
+                }
+            }
+            swipeLeft();
         }
         else if (ki.getDirection() == Direction.UP) {
             System.out.println("You pressed UP");
+            swipeUp();
+            ArrayList<Tile> tiles;
+            for (int row = 0; row < gameGrid.getRows(); ++row) {
+                tiles = gameGrid.getRow(row);
+                for (Tile tile : tiles) {
+                    merge(tile, (Tile) tile.getDown());
+                }
+            }
             swipeUp();
         }
         else if (ki.getDirection() == Direction.RIGHT) {
             System.out.println("You pressed RIGHT");
             swipeRight();
+            ArrayList<Tile> tiles;
+            for (int row = 0; row < gameGrid.getRows(); ++row) {
+                tiles = gameGrid.getRow(row);
+                Collections.reverse(tiles);
+                for (Tile tile : tiles) {
+                    merge(tile, (Tile) tile.getLeft());
+                }
+            }
+            swipeRight();
         }
         else if (ki.getDirection() == Direction.DOWN) {
             System.out.println("You pressed DOWN");
+            swipeDown();
+            ArrayList<Tile> tiles;
+            for (int row = 0; row < gameGrid.getRows(); ++row) {
+                tiles = gameGrid.getRow(row);
+                Collections.reverse(tiles);
+                for (Tile tile : tiles) {
+                    merge(tile, (Tile) tile.getUp());
+                }
+            }
             swipeDown();
         }
         else if (ki.getDirection() == Direction.INVALID) {
@@ -146,6 +183,26 @@ public class The2048 extends Game {
         }
     }
 
+    private void merge(Tile t1, Tile t2) {
+        if (t1 == null || t2 == null) {
+            return;
+        }
 
+        if (t1.getState() == t2.getState()) {
+            t1.setState(upgradeState(t1));
+            t2.setState(new EmptyBlockState());
+        }
+    }
+
+    private State upgradeState(Tile t) {
+        if (t.getState() instanceof TwoBlockState) {
+            return new FourBlockState();
+        }
+        else if (t.getState() instanceof FourBlockState) {
+            return new Block8State();
+        }
+
+        return new EmptyBlockState();
+    }
 
 }
