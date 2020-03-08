@@ -21,15 +21,15 @@ class The2048DefaultCollection extends StateCollection {
         super();
         setDefaultState(new EmptyBlockState());
         //addState(new EmptyBlockState());
-        //addState(new Block4State());
+        addState(new Block4State());
         //addState(new Block8State());
         //addState(new Block16State());
         //addState(new Block32State());
-        //addState(new Block64State());
+        addState(new Block64State());
         //addState(new Block128State());
         //addState(new Block256State());
-        //addState(new Block512State());
-        //addState(new Block1024State());
+        addState(new Block512State());
+        addState(new Block1024State());
         //addState(new Block2048State());
 
     }
@@ -64,9 +64,15 @@ public class The2048 extends Game {
     }
 
     public void nextInput(Input input) throws Exception {
-
         KeyInput ki = (KeyInput) input;
-        if (ki.getDirection() == Direction.LEFT) {
+        if (makeMove(ki.getDirection())) {
+            updateEmptyTiles();
+            generateTile();
+        }
+    }
+
+    private boolean makeMove(Direction d) throws Exception {
+        if (d == Direction.LEFT) {
             System.out.println("You pressed LEFT");
             swipeLeft();
             ArrayList<Tile> tiles;
@@ -78,7 +84,7 @@ public class The2048 extends Game {
             }
             swipeLeft();
         }
-        else if (ki.getDirection() == Direction.UP) {
+        else if (d == Direction.UP) {
             System.out.println("You pressed UP");
             swipeUp();
             ArrayList<Tile> tiles;
@@ -90,7 +96,7 @@ public class The2048 extends Game {
             }
             swipeUp();
         }
-        else if (ki.getDirection() == Direction.RIGHT) {
+        else if (d == Direction.RIGHT) {
             System.out.println("You pressed RIGHT");
             swipeRight();
             ArrayList<Tile> tiles;
@@ -103,7 +109,7 @@ public class The2048 extends Game {
             }
             swipeRight();
         }
-        else if (ki.getDirection() == Direction.DOWN) {
+        else if (d == Direction.DOWN) {
             System.out.println("You pressed DOWN");
             swipeDown();
             ArrayList<Tile> tiles;
@@ -116,14 +122,15 @@ public class The2048 extends Game {
             }
             swipeDown();
         }
-        else if (ki.getDirection() == Direction.INVALID) {
+        else if (d == Direction.INVALID) {
             System.out.println("You did not press a direction");
-            return;
+            return false;
         }
-        updateEmptyTiles();
-        generateTile();
+
+        return true;
     }
 
+    // Finds all empty grid tiles and loads them into EmptyTiles list
     private void loadEmptyTiles() {
         // Add all tiles to emptyTiles list
         for (Tile[] row: gameGrid.getGrid()) {
@@ -135,11 +142,13 @@ public class The2048 extends Game {
         }
     }
 
+    // Updates the empty tiles
     private void updateEmptyTiles() {
         emptyTiles.clear();
         loadEmptyTiles();
     }
 
+    // Generates a 2 or 4 tile in a random empty spot
     private void generateTile() {
         // if we have empty tiles
         if (emptyTiles.size() > 0) {
@@ -224,6 +233,7 @@ public class The2048 extends Game {
         }
     }
 
+    // merge two same tiles
     private void merge(Tile t1, Tile t2) {
         System.out.println("IN MERGE");
         if (t1 == null || t2 == null)  {
@@ -236,6 +246,7 @@ public class The2048 extends Game {
         }
     }
 
+    // moves tile state up a class i.e: 2 -> 4, 4 -> 8 and so on...
     private void upgradeState(Tile t) {
         System.out.println("IN UPGRADE STATE");
         State state = t.getState();

@@ -2,6 +2,8 @@ package edu.uci.Inf122.TileMatchingMania.GUI.Drawable;
 
 import java.awt.*;
 import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
@@ -47,7 +49,9 @@ public class TextSquare implements Drawable {
         FontRenderContext frc =
                 new FontRenderContext(null, true, true);
 
+
         Rectangle2D r2D = font.getStringBounds(text, frc);
+
         int rWidth = (int) Math.round(r2D.getWidth());
         int rHeight = (int) Math.round(r2D.getHeight());
         int rX = (int) Math.round(r2D.getX());
@@ -56,11 +60,41 @@ public class TextSquare implements Drawable {
         int a = (boxSize / 2) - (rWidth / 2) - rX;
         int b = (boxSize / 2) - (int)(rHeight * 0.45) - rY;
 
+        if (a < rX) {
+            g2d.scale(.4, .4);
+            a += 50;
+            b += 50;
+        }
+
         g2d.setFont(font);
         g2d.setColor(color);
-        g2d.drawString(text, a, b);
+        g2d.drawString(text, a, b );
         g2d.dispose();
 
         return bufImg;
+    }
+
+    public static Font scaleFont(String text, Rectangle rect, Graphics g, Font pFont) {
+        float min=0.1f;
+        float max=72f;
+        float size=18.0f;
+        Font font=pFont;
+
+        while(max - min <= 0.1) {
+            font = g.getFont().deriveFont(size);
+            FontMetrics fm = g.getFontMetrics(font);
+            int width = fm.stringWidth(text);
+            if (width == rect.width) {
+                return font;
+            } else {
+                if (width < rect.width) {
+                    min = size;
+                } else {
+                    max = size;
+                }
+                size = Math.min(max, Math.max(min, size * (float)rect.width / (float)width));
+            }
+        }
+        return font;
     }
 }
