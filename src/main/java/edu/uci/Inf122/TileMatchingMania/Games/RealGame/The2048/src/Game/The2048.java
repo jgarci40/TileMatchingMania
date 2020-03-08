@@ -11,6 +11,7 @@ import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.ContinuePath.Pa
 import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.SearchAlgorithm;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.EmptyState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.EmptyBlockState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.FourBlockState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.TwoBlockState;
@@ -49,12 +50,14 @@ public class The2048 extends Game {
         KeyInput ki = (KeyInput) input;
         if (ki.getDirection() == Direction.LEFT) {
             System.out.println("You pressed LEFT");
+            swipeLeft();
         }
         else if (ki.getDirection() == Direction.UP) {
             System.out.println("You pressed UP");
         }
         else if (ki.getDirection() == Direction.RIGHT) {
             System.out.println("You pressed RIGHT");
+            swipeRight();
         }
         else if (ki.getDirection() == Direction.DOWN) {
             System.out.println("You pressed DOWN");
@@ -72,7 +75,38 @@ public class The2048 extends Game {
         }
 
          */
+    }
 
+    private void swipeLeft() throws Exception {
+        // for every row in the grid
+        for (int row = 0; row < gameGrid.getRows(); ++row) {
+            for (int col = 0; col < gameGrid.getCols(); ++col) {
+                for (int space = 1; space < gameGrid.getCols(); ++space) {
+                    Tile t = gameGrid.getTile(row, space);
+                    Tile left = (Tile) t.getLeft();
+                    if (left.getState() instanceof EmptyBlockState) {
+                        left.setState(t.getState());
+                        t.setState(new EmptyBlockState());
+                    }
+                }
+            }
+        }
+    }
+
+    private void swipeRight() throws Exception {
+        // for every row in the grid
+        for (int row = 0; row < gameGrid.getRows(); ++row) {
+            for (int col = 0; col < gameGrid.getCols(); ++col) {
+                for (int space = gameGrid.getCols() - 2; space >= 0; --space) {
+                    Tile t = gameGrid.getTile(row, space);
+                    Tile right = (Tile) t.getRight();
+                    if (right.getState() instanceof EmptyBlockState) {
+                        right.setState(t.getState());
+                        t.setState(new EmptyBlockState());
+                    }
+                }
+            }
+        }
     }
 
 
