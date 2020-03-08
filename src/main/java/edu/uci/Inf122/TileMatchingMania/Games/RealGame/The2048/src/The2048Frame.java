@@ -3,6 +3,8 @@ package edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src;
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
 import edu.uci.Inf122.TileMatchingMania.GUI.Grid.GridsCanvas;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.CoordinateInput;
+import edu.uci.Inf122.TileMatchingMania.GUI.Input.Direction;
+import edu.uci.Inf122.TileMatchingMania.GUI.Input.KeyInput;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.EmptyBlock;
@@ -68,12 +70,37 @@ public class The2048Frame extends JFrame {
         @Override
         public void keyPressed(KeyEvent event) {
             printEventInfo("Key Pressed", event);
+            // TODO: remove print statements
+            System.out.println("KeyCode = " + event.getKeyCode());
+
+            int keyCode = event.getKeyCode();
+            KeyInput input;
+
+            switch (keyCode) {
+                case 37:
+                    input = new KeyInput(Direction.LEFT);
+                    break;
+                case 38:
+                    input = new KeyInput(Direction.UP);
+                    break;
+                case 39:
+                    input = new KeyInput(Direction.RIGHT);
+                    break;
+                case 40:
+                    input = new KeyInput(Direction.DOWN);
+                    break;
+                default:
+                    input = new KeyInput(Direction.INVALID);
+                    break;
+            }
+
             try {
-                the2048.nextInput(new CoordinateInput());
+                the2048.nextInput(input);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
             }
+
             updateView();
         }
 

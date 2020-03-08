@@ -1,7 +1,9 @@
 package edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Game;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.CoordinateInput;
+import edu.uci.Inf122.TileMatchingMania.GUI.Input.Direction;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
+import edu.uci.Inf122.TileMatchingMania.GUI.Input.KeyInput;
 import edu.uci.Inf122.TileMatchingMania.Game.Game;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.Algorithms.RandomFillAlgorithm;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.CollectionCondition.Conditions.NeighborCondition;
@@ -44,8 +46,23 @@ public class The2048 extends Game {
     }
 
     public void nextInput(Input input) throws Exception {
-        CoordinateInput ci = (CoordinateInput) input;
-        Tile startTile = gameGrid.getTile(ci.getRow(), ci.getCol());
+        KeyInput ki = (KeyInput) input;
+        if (ki.getDirection() == Direction.LEFT) {
+            System.out.println("You pressed LEFT");
+        }
+        else if (ki.getDirection() == Direction.UP) {
+            System.out.println("You pressed UP");
+        }
+        else if (ki.getDirection() == Direction.RIGHT) {
+            System.out.println("You pressed RIGHT");
+        }
+        else if (ki.getDirection() == Direction.DOWN) {
+            System.out.println("You pressed DOWN");
+        }
+        else if (ki.getDirection() == Direction.INVALID) {
+            System.out.println("You did not press a direction");
+        }
+        /*Tile startTile = gameGrid.getTile(ci.getRow(), ci.getCol());
         SearchAlgorithm sa = new SearchAlgorithm(new NeighborPath(), new NeighborCondition());
         List<Tile> matchingTiles = gameGrid.graphSearch(startTile, sa);
         // TODO: remove this print
@@ -53,6 +70,8 @@ public class The2048 extends Game {
             System.out.println("row: " + t.getRow() + "\t" + "col: " + t.getCol());
             t.setState(new EmptyBlockState());
         }
+
+         */
 
     }
 
