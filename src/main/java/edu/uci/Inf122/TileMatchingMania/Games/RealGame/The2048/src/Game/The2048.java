@@ -17,6 +17,8 @@ import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.FourBlo
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.TwoBlockState;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 class The2048DefaultCollection extends StateCollection {
@@ -54,6 +56,7 @@ public class The2048 extends Game {
         }
         else if (ki.getDirection() == Direction.UP) {
             System.out.println("You pressed UP");
+            swipeUp();
         }
         else if (ki.getDirection() == Direction.RIGHT) {
             System.out.println("You pressed RIGHT");
@@ -61,6 +64,7 @@ public class The2048 extends Game {
         }
         else if (ki.getDirection() == Direction.DOWN) {
             System.out.println("You pressed DOWN");
+            swipeDown();
         }
         else if (ki.getDirection() == Direction.INVALID) {
             System.out.println("You did not press a direction");
@@ -109,6 +113,38 @@ public class The2048 extends Game {
         }
     }
 
+    private void swipeUp() throws Exception {
+        // for every column in the grid
+        for (int col = 0; col < gameGrid.getCols(); ++col) {
+            ArrayList<Tile> column = gameGrid.getColumn(col);
+            for (int row = 0; row < gameGrid.getRows(); ++row) {
+                for (Tile tile : column) {
+                    Tile down = (Tile) tile.getDown();
+                    if ((tile.getState() instanceof EmptyBlockState) && (down != null)) {
+                        tile.setState(down.getState());
+                        down.setState(new EmptyBlockState());
+                    }
+                }
+            }
+        }
+    }
+
+    private void swipeDown() throws Exception {
+        // for every column in the grid
+        for (int col = 0; col < gameGrid.getCols(); ++col) {
+            ArrayList<Tile> column = gameGrid.getColumn(col);
+            Collections.reverse(column);
+            for (int row = 0; row < gameGrid.getRows(); ++row) {
+                for (Tile tile : column) {
+                    Tile up = (Tile) tile.getUp();
+                    if ((tile.getState() instanceof EmptyBlockState) && (up != null)) {
+                        tile.setState(up.getState());
+                        up.setState(new EmptyBlockState());
+                    }
+                }
+            }
+        }
+    }
 
 
 
