@@ -13,22 +13,24 @@ import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 class The2048DefaultCollection extends StateCollection {
     public The2048DefaultCollection() throws Exception {
         super();
-        setDefaultState(new Block2State());
-        addState(new EmptyBlockState());
-        addState(new Block4State());
-        addState(new Block8State());
-        addState(new Block16State());
-        addState(new Block32State());
-        addState(new Block64State());
-        addState(new Block128State());
-        addState(new Block256State());
-        addState(new Block512State());
-        addState(new Block1024State());
-        addState(new Block2048State());
+        setDefaultState(new EmptyBlockState());
+        //addState(new EmptyBlockState());
+        //addState(new Block4State());
+        //addState(new Block8State());
+        //addState(new Block16State());
+        //addState(new Block32State());
+        //addState(new Block64State());
+        //addState(new Block128State());
+        //addState(new Block256State());
+        //addState(new Block512State());
+        //addState(new Block1024State());
+        //addState(new Block2048State());
 
     }
 }
@@ -36,6 +38,9 @@ class The2048DefaultCollection extends StateCollection {
 public class The2048 extends Game {
     public static int _2048_DEFAULT_ROWS = 4;
     public static int _2048_DEFAULT_COLS = 4;
+
+    // Keeps track of our empty slots
+    private List<Tile> emptyTiles = new ArrayList<Tile>();
 
     private void checkerboardFillGrid(StateCollection stateCollection) throws Exception {
         gameGrid.fillGrid(new RandomFillAlgorithm(stateCollection));
@@ -48,10 +53,18 @@ public class The2048 extends Game {
 
     public boolean initGame() throws Exception {
         checkerboardFillGrid(collections.get("default"));
+
+        // Add all tiles to emptyTiles list
+        loadEmptyTiles();
+
+        generateTile();
+        generateTile();
+
         return true;
     }
 
     public void nextInput(Input input) throws Exception {
+
         KeyInput ki = (KeyInput) input;
         if (ki.getDirection() == Direction.LEFT) {
             System.out.println("You pressed LEFT");
@@ -105,17 +118,45 @@ public class The2048 extends Game {
         }
         else if (ki.getDirection() == Direction.INVALID) {
             System.out.println("You did not press a direction");
+            return;
         }
-        /*Tile startTile = gameGrid.getTile(ci.getRow(), ci.getCol());
-        SearchAlgorithm sa = new SearchAlgorithm(new NeighborPath(), new NeighborCondition());
-        List<Tile> matchingTiles = gameGrid.graphSearch(startTile, sa);
-        // TODO: remove this print
-        for (Tile t: matchingTiles) {
-            System.out.println("row: " + t.getRow() + "\t" + "col: " + t.getCol());
-            t.setState(new EmptyBlockState());
-        }
+        updateEmptyTiles();
+        generateTile();
+    }
 
-         */
+    private void loadEmptyTiles() {
+        // Add all tiles to emptyTiles list
+        for (Tile[] row: gameGrid.getGrid()) {
+            for (Tile t : row) {
+                if (t.getState() instanceof EmptyBlockState) {
+                    emptyTiles.add(t);
+                }
+            }
+        }
+    }
+
+    private void updateEmptyTiles() {
+        emptyTiles.clear();
+        loadEmptyTiles();
+    }
+
+    private void generateTile() {
+        // if we have empty tiles
+        if (emptyTiles.size() > 0) {
+            // get a random location
+            int index = new Random().nextInt(emptyTiles.size());
+            // 10% of random tiles are 4's, 90% are 2's
+            int randomNum = new Random().nextInt(10);
+
+            if (randomNum == 0) {
+                emptyTiles.get(index).setState(new Block4State());
+            }
+            else {
+                emptyTiles.get(index).setState(new Block2State());
+            }
+            // remove tile that is no longer an empty space
+            emptyTiles.remove(index);
+        }
     }
 
     private void swipeLeft() throws Exception {
