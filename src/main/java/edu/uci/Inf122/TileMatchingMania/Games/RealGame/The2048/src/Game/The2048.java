@@ -19,7 +19,7 @@ class The2048DefaultCollection extends StateCollection {
         super();
         setDefaultState(new Block2State());
         addState(new EmptyBlockState());
-        //ddState(new Block4State());
+        //addState(new Block4State());
         //addState(new Block8State());
         //addState(new Block16State());
 
@@ -62,8 +62,8 @@ public class The2048 extends Game {
             System.out.println("You pressed UP");
             swipeUp();
             ArrayList<Tile> tiles;
-            for (int row = 0; row < gameGrid.getRows(); ++row) {
-                tiles = gameGrid.getRow(row);
+            for (int col = 0; col < gameGrid.getCols(); ++col) {
+                tiles = gameGrid.getColumn(col);
                 for (Tile tile : tiles) {
                     merge(tile, (Tile) tile.getDown());
                 }
@@ -87,8 +87,8 @@ public class The2048 extends Game {
             System.out.println("You pressed DOWN");
             swipeDown();
             ArrayList<Tile> tiles;
-            for (int row = 0; row < gameGrid.getRows(); ++row) {
-                tiles = gameGrid.getRow(row);
+            for (int col = 0; col < gameGrid.getCols(); ++col) {
+                tiles = gameGrid.getColumn(col);
                 Collections.reverse(tiles);
                 for (Tile tile : tiles) {
                     merge(tile, (Tile) tile.getUp());
@@ -177,38 +177,41 @@ public class The2048 extends Game {
     }
 
     private void merge(Tile t1, Tile t2) {
-        if (t1 == null || t2 == null) {
+        System.out.println("IN MERGE");
+        if (t1 == null || t2 == null)  {
             return;
         }
 
-        if (t1.getState() == t2.getState()) {
-            t1.setState(upgradeState(t1));
+        if (t1.getState().equivalent(t2.getState())) {
+            upgradeState(t1);
             t2.setState(new EmptyBlockState());
         }
     }
 
-    private State upgradeState(Tile t) {
+    private void upgradeState(Tile t) {
+        System.out.println("IN UPGRADE STATE");
         State state = t.getState();
         if (state instanceof Block2State) {
-            return new Block4State();
+            t.setState(new Block4State());
         }
         else if (state instanceof Block4State) {
-            return new Block8State();
+            t.setState(new Block8State());
         }
         else if (state instanceof Block8State) {
-            return new Block16State();
+            t.setState(new Block16State());
         }
         else if (state instanceof Block16State) {
-            return new Block32State();
+            t.setState(new Block32State());
         }
         else if (state instanceof Block32State) {
-            return new Block64State();
+            t.setState(new Block64State());
         }
         else if (state instanceof Block64State) {
-            return new Block128State();
+            t.setState(new Block128State());
         }
-
-        return new EmptyBlockState();
+        else {
+            t.setState(new EmptyBlockState());
+        }
     }
 
 }
