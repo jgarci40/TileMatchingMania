@@ -34,6 +34,8 @@ public abstract class Game {
 
     public void setScore(int score) { this.score = score; }
 
+    public void addScore(int delta) { this.score += delta;}
+
     public Tile[][] getGrid() {
         return gameGrid.getGrid();
     }

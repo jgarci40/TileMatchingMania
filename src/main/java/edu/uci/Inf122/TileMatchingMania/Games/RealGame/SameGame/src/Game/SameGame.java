@@ -59,6 +59,7 @@ public class SameGame extends Game {
             System.out.println("row: " + t.getRow() + "\t" + "col: " + t.getCol());
             t.setState(new EmptyState());
         }
+        calculateScore(matchingTiles.size());
         moveTilesDown();
         moveTilesLeft();
     }
@@ -97,5 +98,9 @@ public class SameGame extends Game {
         }
     }
 
-
+    private void calculateScore(int numTiles) {
+        int score = (int) Math.pow((numTiles - 1), 2);
+        addScore(score);
+        System.out.println("Current score: " + getScore());
+    }
 }

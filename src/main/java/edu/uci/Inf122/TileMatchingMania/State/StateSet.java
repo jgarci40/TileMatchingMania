@@ -49,6 +49,10 @@ public class StateSet {
         return validStates.equals(ss.validStates);
     }
 
+    /*
+     * This method will crash if State classes exist only locally in classes
+     * or functions.
+     */
     public List<State> getStates() {
         return validStates.stream().map(e -> {
             try {

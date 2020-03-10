@@ -99,6 +99,30 @@ public class GameGrid {
         return cols;
     }
 
+    public ArrayList<Tile> getRow(int row) throws Exception {
+        if (!inRowBounds(row)) {
+            throw new Exception("Row number must be between 0 and " + (rows-1));
+        }
+        ArrayList<Tile> tiles = new ArrayList<Tile>();
+        for (Tile tile: grid[row]) {
+            tiles.add(tile);
+        }
+
+        return tiles;
+    }
+
+    public ArrayList<Tile> getColumn(int col) throws Exception {
+        if (!inColBounds(col)) {
+            throw new Exception("Column number must be between 0 and " + (cols-1));
+        }
+        ArrayList<Tile> tiles = new ArrayList<Tile>();
+        for (int row = 0; row < rows; ++row) {
+            tiles.add(grid[row][col]);
+        }
+
+        return tiles;
+    }
+
     private boolean isValidState(State state) {
         return stateCollection.containsState(state);
     }
