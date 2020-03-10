@@ -52,14 +52,20 @@ public class SameGame extends Game {
     public void nextInput(Input input) throws Exception {
         CoordinateInput ci = (CoordinateInput) input;
         Tile startTile = gameGrid.getTile(ci.getRow(), ci.getCol());
+        State startTileState = startTile.getState();
+
         SearchAlgorithm sa = new SearchAlgorithm(new NeighborPath(), new NeighborCondition());
         List<Tile> matchingTiles = gameGrid.graphSearch(startTile, sa);
-        // TODO: remove this print
+
+        // if player did not click on an empty tile, calculate score
+        if (!(startTileState.equivalent(new EmptyState()))) {
+            calculateScore(matchingTiles.size());
+        }
+
         for (Tile t: matchingTiles) {
-            System.out.println("row: " + t.getRow() + "\t" + "col: " + t.getCol());
             t.setState(new EmptyState());
         }
-        calculateScore(matchingTiles.size());
+
         moveTilesDown();
         moveTilesLeft();
     }
@@ -99,6 +105,9 @@ public class SameGame extends Game {
     }
 
     private void calculateScore(int numTiles) {
+        // cannot score points on 1 block
+        if (numTiles <= 1) return;
+
         int score = (int) Math.pow((numTiles - 1), 2);
         addScore(score);
         System.out.println("Current score: " + getScore());
