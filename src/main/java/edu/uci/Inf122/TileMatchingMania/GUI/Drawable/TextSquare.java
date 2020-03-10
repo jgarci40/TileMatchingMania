@@ -14,7 +14,7 @@ public class TextSquare implements Drawable {
     private String text;
     private Color color;
 
-    public static final String DEFAULT_FONT_FAMILY = "Arial";//"TimesRoman";
+    public static final String DEFAULT_FONT_FAMILY = "TimesRoman";
     public static final int DEFAULT_FONT_STYLE = Font.PLAIN;
     public static final int DEFAULT_FONT_SIZE = 256;
     public static final String DEFAULT_TEXT = "";
@@ -72,29 +72,5 @@ public class TextSquare implements Drawable {
         g2d.dispose();
 
         return bufImg;
-    }
-
-    public static Font scaleFont(String text, Rectangle rect, Graphics g, Font pFont) {
-        float min=0.1f;
-        float max=72f;
-        float size=18.0f;
-        Font font=pFont;
-
-        while(max - min <= 0.1) {
-            font = g.getFont().deriveFont(size);
-            FontMetrics fm = g.getFontMetrics(font);
-            int width = fm.stringWidth(text);
-            if (width == rect.width) {
-                return font;
-            } else {
-                if (width < rect.width) {
-                    min = size;
-                } else {
-                    max = size;
-                }
-                size = Math.min(max, Math.max(min, size * (float)rect.width / (float)width));
-            }
-        }
-        return font;
     }
 }
