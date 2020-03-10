@@ -1,21 +1,13 @@
 package edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src;
 
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.BlackSquare;
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.WhiteSquare;
 import edu.uci.Inf122.TileMatchingMania.GUI.GamePanel;
-import edu.uci.Inf122.TileMatchingMania.GUI.Grid.GridsCanvas;
-import edu.uci.Inf122.TileMatchingMania.GUI.Input.CoordinateInput;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.Direction;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.KeyInput;
 import edu.uci.Inf122.TileMatchingMania.GUI.StateToDrawableConverter;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.*;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Game.The2048;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.*;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.BlackState;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import javax.swing.*;
@@ -27,70 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class The2048Frame extends JFrame {
-    int rows;
-    int cols;
     int boxSize;
-    Drawable[][] drawables;
     The2048 the2048;
-    GridsCanvas xyz;
     GamePanel gamePanel;
-
-    /*private Drawable tileToDrawable(Tile tile) throws Exception {
-        if(tile.getState().equivalent(new Block2State())) {
-            return new Block2();
-        } else if(tile.getState().equivalent(new EmptyBlockState())) {
-            return new EmptyBlock();
-        } else if(tile.getState().equivalent(new Block4State())) {
-            return new Block4();
-        } else if(tile.getState().equivalent(new Block8State())) {
-            return new Block8();
-        } else if(tile.getState().equivalent(new Block16State())) {
-            return new Block16();
-        } else if(tile.getState().equivalent(new Block32State())) {
-            return new Block32();
-        } else if(tile.getState().equivalent(new Block64State())) {
-            return new Block64();
-        } else if(tile.getState().equivalent(new Block128State())) {
-            return new Block128();
-        } else if(tile.getState().equivalent(new Block256State())) {
-            return new Block256();
-        } else if(tile.getState().equivalent(new Block512State())) {
-            return new Block512();
-        } else if(tile.getState().equivalent(new Block1024State())) {
-            return new Block1024();
-        } else if(tile.getState().equivalent(new Block2048State())) {
-            return new Block2048();
-        } else {
-            throw new Exception("Invalid state");
-        }
-    }
-
-    private Drawable[][] convertGridToDrawable(Tile[][] tmpGrid) throws Exception {
-        Drawable[][] drawables = new Drawable[rows][cols];
-        int i = 0;
-        for(Tile[] row : tmpGrid) {
-            int j = 0;
-            for(Tile tile : row) {
-                drawables[i][j] = tileToDrawable(tile);
-                j++;
-            }
-            i++;
-        }
-        return drawables;
-    }
-
-    private void updateView() {
-        try {
-            drawables = convertGridToDrawable(the2048.getGrid());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        xyz.setGrid(drawables);
-        revalidate();
-        repaint();
-    }
-
-     */
 
     class BasicKeyListener implements KeyListener {
         @Override
@@ -213,7 +144,6 @@ public class The2048Frame extends JFrame {
     public The2048Frame() throws Exception {
         setResizable(false);
         boxSize = 64;
-        //drawables = new Drawable[rows][cols];
 
         The2048Frame.BasicMouseListener bml = new The2048Frame.BasicMouseListener();
         The2048Frame.BasicKeyListener bkl = new The2048Frame.BasicKeyListener();
@@ -250,18 +180,5 @@ public class The2048Frame extends JFrame {
         pack();
         gamePanel.updateView();
 
-
-        /*the2048 = new The2048();
-        rows = the2048.getRows();
-        cols = the2048.getCols();
-        xyz = new GridsCanvas(rows, cols, boxSize);
-
-        add(xyz);
-        pack();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("2048");
-        updateView();
-
-         */
     }
 }

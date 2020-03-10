@@ -140,7 +140,7 @@ public class The2048 extends Game {
             System.out.println("You did not press a direction");
             return false;
         }
-        
+
         return canMove || merged;
     }
 
