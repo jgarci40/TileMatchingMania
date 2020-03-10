@@ -1,12 +1,10 @@
 package edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Game;
 
-import edu.uci.Inf122.TileMatchingMania.GUI.Input.Direction;
+import edu.uci.Inf122.TileMatchingMania.GUI.Input.DirectionInput.Direction;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
-import edu.uci.Inf122.TileMatchingMania.GUI.Input.KeyInput;
+import edu.uci.Inf122.TileMatchingMania.GUI.Input.DirectionInput;
 import edu.uci.Inf122.TileMatchingMania.Game.Game;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.Algorithms.CheckerBoardAlgorithm;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.Algorithms.DefaultFillAlgorithm;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.Algorithms.RandomFillAlgorithm;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.*;
@@ -66,7 +64,7 @@ public class The2048 extends Game {
     }
 
     public void nextInput(Input input) throws Exception {
-        KeyInput ki = (KeyInput) input;
+        DirectionInput ki = (DirectionInput) input;
 
         if (makeMove(ki.getDirection())) {
             updateEmptyTiles();

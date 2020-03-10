@@ -10,6 +10,7 @@ import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.SearchAlgorithm
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.BlackState;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.MasonicInput;
 import edu.uci.Inf122.TileMatchingMania.State.State;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
@@ -42,9 +43,11 @@ public class MasonicV2TestGame extends Game {
     }
 
     public void nextInput(Input input) {
-        List<Tile> blackStates = gameGrid.search(new SearchAlgorithm(new NeighborPath(), new StateCondition(new BlackState())));
-        List<Tile> whiteStates = gameGrid.search(new SearchAlgorithm(new NeighborPath(), new StateCondition(new WhiteState())));
-        blackStates.forEach(e -> e.setState(new WhiteState()));
-        whiteStates.forEach((e -> e.setState(new BlackState())));
+        if(input instanceof MasonicInput) {
+            List<Tile> blackStates = gameGrid.search(new SearchAlgorithm(new NeighborPath(), new StateCondition(new BlackState())));
+            List<Tile> whiteStates = gameGrid.search(new SearchAlgorithm(new NeighborPath(), new StateCondition(new WhiteState())));
+            blackStates.forEach(e -> e.setState(new WhiteState()));
+            whiteStates.forEach((e -> e.setState(new BlackState())));
+        }
     }
 }

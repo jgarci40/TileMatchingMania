@@ -1,9 +1,10 @@
 package edu.uci.Inf122.TileMatchingMania.GUI.Input;
 
-public class KeyInput extends Input {
+public class DirectionInput extends Input {
+    public enum Direction {UP, DOWN, LEFT, RIGHT, INVALID}
     private Direction direction;
 
-    public KeyInput(Direction d) {
+    public DirectionInput(Direction d) {
         this.direction = d;
     }
 

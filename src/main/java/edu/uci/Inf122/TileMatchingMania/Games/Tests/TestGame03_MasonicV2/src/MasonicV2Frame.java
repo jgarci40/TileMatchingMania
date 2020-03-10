@@ -7,6 +7,7 @@ import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
 import edu.uci.Inf122.TileMatchingMania.GUI.StateToDrawableConverter;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.BlackState;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.GUI.MasonicKeyToInputMap;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.Game.MasonicV2TestGame;
 import edu.uci.Inf122.TileMatchingMania.State.State;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
@@ -24,24 +25,21 @@ public class MasonicV2Frame extends JFrame {
     int boxSize;
     MasonicV2TestGame mtg;
     GamePanel gamePanel;
+    MasonicKeyToInputMap masonicKeyToInputMap;
 
     class BasicKeyListener implements KeyListener {
         @Override
         public void keyPressed(KeyEvent event) {
-            printEventInfo("Key Pressed", event);
-            mtg.nextInput(new Input() {});
+            try {
+                Input input = masonicKeyToInputMap.getInput(event.getKeyChar());
+                mtg.nextInput(input);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             gamePanel.updateView();
         }
-
-        @Override
-        public void keyReleased(KeyEvent event) {
-//            printEventInfo("Key Released", event);
-        }
-
-        @Override
-        public void keyTyped(KeyEvent event) {
-//            printEventInfo("Key Typed", event);
-        }
+        public void keyReleased(KeyEvent event) {}
+        public void keyTyped(KeyEvent event) {}
 
         private void printEventInfo(String str, KeyEvent e) {
             System.out.println(str);
@@ -118,6 +116,7 @@ public class MasonicV2Frame extends JFrame {
     public MasonicV2Frame() throws Exception {
         setResizable(false);
         boxSize = 64;
+        masonicKeyToInputMap = new MasonicKeyToInputMap();
 
         BasicMouseListener bml = new BasicMouseListener();
         BasicKeyListener bkl = new BasicKeyListener();
@@ -136,8 +135,14 @@ public class MasonicV2Frame extends JFrame {
         }
 
         gamePanel = new GamePanel(mtg, boxSize, converters);
-        add(gamePanel);
+        GamePanel gp2 = new GamePanel(mtg, boxSize, converters);
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
+        mainPanel.add(gp2);
+        mainPanel.add(gamePanel);
+        add(mainPanel);
         pack();
         gamePanel.updateView();
+        gp2.updateView();
     }
 }
