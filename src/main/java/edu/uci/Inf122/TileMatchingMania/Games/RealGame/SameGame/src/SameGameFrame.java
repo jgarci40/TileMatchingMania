@@ -1,24 +1,29 @@
 package edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.BlackSquare;
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.BlueSquare;
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.GreenSquare;
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.RedSquare;
+import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.*;
+import edu.uci.Inf122.TileMatchingMania.GUI.GamePanel;
 import edu.uci.Inf122.TileMatchingMania.GUI.Grid.GridsCanvas;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.CoordinateInput;
+import edu.uci.Inf122.TileMatchingMania.GUI.StateToDrawableConverter;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.Game.SameGame;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.BlueState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.EmptyState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.RedState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.GreenState;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.BlackState;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.Game.MasonicV2TestGame;
+import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SameGameFrame extends JFrame {
     int rows;
@@ -27,45 +32,7 @@ public class SameGameFrame extends JFrame {
     Drawable[][] drawables;
     SameGame sg;
     GridsCanvas xyz;
-
-    private Drawable tileToDrawable(Tile tile) throws Exception {
-        if(tile.getState().equivalent(new RedState())) {
-            return new RedSquare();
-        } else if(tile.getState().equivalent(new BlueState())) {
-            return new BlueSquare();
-        } else if(tile.getState().equivalent(new GreenState())) {
-            return new GreenSquare();
-        } else if(tile.getState().equivalent(new EmptyState())) {
-            return new BlackSquare();
-        } else {
-            throw new Exception("Invalid state");
-        }
-    }
-
-    private Drawable[][] convertGridToDrawable(Tile[][] tmpGrid) throws Exception {
-        Drawable[][] drawables = new Drawable[rows][cols];
-        int i = 0;
-        for(Tile[] row : tmpGrid) {
-            int j = 0;
-            for(Tile tile : row) {
-                drawables[i][j] = tileToDrawable(tile);
-                j++;
-            }
-            i++;
-        }
-        return drawables;
-    }
-
-    private void updateView() {
-        try {
-            drawables = convertGridToDrawable(sg.getGrid());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        xyz.setGrid(drawables);
-        revalidate();
-        repaint();
-    }
+    GamePanel gamePanel;
 
     class BasicKeyListener implements KeyListener {
         @Override
@@ -77,7 +44,7 @@ public class SameGameFrame extends JFrame {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
             }
-            updateView();
+            gamePanel.updateView();
         }
 
         @Override
@@ -165,7 +132,7 @@ public class SameGameFrame extends JFrame {
             }
 
 
-            updateView();
+            gamePanel.updateView();
         }
 
         void saySomething(String eventDescription, MouseEvent e) {
@@ -178,13 +145,33 @@ public class SameGameFrame extends JFrame {
     public SameGameFrame() throws Exception {
         setResizable(false);
         boxSize = 64;
-        drawables = new Drawable[rows][cols];
 
         SameGameFrame.BasicMouseListener bml = new SameGameFrame.BasicMouseListener();
         SameGameFrame.BasicKeyListener bkl = new SameGameFrame.BasicKeyListener();
         this.addMouseListener(bml);
         this.addKeyListener(bkl);
 
+        sg = new SameGame();
+        Map<String, StateCollection> collections = sg.getCollections();
+        Map<String, StateToDrawableConverter> converters = new HashMap<>();
+        for(String key : collections.keySet()) {
+            StateCollection states = collections.get(key);
+            StateToDrawableConverter converter = new StateToDrawableConverter(states);
+            converter.addDrawable(new EmptyState(), new BlackSquare());
+            converter.addDrawable(new GreenState(), new GreenSquare());
+            converter.addDrawable(new RedState(), new RedSquare());
+            converter.addDrawable(new BlueState(), new BlueSquare());
+            converters.put(key, converter);
+        }
+
+        gamePanel = new GamePanel(sg, boxSize, converters);
+        add(gamePanel);
+        pack();
+        gamePanel.updateView();
+
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle("Same Game");
+        /*
         sg = new SameGame();
         rows = sg.getRows();
         cols = sg.getCols();
@@ -195,5 +182,7 @@ public class SameGameFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Same Game");
         updateView();
+
+         */
     }
 }
