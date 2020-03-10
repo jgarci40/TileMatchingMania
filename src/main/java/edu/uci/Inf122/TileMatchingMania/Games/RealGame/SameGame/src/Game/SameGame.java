@@ -59,13 +59,9 @@ public class SameGame extends Game {
             System.out.println("row: " + t.getRow() + "\t" + "col: " + t.getCol());
             t.setState(new EmptyState());
         }
+        calculateScore(matchingTiles.size());
         moveTilesDown();
         moveTilesLeft();
-
-        //List<Tile> blackStates = gameGrid.search(new SearchAlgorithm(new NeighborPath(), new StateCondition(new BlackState())));
-        //List<Tile> whiteStates = gameGrid.search(new SearchAlgorithm(new NeighborPath(), new StateCondition(new WhiteState())));
-        //blackStates.forEach(e -> e.setState(new WhiteState()));
-        //whiteStates.forEach((e -> e.setState(new BlackState())));
     }
 
     private void moveTilesDown() throws Exception {
@@ -102,5 +98,9 @@ public class SameGame extends Game {
         }
     }
 
-
+    private void calculateScore(int numTiles) {
+        int score = (int) Math.pow((numTiles - 1), 2);
+        addScore(score);
+        System.out.println("Current score: " + getScore());
+    }
 }

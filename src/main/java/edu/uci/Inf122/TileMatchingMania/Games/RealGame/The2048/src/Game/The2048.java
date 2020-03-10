@@ -65,6 +65,7 @@ public class The2048 extends Game {
 
     public void nextInput(Input input) throws Exception {
         KeyInput ki = (KeyInput) input;
+
         if (makeMove(ki.getDirection())) {
             updateEmptyTiles();
             generateTile();
@@ -72,6 +73,10 @@ public class The2048 extends Game {
     }
 
     private boolean makeMove(Direction d) throws Exception {
+        boolean canMove = canSwipe(d);
+        boolean merged = false;
+
+        System.out.println("Can swipe = " + canSwipe(d));
         if (d == Direction.LEFT) {
             System.out.println("You pressed LEFT");
             swipeLeft();
@@ -79,7 +84,9 @@ public class The2048 extends Game {
             for (int row = 0; row < gameGrid.getRows(); ++row) {
                 tiles = gameGrid.getRow(row);
                 for (Tile tile : tiles) {
-                    merge(tile, (Tile) tile.getRight());
+                    if (merge(tile, (Tile) tile.getRight())) {
+                        merged = true;
+                    }
                 }
             }
             swipeLeft();
@@ -91,7 +98,9 @@ public class The2048 extends Game {
             for (int col = 0; col < gameGrid.getCols(); ++col) {
                 tiles = gameGrid.getColumn(col);
                 for (Tile tile : tiles) {
-                    merge(tile, (Tile) tile.getDown());
+                    if(merge(tile, (Tile) tile.getDown())) {
+                        merged = true;
+                    }
                 }
             }
             swipeUp();
@@ -104,7 +113,9 @@ public class The2048 extends Game {
                 tiles = gameGrid.getRow(row);
                 Collections.reverse(tiles);
                 for (Tile tile : tiles) {
-                    merge(tile, (Tile) tile.getLeft());
+                    if (merge(tile, (Tile) tile.getLeft())) {
+                        merged = true;
+                    }
                 }
             }
             swipeRight();
@@ -117,7 +128,9 @@ public class The2048 extends Game {
                 tiles = gameGrid.getColumn(col);
                 Collections.reverse(tiles);
                 for (Tile tile : tiles) {
-                    merge(tile, (Tile) tile.getUp());
+                    if (merge(tile, (Tile) tile.getUp())) {
+                        merged = true;
+                    }
                 }
             }
             swipeDown();
@@ -127,7 +140,9 @@ public class The2048 extends Game {
             return false;
         }
 
-        return true;
+
+        System.out.println("Merged = " + merged);
+        return canMove || merged;
     }
 
     // Finds all empty grid tiles and loads them into EmptyTiles list
@@ -214,6 +229,7 @@ public class The2048 extends Game {
                 }
             }
         }
+
     }
 
     private void swipeDown() throws Exception {
@@ -234,55 +250,110 @@ public class The2048 extends Game {
     }
 
     // merge two same tiles
-    private void merge(Tile t1, Tile t2) {
-        System.out.println("IN MERGE");
+    private boolean merge(Tile t1, Tile t2) {
+        boolean merged = false;
+
         if (t1 == null || t2 == null)  {
-            return;
+            return false;
         }
 
-        if (t1.getState().equivalent(t2.getState())) {
+        else if (t1.getState().equivalent(new EmptyBlockState())) {
+            return false;
+        }
+
+        else if (t1.getState().equivalent(t2.getState())) {
+            merged = true;
             upgradeState(t1);
             t2.setState(new EmptyBlockState());
         }
+        return merged;
     }
 
     // moves tile state up a class i.e: 2 -> 4, 4 -> 8 and so on...
     private void upgradeState(Tile t) {
         System.out.println("IN UPGRADE STATE");
+        int score = 0;
         State state = t.getState();
         if (state instanceof Block2State) {
             t.setState(new Block4State());
+            score = 4;
         }
         else if (state instanceof Block4State) {
             t.setState(new Block8State());
+            score = 8;
         }
         else if (state instanceof Block8State) {
             t.setState(new Block16State());
+            score = 16;
         }
         else if (state instanceof Block16State) {
             t.setState(new Block32State());
+            score = 32;
         }
         else if (state instanceof Block32State) {
             t.setState(new Block64State());
+            score = 64;
         }
         else if (state instanceof Block64State) {
             t.setState(new Block128State());
+            score = 128;
         }
         else if (state instanceof Block128State) {
             t.setState(new Block256State());
+            score = 256;
         }
         else if (state instanceof Block256State) {
             t.setState(new Block512State());
+            score = 512;
         }
         else if (state instanceof Block512State) {
             t.setState(new Block1024State());
+            score = 1024;
         }
         else if (state instanceof Block1024State) {
             t.setState(new Block2048State());
+            score = 2048;
         }
         else {
             t.setState(new EmptyBlockState());
         }
+
+        addScore(score);
+        System.out.println("Current score: " + getScore());
+    }
+
+    private boolean canSwipe(Direction d) {
+        updateEmptyTiles();
+        if (d == Direction.RIGHT) {
+            for (Tile tile: emptyTiles) {
+                Tile left = (Tile) tile.getLeft();
+                if (left != null && !(left.getState().equivalent(new EmptyBlockState())))
+                    return true;
+            }
+        }
+        else if (d == Direction.LEFT) {
+            for (Tile tile: emptyTiles) {
+                Tile right = (Tile) tile.getRight();
+                if (right != null && !(right.getState().equivalent(new EmptyBlockState())))
+                    return true;
+            }
+        }
+        else if (d == Direction.UP) {
+            for (Tile tile: emptyTiles) {
+                Tile down = (Tile) tile.getDown();
+                if (down != null && !(down.getState().equivalent(new EmptyBlockState())))
+                    return true;
+            }
+        }
+        else if (d == Direction.DOWN) {
+            for (Tile tile: emptyTiles) {
+                Tile up = (Tile) tile.getUp();
+                if (up != null && !(up.getState().equivalent(new EmptyBlockState())))
+                    return true;
+            }
+        }
+
+        return false;
     }
 
 }
