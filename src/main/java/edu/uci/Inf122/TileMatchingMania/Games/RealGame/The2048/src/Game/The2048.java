@@ -183,8 +183,7 @@ public class The2048 extends Game {
         }
     }
 
-    private boolean swipeLeft() throws Exception {
-        boolean swiped = false;
+    private void swipeLeft() throws Exception {
         // for every row in the grid
         for (int row = 0; row < gameGrid.getRows(); ++row) {
             for (int col = 0; col < gameGrid.getCols(); ++col) {
@@ -192,57 +191,49 @@ public class The2048 extends Game {
                     Tile t = gameGrid.getTile(row, space);
                     Tile left = (Tile) t.getLeft();
                     if (left.getState() instanceof EmptyBlockState) {
-                        swiped = true;
                         left.setState(t.getState());
                         t.setState(new EmptyBlockState());
                     }
                 }
             }
         }
-        return swiped;
     }
 
-    private boolean swipeRight() throws Exception {
+    private void swipeRight() throws Exception {
         // for every row in the grid
-        boolean swiped = false;
         for (int row = 0; row < gameGrid.getRows(); ++row) {
             for (int col = 0; col < gameGrid.getCols(); ++col) {
                 for (int space = gameGrid.getCols() - 2; space >= 0; --space) {
                     Tile t = gameGrid.getTile(row, space);
                     Tile right = (Tile) t.getRight();
                     if (right.getState() instanceof EmptyBlockState) {
-                        swiped = true;
                         right.setState(t.getState());
                         t.setState(new EmptyBlockState());
                     }
                 }
             }
         }
-        return swiped;
     }
 
-    private boolean swipeUp() throws Exception {
+    private void swipeUp() throws Exception {
         // for every column in the grid
-        boolean swiped = false;
         for (int col = 0; col < gameGrid.getCols(); ++col) {
             ArrayList<Tile> column = gameGrid.getColumn(col);
             for (int row = 0; row < gameGrid.getRows(); ++row) {
                 for (Tile tile : column) {
                     Tile down = (Tile) tile.getDown();
                     if ((tile.getState() instanceof EmptyBlockState) && (down != null)) {
-                        swiped = true;
                         tile.setState(down.getState());
                         down.setState(new EmptyBlockState());
                     }
                 }
             }
         }
-        return swiped;
+
     }
 
-    private boolean swipeDown() throws Exception {
+    private void swipeDown() throws Exception {
         // for every column in the grid
-        boolean swiped = false;
         for (int col = 0; col < gameGrid.getCols(); ++col) {
             ArrayList<Tile> column = gameGrid.getColumn(col);
             Collections.reverse(column);
@@ -250,14 +241,12 @@ public class The2048 extends Game {
                 for (Tile tile : column) {
                     Tile up = (Tile) tile.getUp();
                     if ((tile.getState() instanceof EmptyBlockState) && (up != null)) {
-                        swiped = true;
                         tile.setState(up.getState());
                         up.setState(new EmptyBlockState());
                     }
                 }
             }
         }
-        return swiped;
     }
 
     // merge two same tiles
