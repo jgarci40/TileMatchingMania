@@ -4,6 +4,8 @@ import edu.uci.Inf122.TileMatchingMania.GUI.Input.Direction;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.KeyInput;
 import edu.uci.Inf122.TileMatchingMania.Game.Game;
+import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.Algorithms.CheckerBoardAlgorithm;
+import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.Algorithms.DefaultFillAlgorithm;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.Algorithms.RandomFillAlgorithm;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 
@@ -20,17 +22,17 @@ class The2048DefaultCollection extends StateCollection {
     public The2048DefaultCollection() throws Exception {
         super();
         setDefaultState(new EmptyBlockState());
-        //addState(new EmptyBlockState());
-        //addState(new Block4State());
-        //addState(new Block8State());
-        //addState(new Block16State());
-        //addState(new Block32State());
-        //addState(new Block64State());
-        //addState(new Block128State());
-        //addState(new Block256State());
-        //addState(new Block512State());
-        //addState(new Block1024State());
-        //addState(new Block2048State());
+        addState(new Block2State());
+        addState(new Block4State());
+        addState(new Block8State());
+        addState(new Block16State());
+        addState(new Block32State());
+        addState(new Block64State());
+        addState(new Block128State());
+        addState(new Block256State());
+        addState(new Block512State());
+        addState(new Block1024State());
+        addState(new Block2048State());
 
     }
 }
@@ -43,7 +45,7 @@ public class The2048 extends Game {
     private List<Tile> emptyTiles = new ArrayList<Tile>();
 
     private void checkerboardFillGrid(StateCollection stateCollection) throws Exception {
-        gameGrid.fillGrid(new RandomFillAlgorithm(stateCollection));
+        gameGrid.fillGrid(new DefaultFillAlgorithm(stateCollection));
     }
 
     public The2048() throws Exception {
@@ -76,7 +78,6 @@ public class The2048 extends Game {
         boolean canMove = canSwipe(d);
         boolean merged = false;
 
-        System.out.println("Can swipe = " + canSwipe(d));
         if (d == Direction.LEFT) {
             System.out.println("You pressed LEFT");
             swipeLeft();
@@ -139,9 +140,7 @@ public class The2048 extends Game {
             System.out.println("You did not press a direction");
             return false;
         }
-
-
-        System.out.println("Merged = " + merged);
+        
         return canMove || merged;
     }
 
