@@ -38,5 +38,9 @@ public abstract class Game {
         return gameGrid.getGrid();
     }
 
+    public Map<String, StateCollection> getCollections() {
+        return collections;
+    }
+
     public abstract void nextInput(Input input) throws Exception;
 }

@@ -1,14 +1,24 @@
 package edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src;
 
+import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.BlackSquare;
+import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.WhiteSquare;
 import edu.uci.Inf122.TileMatchingMania.GUI.GamePanel;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
+import edu.uci.Inf122.TileMatchingMania.GUI.StateToDrawableConverter;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.BlackState;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.Game.MasonicV2TestGame;
+import edu.uci.Inf122.TileMatchingMania.State.State;
+import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MasonicV2Frame extends JFrame {
     int boxSize;
@@ -115,8 +125,17 @@ public class MasonicV2Frame extends JFrame {
         this.addKeyListener(bkl);
 
         mtg = new MasonicV2TestGame();
+        Map<String, StateCollection> collections = mtg.getCollections();
+        Map<String, StateToDrawableConverter> converters = new HashMap<>();
+        for(String key : collections.keySet()) {
+            StateCollection states = collections.get(key);
+            StateToDrawableConverter converter = new StateToDrawableConverter(states);
+            converter.addDrawable(new BlackState(), new BlackSquare());
+            converter.addDrawable(new WhiteState(), new WhiteSquare());
+            converters.put(key, converter);
+        }
 
-        gamePanel = new GamePanel(mtg, boxSize);
+        gamePanel = new GamePanel(mtg, boxSize, converters);
         add(gamePanel);
         pack();
         gamePanel.updateView();

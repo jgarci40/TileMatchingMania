@@ -10,6 +10,7 @@ import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.St
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
 
 import javax.swing.*;
+import java.util.Map;
 
 public class GamePanel extends JPanel {
     int rows;
@@ -18,6 +19,7 @@ public class GamePanel extends JPanel {
     Drawable[][] drawables;
     Game game;
     GridsCanvas gridCanvas;
+    Map<String, StateToDrawableConverter> converters;
 
     public void updateView() {
         try {
@@ -30,23 +32,21 @@ public class GamePanel extends JPanel {
         repaint();
     }
 
-    private Drawable tileToDrawable(Tile tile) throws Exception {
-        if(tile.getState().equivalent(new BlackState())) {
-            return new BlackSquare();
-        } else if(tile.getState().equivalent(new WhiteState())) {
-            return new WhiteSquare();
-        } else {
-            throw new Exception("Invalid state");
-        }
+    private Drawable tileToDrawable(Tile tile, String set) throws Exception {
+        return converters.get(set).getDrawable(tile.getState());
     }
 
     private Drawable[][] convertGridToDrawable(Tile[][] tmpGrid) throws Exception {
+        return convertGridToDrawable(tmpGrid, "default");
+    }
+
+    private Drawable[][] convertGridToDrawable(Tile[][] tmpGrid, String set) throws Exception {
         Drawable[][] drawables = new Drawable[rows][cols];
         int i = 0;
         for(Tile[] row : tmpGrid) {
             int j = 0;
             for(Tile tile : row) {
-                drawables[i][j] = tileToDrawable(tile);
+                drawables[i][j] = tileToDrawable(tile, set);
                 j++;
             }
             i++;
@@ -54,11 +54,12 @@ public class GamePanel extends JPanel {
         return drawables;
     }
 
-    public GamePanel(Game game, int boxSize) {
+    public GamePanel(Game game, int boxSize, Map<String, StateToDrawableConverter> converters) {
         this.game = game;
         this.boxSize = boxSize;
         rows = game.getRows();
         cols = game.getCols();
+        this.converters = converters;
 
         gridCanvas = new GridsCanvas(rows, cols, boxSize);
         add(gridCanvas);
