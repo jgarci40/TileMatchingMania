@@ -30,6 +30,7 @@ public class The2048Frame extends JFrame {
             System.out.println("Key char: " + event.getKeyChar());
 
             int keyCode = event.getKeyCode();
+            System.out.println("Key code: " + keyCode);
             DirectionInput input;
 
             switch (keyCode) {

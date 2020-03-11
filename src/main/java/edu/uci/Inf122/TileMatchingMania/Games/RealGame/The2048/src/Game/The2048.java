@@ -69,6 +69,10 @@ public class The2048 extends Game {
             updateEmptyTiles();
             generateTile();
         }
+
+        if (emptyTiles.size() == 0 && isGameOver()) {
+            System.out.println("GAME OVER");
+        }
     }
 
     private boolean makeMove(Direction d) throws Exception {
@@ -351,4 +355,21 @@ public class The2048 extends Game {
         return false;
     }
 
+    private boolean isGameOver() throws Exception {
+        for (int i = 0; i < gameGrid.getRows(); ++i) {
+            ArrayList<Tile> row = gameGrid.getRow(i);
+            for (Tile tile : row) {
+                Tile right = (Tile) tile.getRight();
+                Tile down = (Tile) tile.getDown();
+
+                if (right != null && tile.getState().equivalent(right.getState())) {
+                    return false;
+                }
+                if (down != null && tile.getState().equivalent(down.getState())) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
