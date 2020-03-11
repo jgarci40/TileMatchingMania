@@ -189,9 +189,6 @@ public class Ini {
             return Integer.parseInt(getString(key));
         }
 
-        /**
-         * See {@link #getInt(String)}
-         */
         public int getInt(String key, int defaultValue) {
             try {
                 return getInt(key);
@@ -200,9 +197,6 @@ public class Ini {
             }
         }
 
-        /**
-         * See {@link #getInt(String)}
-         */
         public Integer getInteger(String key, Integer defaultValue) {
             try {
                 return Integer.valueOf(getString(key));
@@ -211,21 +205,10 @@ public class Ini {
             }
         }
 
-        /**
-         * Get the property value stored against {@code key} formatted as float.
-         * <p>
-         * Also see {@link #getString(String)}
-         *
-         * @throws NoSuchElementException If key is not present.
-         * @throws NumberFormatException  If value cannot be converted to a float.
-         */
         public float getFloat(String key) {
             return Float.parseFloat(getString(key));
         }
 
-        /**
-         * See {@link #getFloat(String)}
-         */
         public float getFloat(String key, float defaultValue) {
             try {
                 return getFloat(key);
@@ -234,9 +217,6 @@ public class Ini {
             }
         }
 
-        /**
-         * See {@link #getFloat(String)}
-         */
         public Float getFloat(String key, Float defaultValue) {
             try {
                 return Float.valueOf(getString(key));
@@ -245,21 +225,10 @@ public class Ini {
             }
         }
 
-        /**
-         * Get the property value stored against {@code key} formatted as double.
-         * <p>
-         * Also see {@link #getString(String)}
-         *
-         * @throws NoSuchElementException If key is not present.
-         * @throws NumberFormatException  If value cannot be converted to a double.
-         */
         public double getDouble(String key) {
             return Double.parseDouble(getString(key));
         }
 
-        /**
-         * See {@link #getDouble(String)}
-         */
         public double getDouble(String key, double defaultValue) {
             try {
                 return getDouble(key);
@@ -268,9 +237,6 @@ public class Ini {
             }
         }
 
-        /**
-         * See {@link #getDouble(String)}
-         */
         public Double getDouble(String key, Double defaultValue) {
             try {
                 return Double.valueOf(getString(key));
