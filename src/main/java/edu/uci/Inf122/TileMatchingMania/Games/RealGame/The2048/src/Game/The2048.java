@@ -70,7 +70,8 @@ public class The2048 extends Game {
             generateTile();
         }
 
-        if (emptyTiles.size() == 0 && isGameOver()) {
+        if (emptyTiles.size() == 0) {
+            isGameOver = checkGameOver();
             System.out.println("GAME OVER");
         }
     }
@@ -355,7 +356,7 @@ public class The2048 extends Game {
         return false;
     }
 
-    private boolean isGameOver() throws Exception {
+    private boolean checkGameOver() throws Exception {
         for (int i = 0; i < gameGrid.getRows(); ++i) {
             ArrayList<Tile> row = gameGrid.getRow(i);
             for (Tile tile : row) {
