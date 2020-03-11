@@ -14,12 +14,14 @@ public abstract class Game {
     protected int cols;
     protected Map<String, StateCollection> collections;
     protected int score;
+    protected boolean isGameOver;
 
     public Game(int rows, int cols, StateCollection defaultCollection) throws Exception {
         this.rows = rows;
         this.cols = cols;
         this.collections = new HashMap<>();
         this.score = 0;
+        this.isGameOver = false;
         collections.put("default", defaultCollection);
         gameGrid = new GameGrid(this.rows, this.cols, collections.get("default"));
     }
@@ -31,6 +33,8 @@ public abstract class Game {
     public int getCols() { return cols; }
 
     public int getScore() { return score; }
+
+    public boolean getGameOver() {return isGameOver;}
 
     public void setScore(int score) { this.score = score; }
 

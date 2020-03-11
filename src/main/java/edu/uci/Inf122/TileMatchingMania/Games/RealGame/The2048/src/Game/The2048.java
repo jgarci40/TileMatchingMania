@@ -46,12 +46,7 @@ public class The2048 extends Game {
     }
 
     public The2048() throws Exception {
-        super(_2048_DEFAULT_ROWS,
-                _2048_DEFAULT_COLS,
-                true,
-                false,
-                3,
-                new The2048DefaultCollection());
+        super(_2048_DEFAULT_ROWS, _2048_DEFAULT_COLS, new The2048DefaultCollection());
         initGame();
     }
 
@@ -74,6 +69,12 @@ public class The2048 extends Game {
             updateEmptyTiles();
             generateTile();
         }
+
+        if (emptyTiles.size() == 0) {
+            isGameOver = checkGameOver();
+        }
+        // TODO: REMOVE THIS PRINT STATEMENT
+        if (isGameOver) System.out.println("GAME OVER");
     }
 
     private boolean makeMove(Direction d) throws Exception {
@@ -272,7 +273,6 @@ public class The2048 extends Game {
 
     // moves tile state up a class i.e: 2 -> 4, 4 -> 8 and so on...
     private void upgradeState(Tile t) {
-        System.out.println("IN UPGRADE STATE");
         int score = 0;
         State state = t.getState();
         if (state instanceof Block2State) {
@@ -357,4 +357,21 @@ public class The2048 extends Game {
         return false;
     }
 
+    private boolean checkGameOver() throws Exception {
+        for (int i = 0; i < gameGrid.getRows(); ++i) {
+            ArrayList<Tile> row = gameGrid.getRow(i);
+            for (Tile tile : row) {
+                Tile right = (Tile) tile.getRight();
+                Tile down = (Tile) tile.getDown();
+
+                if (right != null && tile.getState().equivalent(right.getState())) {
+                    return false;
+                }
+                if (down != null && tile.getState().equivalent(down.getState())) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

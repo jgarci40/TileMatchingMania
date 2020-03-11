@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class KeyToInputMap {
-    Map<String, Input> keyInputMap;
+    Map<Integer, Input> keyInputMap;
     Input defaultInput = null;
 
     public KeyToInputMap() {
@@ -15,17 +15,13 @@ public class KeyToInputMap {
         this.defaultInput = input;
     }
 
-    public void addInput(String str, Input input) throws Exception {
-        keyInputMap.put(str, input);
+    public void addInput(int keyCode, Input input) throws Exception {
+        keyInputMap.put(keyCode, input);
     }
 
-    public Input getInput(char ch) throws Exception {
-        return getInput(String.valueOf(ch));
-    }
-
-    public Input getInput(String str) throws Exception {
+    public Input getInput(int keyCode) throws Exception {
         if(defaultInput != null) return defaultInput;
-        if(!keyInputMap.containsKey(str)) throw new Exception("KeyToInputMap does not contain key " + str);
-        return keyInputMap.get(str);
+        if(!keyInputMap.containsKey(keyCode)) throw new Exception("KeyToInputMap does not contain key code " + keyCode);
+        return keyInputMap.get(keyCode);
     }
 }

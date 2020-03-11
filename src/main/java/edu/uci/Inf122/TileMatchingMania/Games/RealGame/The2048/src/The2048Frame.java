@@ -2,11 +2,10 @@ package edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.GamePanel;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.DirectionInput;
-import edu.uci.Inf122.TileMatchingMania.GUI.Input.DirectionInput.Direction;
 import edu.uci.Inf122.TileMatchingMania.GUI.StateToDrawableConverter;
 
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.*;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Game.The2048;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.GUI.The2048GameBridgePair;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.*;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
@@ -20,37 +19,22 @@ import java.util.Map;
 
 public class The2048Frame extends JFrame {
     int boxSize;
-    The2048 the2048;
     GamePanel gamePanel;
+    The2048GameBridgePair gameBridge;
 
     class BasicKeyListener implements KeyListener {
         @Override
         public void keyPressed(KeyEvent event) {
             printEventInfo("Key Pressed", event);
+            System.out.println("Key char: " + event.getKeyChar());
 
             int keyCode = event.getKeyCode();
+            System.out.println("Key code: " + keyCode);
             DirectionInput input;
 
-            switch (keyCode) {
-                case 37:
-                    input = new DirectionInput(Direction.LEFT);
-                    break;
-                case 38:
-                    input = new DirectionInput(Direction.UP);
-                    break;
-                case 39:
-                    input = new DirectionInput(Direction.RIGHT);
-                    break;
-                case 40:
-                    input = new DirectionInput(Direction.DOWN);
-                    break;
-                default:
-                    input = new DirectionInput(Direction.INVALID);
-                    break;
-            }
-
             try {
-                the2048.nextInput(input);
+                input = (DirectionInput) gameBridge.getBridge().getKeyToInputMap().getInput(keyCode);
+                gameBridge.getGame().nextInput(input);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
@@ -99,14 +83,19 @@ public class The2048Frame extends JFrame {
     public The2048Frame() throws Exception {
         setResizable(false);
         boxSize = 64;
+        gameBridge = new The2048GameBridgePair();
 
-        The2048Frame.BasicMouseListener bml = new The2048Frame.BasicMouseListener();
-        The2048Frame.BasicKeyListener bkl = new The2048Frame.BasicKeyListener();
-        this.addMouseListener(bml);
-        this.addKeyListener(bkl);
+        if(gameBridge.getBridge().getUsesClickInput()) {
+            The2048Frame.BasicMouseListener bml = new The2048Frame.BasicMouseListener();
+            this.addMouseListener(bml);
+        }
 
-        the2048 = new The2048();
-        Map<String, StateCollection> collections = the2048.getCollections();
+        if(gameBridge.getBridge().getUsesKeyInput()) {
+            The2048Frame.BasicKeyListener bkl = new The2048Frame.BasicKeyListener();
+            this.addKeyListener(bkl);
+        }
+
+        Map<String, StateCollection> collections = gameBridge.getGame().getCollections();
         Map<String, StateToDrawableConverter> converters = new HashMap<>();
 
         for(String key : collections.keySet()) {
@@ -130,7 +119,7 @@ public class The2048Frame extends JFrame {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("2048");
-        gamePanel = new GamePanel(the2048, boxSize, converters);
+        gamePanel = new GamePanel(gameBridge.getGame(), boxSize, converters);
         add(gamePanel);
         pack();
         gamePanel.updateView();

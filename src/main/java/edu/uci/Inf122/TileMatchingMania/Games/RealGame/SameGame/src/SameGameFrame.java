@@ -1,22 +1,14 @@
 package edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src;
 
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.*;
 import edu.uci.Inf122.TileMatchingMania.GUI.GamePanel;
-import edu.uci.Inf122.TileMatchingMania.GUI.Grid.GridsCanvas;
-import edu.uci.Inf122.TileMatchingMania.GUI.Input.ClickToInputMap;
-import edu.uci.Inf122.TileMatchingMania.GUI.Input.CoordinateInput;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
 import edu.uci.Inf122.TileMatchingMania.GUI.StateToDrawableConverter;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.Game.SameGame;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.GUI.SameGameBridgePair;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.BlueState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.EmptyState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.RedState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.GreenState;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.BlackState;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.Game.MasonicV2TestGame;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import javax.swing.*;
@@ -28,28 +20,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SameGameFrame extends JFrame {
-    int rows;
-    int cols;
     int boxSize;
-    Drawable[][] drawables;
-    SameGame sg;
-    GridsCanvas xyz;
     GamePanel gamePanel;
-    ClickToInputMap clickToInputMap;
+    SameGameBridgePair gameBridge;
 
 
     class BasicKeyListener implements KeyListener {
         @Override
-        public void keyPressed(KeyEvent event) {
-            try {
-                sg.nextInput(new CoordinateInput());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
-            }
-            gamePanel.updateView();
-        }
-
+        public void keyPressed(KeyEvent event) {}
         public void keyReleased(KeyEvent event) {}
         public void keyTyped(KeyEvent event) {}
     }
@@ -59,8 +37,8 @@ public class SameGameFrame extends JFrame {
             int x = event.getX();
             int y = event.getY();
             try {
-                Input input = clickToInputMap.getInput((y - (boxSize / 2) - 4) / boxSize, (x - 4) / boxSize);
-                sg.nextInput(input);
+                Input input = gameBridge.getBridge().getClickToInputMap().getInput((y - (boxSize / 2) - 4) / boxSize, (x - 4) / boxSize);
+                gameBridge.getGame().nextInput(input);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -76,15 +54,20 @@ public class SameGameFrame extends JFrame {
     public SameGameFrame() throws Exception {
         setResizable(false);
         boxSize = 64;
-        clickToInputMap = new ClickToInputMap();
+        gameBridge = new SameGameBridgePair();
 
-        SameGameFrame.BasicMouseListener bml = new SameGameFrame.BasicMouseListener();
-        SameGameFrame.BasicKeyListener bkl = new SameGameFrame.BasicKeyListener();
-        this.addMouseListener(bml);
-        this.addKeyListener(bkl);
+        if(gameBridge.getBridge().getUsesClickInput()) {
+            SameGameFrame.BasicMouseListener bml = new SameGameFrame.BasicMouseListener();
+            this.addMouseListener(bml);
+        }
 
-        sg = new SameGame();
-        Map<String, StateCollection> collections = sg.getCollections();
+        if(gameBridge.getBridge().getUsesKeyInput()) {
+            SameGameFrame.BasicKeyListener bkl = new SameGameFrame.BasicKeyListener();
+            this.addKeyListener(bkl);
+        }
+
+
+        Map<String, StateCollection> collections = gameBridge.getGame().getCollections();
         Map<String, StateToDrawableConverter> converters = new HashMap<>();
         for(String key : collections.keySet()) {
             StateCollection states = collections.get(key);
@@ -96,25 +79,13 @@ public class SameGameFrame extends JFrame {
             converters.put(key, converter);
         }
 
-        gamePanel = new GamePanel(sg, boxSize, converters);
+        gamePanel = new GamePanel(gameBridge.getGame(), boxSize, converters);
         add(gamePanel);
         pack();
         gamePanel.updateView();
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Same Game");
-        /*
-        sg = new SameGame();
-        rows = sg.getRows();
-        cols = sg.getCols();
-        xyz = new GridsCanvas(rows, cols, boxSize);
 
-        add(xyz);
-        pack();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Same Game");
-        updateView();
-
-         */
     }
 }
