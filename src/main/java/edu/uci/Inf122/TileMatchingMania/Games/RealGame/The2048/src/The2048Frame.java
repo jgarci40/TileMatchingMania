@@ -7,6 +7,7 @@ import edu.uci.Inf122.TileMatchingMania.GUI.StateToDrawableConverter;
 
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.*;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.GUI.The2048GUIBridge;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.GUI.The2048GameBridgePair;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Game.The2048;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.*;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
@@ -24,6 +25,7 @@ public class The2048Frame extends JFrame {
     The2048 the2048;
     GamePanel gamePanel;
     The2048GUIBridge guiBridge;
+    The2048GameBridgePair gameBridge;
 
     class BasicKeyListener implements KeyListener {
         @Override
@@ -52,7 +54,7 @@ public class The2048Frame extends JFrame {
             }
 
             try {
-                the2048.nextInput(input);
+                gameBridge.getGame().nextInput(input);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
@@ -102,14 +104,19 @@ public class The2048Frame extends JFrame {
         setResizable(false);
         boxSize = 64;
         guiBridge = new The2048GUIBridge();
+        gameBridge = new The2048GameBridgePair();
 
-        The2048Frame.BasicMouseListener bml = new The2048Frame.BasicMouseListener();
-        The2048Frame.BasicKeyListener bkl = new The2048Frame.BasicKeyListener();
-        this.addMouseListener(bml);
-        this.addKeyListener(bkl);
+        if(gameBridge.getBridge().getUsesClickInput()) {
+            The2048Frame.BasicMouseListener bml = new The2048Frame.BasicMouseListener();
+            this.addMouseListener(bml);
+        }
 
-        the2048 = new The2048();
-        Map<String, StateCollection> collections = the2048.getCollections();
+        if(gameBridge.getBridge().getUsesKeyInput()) {
+            The2048Frame.BasicKeyListener bkl = new The2048Frame.BasicKeyListener();
+            this.addKeyListener(bkl);
+        }
+
+        Map<String, StateCollection> collections = gameBridge.getGame().getCollections();
         Map<String, StateToDrawableConverter> converters = new HashMap<>();
 
         for(String key : collections.keySet()) {
@@ -133,7 +140,7 @@ public class The2048Frame extends JFrame {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("2048");
-        gamePanel = new GamePanel(the2048, boxSize, converters);
+        gamePanel = new GamePanel(gameBridge.getGame(), boxSize, converters);
         add(gamePanel);
         pack();
         gamePanel.updateView();

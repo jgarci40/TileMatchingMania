@@ -267,7 +267,6 @@ public class The2048 extends Game {
 
     // moves tile state up a class i.e: 2 -> 4, 4 -> 8 and so on...
     private void upgradeState(Tile t) {
-        System.out.println("IN UPGRADE STATE");
         int score = 0;
         State state = t.getState();
         if (state instanceof Block2State) {
