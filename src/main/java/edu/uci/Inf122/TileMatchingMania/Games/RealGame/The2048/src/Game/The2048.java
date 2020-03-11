@@ -46,12 +46,7 @@ public class The2048 extends Game {
     }
 
     public The2048() throws Exception {
-        super(_2048_DEFAULT_ROWS,
-                _2048_DEFAULT_COLS,
-                true,
-                false,
-                3,
-                new The2048DefaultCollection());
+        super(_2048_DEFAULT_ROWS, _2048_DEFAULT_COLS, new The2048DefaultCollection());
         initGame();
     }
 

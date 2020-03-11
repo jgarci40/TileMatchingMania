@@ -39,11 +39,7 @@ public class SameGame extends Game {
     }
 
     public SameGame() throws Exception {
-        super(SAME_GAME_DEFAULT_ROWS, SAME_GAME_DEFAULT_COLS,
-                false,
-                true,
-                1,
-                new SameGameDefaultCollection());
+        super(SAME_GAME_DEFAULT_ROWS, SAME_GAME_DEFAULT_COLS, new SameGameDefaultCollection());
         initGame();
     }
 

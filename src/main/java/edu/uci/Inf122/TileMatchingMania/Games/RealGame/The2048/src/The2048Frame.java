@@ -6,6 +6,7 @@ import edu.uci.Inf122.TileMatchingMania.GUI.Input.DirectionInput.Direction;
 import edu.uci.Inf122.TileMatchingMania.GUI.StateToDrawableConverter;
 
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.*;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.GUI.The2048GUIBridge;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Game.The2048;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.*;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
@@ -22,6 +23,7 @@ public class The2048Frame extends JFrame {
     int boxSize;
     The2048 the2048;
     GamePanel gamePanel;
+    The2048GUIBridge guiBridge;
 
     class BasicKeyListener implements KeyListener {
         @Override
@@ -99,6 +101,7 @@ public class The2048Frame extends JFrame {
     public The2048Frame() throws Exception {
         setResizable(false);
         boxSize = 64;
+        guiBridge = new The2048GUIBridge();
 
         The2048Frame.BasicMouseListener bml = new The2048Frame.BasicMouseListener();
         The2048Frame.BasicKeyListener bkl = new The2048Frame.BasicKeyListener();
