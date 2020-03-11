@@ -1,14 +1,16 @@
-package edu.uci.Inf122.TileMatchingMania.GUI.Drawable;
+package edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare;
+
+import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class RGBSquare implements Drawable {
-    private int r;
-    private int b;
-    private int g;
-    private int width;
-    private int height;
+    public int r;
+    public int b;
+    public int g;
+    public int width;
+    public int height;
     public static final int DEFAULT_WIDTH = 256;
     public static final int DEFAULT_HEIGHT = 256;
     public static final int DEFAULT_R = 0;

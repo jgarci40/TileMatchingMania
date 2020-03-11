@@ -1,16 +1,17 @@
 package edu.uci.Inf122.TileMatchingMania.GUI;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare;
+import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.RGBSquare;
+import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.TextSquare;
 import edu.uci.Inf122.TileMatchingMania.GUI.Grid.GridsCanvas;
 
 import javax.swing.*;
 
 public class GUITest extends JFrame {
     public GUITest() {
-        int rows = 76;
-        int cols = 46;
-        int boxSize = 32;
+        int rows = 25;
+        int cols = 25;
+        int boxSize = 64;
         Drawable[][] drawables = new Drawable[rows][cols];
 
         for(int i = 0; i < rows; i++) {
@@ -19,6 +20,11 @@ public class GUITest extends JFrame {
                 drawables[i][j] = rgb;
             }
         }
+
+        drawables[5][5] = new TextSquare(TextSquare.DEFAULT_FONT_FAMILY,
+                TextSquare.DEFAULT_FONT_STYLE,
+                64,
+                "1");
 
         GridsCanvas xyz = new GridsCanvas(rows, cols, boxSize);
         xyz.setGrid(drawables);
