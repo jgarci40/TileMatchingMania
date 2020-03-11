@@ -2,7 +2,6 @@ package edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.GamePanel;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.DirectionInput;
-import edu.uci.Inf122.TileMatchingMania.GUI.Input.DirectionInput.Direction;
 import edu.uci.Inf122.TileMatchingMania.GUI.StateToDrawableConverter;
 
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.*;
@@ -33,25 +32,8 @@ public class The2048Frame extends JFrame {
             System.out.println("Key code: " + keyCode);
             DirectionInput input;
 
-            switch (keyCode) {
-                case 37:
-                    input = new DirectionInput(Direction.LEFT);
-                    break;
-                case 38:
-                    input = new DirectionInput(Direction.UP);
-                    break;
-                case 39:
-                    input = new DirectionInput(Direction.RIGHT);
-                    break;
-                case 40:
-                    input = new DirectionInput(Direction.DOWN);
-                    break;
-                default:
-                    input = new DirectionInput(Direction.INVALID);
-                    break;
-            }
-
             try {
+                input = (DirectionInput) gameBridge.getBridge().getKeyToInputMap().getInput(keyCode);
                 gameBridge.getGame().nextInput(input);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
