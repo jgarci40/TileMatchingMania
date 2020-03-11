@@ -1,17 +1,16 @@
 package edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.Game;
 
+import edu.uci.Inf122.TileMatchingMania.GUI.Input.CoordinateInput;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
 import edu.uci.Inf122.TileMatchingMania.Game.Game;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.FillAlgorithm.Algorithms.CheckerBoardAlgorithm;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.CollectionCondition.Conditions.StateCondition;
-import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.ContinuePath.ContinuePath;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.ContinuePath.Paths.NeighborPath;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.SearchAlgorithm.SearchAlgorithm;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.BlackState;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.MasonicInput;
-import edu.uci.Inf122.TileMatchingMania.State.State;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import java.util.List;
@@ -42,12 +41,20 @@ public class MasonicV2TestGame extends Game {
         return true;
     }
 
-    public void nextInput(Input input) {
+    public void nextInput(Input input) throws Exception {
         if(input instanceof MasonicInput) {
             List<Tile> blackStates = gameGrid.search(new SearchAlgorithm(new NeighborPath(), new StateCondition(new BlackState())));
             List<Tile> whiteStates = gameGrid.search(new SearchAlgorithm(new NeighborPath(), new StateCondition(new WhiteState())));
             blackStates.forEach(e -> e.setState(new WhiteState()));
             whiteStates.forEach((e -> e.setState(new BlackState())));
+        }
+        if(input instanceof CoordinateInput) {
+            Tile t = gameGrid.getTile(((CoordinateInput) input).getRow(), ((CoordinateInput) input).getCol());
+            if(t.getState().equivalent(new WhiteState())) {
+                t.setState(new BlackState());
+            } else {
+                t.setState(new WhiteState());
+            }
         }
     }
 }

@@ -69,18 +69,7 @@ public class The2048Frame extends JFrame {
 //            printEventInfo("Key Typed", event);
         }
 
-        private void printEventInfo(String str, KeyEvent e) {
-            System.out.println(str);
-            int code = e.getKeyCode();
-            System.out.println("   Code: " + KeyEvent.getKeyText(code));
-            System.out.println("   Char: " + e.getKeyChar());
-            int mods = e.getModifiersEx();
-            System.out.println("    Mods: "
-                    + KeyEvent.getModifiersExText(mods));
-            System.out.println("    Location: "
-                    + keyboardLocation(e.getKeyLocation()));
-            System.out.println("    Action? " + e.isActionKey());
-        }
+        private void printEventInfo(String str, KeyEvent e) {}
 
         private String keyboardLocation(int keybrd) {
             switch (keybrd) {
@@ -100,45 +89,11 @@ public class The2048Frame extends JFrame {
     }
 
     class BasicMouseListener implements MouseListener {
-        public void mousePressed(MouseEvent e) {
-//        saySomething("Mouse pressed; # of clicks: "
-//        + e.getClickCount(), e);
-        }
-
-        public void mouseReleased(MouseEvent e) {
-//            saySomething("XPos: "
-//                    + e.getX() + " YPos: " + e.getY() + ")", e);
-//            if(drawable1) {
-//                drawable1 = !drawable1;
-//                xyz.setGrid(drawables2);
-//            } else {
-//                drawable1 = !drawable1;
-//                xyz.setGrid(drawables1);
-//            }
-//            revalidate();
-//            repaint();
-        }
-
-        public void mouseEntered(MouseEvent e) {
-//        saySomething("Mouse entered", e);
-        }
-
-        public void mouseExited(MouseEvent e) {
-//        saySomething("Mouse exited", e);
-        }
-
-        public void mouseClicked(MouseEvent e) {
-            saySomething("XPos: "
-                    + e.getX() + " YPos: " + e.getY() + ")", e);
-
-            gamePanel.updateView();
-        }
-
-        void saySomething(String eventDescription, MouseEvent e) {
-            System.out.println(eventDescription + " detected on "
-                    + e.getComponent().getClass().getName()
-                    + ".");
-        }
+        public void mousePressed(MouseEvent e) {}
+        public void mouseReleased(MouseEvent e) {}
+        public void mouseEntered(MouseEvent e) {}
+        public void mouseExited(MouseEvent e) {}
+        public void mouseClicked(MouseEvent e) {}
     }
 
     public The2048Frame() throws Exception {

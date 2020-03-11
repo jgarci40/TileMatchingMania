@@ -26,7 +26,6 @@ public class GameGrid {
         this.rows = rows;
         this.cols = cols;
         grid = new Tile[rows][cols];
-
         stateCollection = sc;
 
         initGrid();

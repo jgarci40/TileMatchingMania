@@ -1,13 +1,9 @@
 package edu.uci.Inf122.TileMatchingMania.GUI;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.BlackSquare;
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.WhiteSquare;
 import edu.uci.Inf122.TileMatchingMania.GUI.Grid.GridsCanvas;
 import edu.uci.Inf122.TileMatchingMania.Game.Game;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.BlackState;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
 
 import javax.swing.*;
 import java.util.Map;
@@ -57,6 +53,7 @@ public class GamePanel extends JPanel {
     public GamePanel(Game game, int boxSize, Map<String, StateToDrawableConverter> converters) {
         this.game = game;
         this.boxSize = boxSize;
+        setBorder(null);
         rows = game.getRows();
         cols = game.getCols();
         this.converters = converters;

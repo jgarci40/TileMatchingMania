@@ -20,6 +20,7 @@ public class GridsCanvas extends JPanel {
         this.rows = rows;
         this.cols = cols;
         this.boxSize = boxSize;
+        setBorder(null);
     }
 
     public void setGrid(Drawable[][] grid) {

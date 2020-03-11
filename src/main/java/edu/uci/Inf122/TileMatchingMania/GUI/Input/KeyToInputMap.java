@@ -1,9 +1,5 @@
 package edu.uci.Inf122.TileMatchingMania.GUI.Input;
 
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.Drawable;
-import edu.uci.Inf122.TileMatchingMania.State.State;
-import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
-
 import java.util.HashMap;
 import java.util.Map;
 
