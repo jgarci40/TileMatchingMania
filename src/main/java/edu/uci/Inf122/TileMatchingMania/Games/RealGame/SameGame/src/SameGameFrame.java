@@ -9,6 +9,7 @@ import edu.uci.Inf122.TileMatchingMania.GUI.Input.CoordinateInput;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
 import edu.uci.Inf122.TileMatchingMania.GUI.StateToDrawableConverter;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.GUI.SameGameGUIBridge;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.Game.SameGame;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.BlueState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.EmptyState;
@@ -36,6 +37,7 @@ public class SameGameFrame extends JFrame {
     GridsCanvas xyz;
     GamePanel gamePanel;
     ClickToInputMap clickToInputMap;
+    SameGameGUIBridge guiBridge;
 
 
     class BasicKeyListener implements KeyListener {
@@ -77,6 +79,7 @@ public class SameGameFrame extends JFrame {
         setResizable(false);
         boxSize = 64;
         clickToInputMap = new ClickToInputMap();
+        guiBridge = new SameGameGUIBridge();
 
         SameGameFrame.BasicMouseListener bml = new SameGameFrame.BasicMouseListener();
         SameGameFrame.BasicKeyListener bkl = new SameGameFrame.BasicKeyListener();
@@ -103,18 +106,6 @@ public class SameGameFrame extends JFrame {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Same Game");
-        /*
-        sg = new SameGame();
-        rows = sg.getRows();
-        cols = sg.getCols();
-        xyz = new GridsCanvas(rows, cols, boxSize);
 
-        add(xyz);
-        pack();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Same Game");
-        updateView();
-
-         */
     }
 }
