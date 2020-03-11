@@ -50,11 +50,8 @@ public class SameGameFrame extends JFrame {
             gamePanel.updateView();
         }
 
-        public void keyReleased(KeyEvent event) {
-        }
-
-        public void keyTyped(KeyEvent event) {
-        }
+        public void keyReleased(KeyEvent event) {}
+        public void keyTyped(KeyEvent event) {}
     }
 
     class BasicMouseListener implements MouseListener {

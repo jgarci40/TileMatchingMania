@@ -8,6 +8,7 @@ import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
 import edu.uci.Inf122.TileMatchingMania.GUI.StateToDrawableConverter;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.BlackState;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.GUI.MasonicGameGUIBridge;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.GUI.MasonicKeyToInputMap;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.Game.MasonicV2TestGame;
 import edu.uci.Inf122.TileMatchingMania.State.State;
@@ -29,6 +30,7 @@ public class MasonicV2Frame extends JFrame {
     GamePanel gamePanel;
     MasonicKeyToInputMap masonicKeyToInputMap;
     ClickToInputMap clickToInputMap;
+    MasonicGameGUIBridge mtgbridge;
 
     class BasicKeyListener implements KeyListener {
         @Override
@@ -70,13 +72,20 @@ public class MasonicV2Frame extends JFrame {
         boxSize = 64;
         masonicKeyToInputMap = new MasonicKeyToInputMap();
         clickToInputMap = new ClickToInputMap();
+        mtgbridge = new MasonicGameGUIBridge();
 
-        BasicMouseListener bml = new BasicMouseListener();
-        BasicKeyListener bkl = new BasicKeyListener();
-        this.addMouseListener(bml);
-        this.addKeyListener(bkl);
 
         mtg = new MasonicV2TestGame();
+        if(mtgbridge.getUsesClickInput()) {
+            BasicMouseListener bml = new BasicMouseListener();
+            this.addMouseListener(bml);
+        }
+
+        if(mtgbridge.getUsesKeyInput()) {
+            BasicKeyListener bkl = new BasicKeyListener();
+            this.addKeyListener(bkl);
+        }
+
         Map<String, StateCollection> collections = mtg.getCollections();
         Map<String, StateToDrawableConverter> converters = new HashMap<>();
         for(String key : collections.keySet()) {
