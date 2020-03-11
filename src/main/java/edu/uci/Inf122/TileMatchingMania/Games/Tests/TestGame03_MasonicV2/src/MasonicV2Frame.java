@@ -2,42 +2,34 @@ package edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.BlackSquare;
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.WhiteSquare;
+import edu.uci.Inf122.TileMatchingMania.GUI.GameBridgePair;
 import edu.uci.Inf122.TileMatchingMania.GUI.GamePanel;
-import edu.uci.Inf122.TileMatchingMania.GUI.Input.ClickToInputMap;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
 import edu.uci.Inf122.TileMatchingMania.GUI.StateToDrawableConverter;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.BlackState;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.GUI.MasonicGameGUIBridge;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.GUI.MasonicKeyToInputMap;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.Game.MasonicV2TestGame;
-import edu.uci.Inf122.TileMatchingMania.State.State;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.GUI.MasonicGameBridgePair;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MasonicV2Frame extends JFrame {
     int boxSize;
-    MasonicV2TestGame mtg;
     GamePanel gamePanel;
-    MasonicKeyToInputMap masonicKeyToInputMap;
-    ClickToInputMap clickToInputMap;
-    MasonicGameGUIBridge mtgbridge;
+    GameBridgePair gameBridge;
 
     class BasicKeyListener implements KeyListener {
         @Override
         public void keyPressed(KeyEvent event) {
             try {
-                Input input = masonicKeyToInputMap.getInput(event.getKeyChar());
-                mtg.nextInput(input);
+                Input input = gameBridge.getBridge().getKeyToInputMap().getInput(event.getKeyChar());
+                gameBridge.getGame().nextInput(input);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -52,8 +44,8 @@ public class MasonicV2Frame extends JFrame {
             int x = event.getX();
             int y = event.getY();
             try {
-                Input input = clickToInputMap.getInput((y - (boxSize / 2) - 4) / boxSize, (x - 4) / boxSize);
-                mtg.nextInput(input);
+                Input input = gameBridge.getBridge().getClickToInputMap().getInput((y - (boxSize / 2) - 4) / boxSize, (x - 4) / boxSize);
+                gameBridge.getGame().nextInput(input);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -70,23 +62,19 @@ public class MasonicV2Frame extends JFrame {
     public MasonicV2Frame() throws Exception {
         setResizable(false);
         boxSize = 64;
-        masonicKeyToInputMap = new MasonicKeyToInputMap();
-        clickToInputMap = new ClickToInputMap();
-        mtgbridge = new MasonicGameGUIBridge();
+        gameBridge = new MasonicGameBridgePair();
 
-
-        mtg = new MasonicV2TestGame();
-        if(mtgbridge.getUsesClickInput()) {
+        if(gameBridge.getBridge().getUsesClickInput()) {
             BasicMouseListener bml = new BasicMouseListener();
             this.addMouseListener(bml);
         }
 
-        if(mtgbridge.getUsesKeyInput()) {
+        if(gameBridge.getBridge().getUsesKeyInput()) {
             BasicKeyListener bkl = new BasicKeyListener();
             this.addKeyListener(bkl);
         }
 
-        Map<String, StateCollection> collections = mtg.getCollections();
+        Map<String, StateCollection> collections = gameBridge.getGame().getCollections();
         Map<String, StateToDrawableConverter> converters = new HashMap<>();
         for(String key : collections.keySet()) {
             StateCollection states = collections.get(key);
@@ -96,8 +84,8 @@ public class MasonicV2Frame extends JFrame {
             converters.put(key, converter);
         }
 
-        gamePanel = new GamePanel(mtg, boxSize, converters);
-        GamePanel gp2 = new GamePanel(mtg, boxSize, converters);
+        gamePanel = new GamePanel(gameBridge.getGame(), boxSize, converters);
+        GamePanel gp2 = new GamePanel(gameBridge.getGame(), boxSize, converters);
         JPanel mainPanel = new JPanel();
         mainPanel.setBorder(null);
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
