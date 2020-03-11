@@ -6,9 +6,7 @@ import edu.uci.Inf122.TileMatchingMania.GUI.Input.DirectionInput.Direction;
 import edu.uci.Inf122.TileMatchingMania.GUI.StateToDrawableConverter;
 
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.*;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.GUI.The2048GUIBridge;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.GUI.The2048GameBridgePair;
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Game.The2048;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.State.*;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
@@ -22,15 +20,14 @@ import java.util.Map;
 
 public class The2048Frame extends JFrame {
     int boxSize;
-    The2048 the2048;
     GamePanel gamePanel;
-    The2048GUIBridge guiBridge;
     The2048GameBridgePair gameBridge;
 
     class BasicKeyListener implements KeyListener {
         @Override
         public void keyPressed(KeyEvent event) {
             printEventInfo("Key Pressed", event);
+            System.out.println("Key char: " + event.getKeyChar());
 
             int keyCode = event.getKeyCode();
             DirectionInput input;
@@ -103,7 +100,6 @@ public class The2048Frame extends JFrame {
     public The2048Frame() throws Exception {
         setResizable(false);
         boxSize = 64;
-        guiBridge = new The2048GUIBridge();
         gameBridge = new The2048GameBridgePair();
 
         if(gameBridge.getBridge().getUsesClickInput()) {
