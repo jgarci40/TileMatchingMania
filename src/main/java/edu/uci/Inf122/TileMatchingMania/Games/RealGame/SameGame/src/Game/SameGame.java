@@ -18,6 +18,7 @@ import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.St
 import edu.uci.Inf122.TileMatchingMania.State.State;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class SameGameDefaultCollection extends StateCollection {
@@ -68,6 +69,11 @@ public class SameGame extends Game {
 
         moveTilesDown();
         moveTilesLeft();
+
+        isGameOver = checkGameOver();
+        //TODO: REMOVE THIS PRINT STATEMENT
+        if (isGameOver) System.out.println("GAME OVER");
+
     }
 
     private void moveTilesDown() throws Exception {
@@ -111,5 +117,27 @@ public class SameGame extends Game {
         int score = (int) Math.pow((numTiles - 1), 2);
         addScore(score);
         System.out.println("Current score: " + getScore());
+    }
+
+    private boolean checkGameOver() throws Exception {
+        // check from bottom up
+        for (int row = gameGrid.getRows() - 1; row >= 0; --row) {
+            ArrayList<Tile> tileRow = gameGrid.getRow(row);
+            for (Tile tile : tileRow) {
+                if (!(tile.getState().equivalent(new EmptyState()))) {
+                    Tile up = (Tile) tile.getUp();
+                    Tile right = (Tile) tile.getRight();
+
+                    if (up != null && tile.getState().equivalent(up.getState())) {
+                        return false;
+                    }
+
+                    if (right != null && tile.getState().equivalent(right.getState())) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

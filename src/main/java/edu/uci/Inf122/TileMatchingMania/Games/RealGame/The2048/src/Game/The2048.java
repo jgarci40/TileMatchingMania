@@ -73,7 +73,7 @@ public class The2048 extends Game {
         if (emptyTiles.size() == 0) {
             isGameOver = checkGameOver();
         }
-
+        // TODO: REMOVE THIS PRINT STATEMENT
         if (isGameOver) System.out.println("GAME OVER");
     }
 
