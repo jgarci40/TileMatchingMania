@@ -1,11 +1,9 @@
-package com.swing.examples;
+package edu.uci.Inf122.TileMatchingMania.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,9 +18,9 @@ public class LoginDemo extends JFrame implements ActionListener {
     JLabel user_label, password_label, message;
     JTextField userName_text;
     JPasswordField password_text;
-    JButton submit, cancel;
+    JButton submit;
 
-    LoginDemo() {
+    public LoginDemo() {
 
         // User Label
         user_label = new JLabel();

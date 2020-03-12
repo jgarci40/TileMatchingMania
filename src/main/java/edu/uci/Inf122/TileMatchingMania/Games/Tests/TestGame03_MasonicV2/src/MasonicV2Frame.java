@@ -5,10 +5,11 @@ import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.WhiteSquare;
 import edu.uci.Inf122.TileMatchingMania.GUI.GameBridgePair;
 import edu.uci.Inf122.TileMatchingMania.GUI.GamePanel;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
+import edu.uci.Inf122.TileMatchingMania.GUI.LoginDemo;
 import edu.uci.Inf122.TileMatchingMania.GUI.StateToDrawableConverter;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.BlackState;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame02_RandomGrid.src.State.WhiteState;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.GUI.MasonicGameBridgePair;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.State.BlackState;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.State.WhiteState;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import javax.swing.*;
@@ -91,6 +92,7 @@ public class MasonicV2Frame extends JFrame {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
 //        mainPanel.add(gp2);
         mainPanel.add(gamePanel);
+        LoginDemo loginDemo = new LoginDemo();
         add(mainPanel);
         pack();
         gamePanel.updateView();
