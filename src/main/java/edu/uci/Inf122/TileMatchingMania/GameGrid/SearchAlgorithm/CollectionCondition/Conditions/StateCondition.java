@@ -12,24 +12,31 @@ import edu.uci.Inf122.TileMatchingMania.State.State;
 public class StateCondition extends CollectionCondition {
     private State state;
 
+    /*
+     * Set the State object that is used for this collection condition.
+     */
     public boolean setState(State state) {
         if(state == null) return false;
         this.state = state;
         return true;
     }
 
+    /*
+     * StateCondition constructor.
+     * 
+     * @param state The State object that determines the game type for a tile.
+     */
     public StateCondition(State state) {
         setState(state);
     }
 
 	/*
-	 * Collect the 4 neighboring tiles if the State for each
-	 * Title is the same as the starting tile.
+	 * Determine whether a tile can be collected based on whether
+	 * its State matches the current state in this class.
 	 * 
-	 * @param tile This is the current Tile evaluating it's 4 neighbors.
+	 * @param tile The current tile that will be evaluated based on its State.
 	 * 
-	 * @return boolean False if no match candidate exists, true otherwise
-	 * if 1 of the 4 neighbors are a match. 
+	 * @return True if the tile State matches the StateCondition State, false otherwise.
 	 */
     public boolean collectionCondition(Tile tile) {
         if(tile.getState().equivalent(state)) {
@@ -38,6 +45,15 @@ public class StateCondition extends CollectionCondition {
         return false;
     }
 
+	/*
+	 * Determine whether a tile can be collected based on whether
+	 * its State matches the current state in this class.
+	 * 
+	 * @param tile The current tile that will be evaluated based on its State.
+	 * @param state A State may be specified that will be checked against the tile State.
+	 * 
+	 * @return True if the tile State matches the StateCondition State, false otherwise.
+	 */
     public boolean collectionCondition(Tile tile, State state) {
         setState(state);
         return collectionCondition(tile);
