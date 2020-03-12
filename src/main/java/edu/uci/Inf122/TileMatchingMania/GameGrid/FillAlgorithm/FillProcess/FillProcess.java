@@ -23,7 +23,7 @@ public abstract class FillProcess {
      * Set a tile's State object.
      * 
      * @param tile A specific tile that comes from the grid.
-	 *  @param fg A generator that will support setting each tile State.
+	 * @param fg A generator that will support setting each tile State.
      */
     protected abstract void fillTile(Tile tile, FillGenerator fg) throws Exception;
 }
