@@ -7,6 +7,10 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+/*
+ * A tile will be able to hold text that will be rendered in a GUI. 
+ * A instance of this class be represent the text content of a Tile from GameGrid.
+ */
 public class TextSquare implements Drawable {
 
     private int boxSize;
@@ -20,6 +24,9 @@ public class TextSquare implements Drawable {
     public static final String DEFAULT_TEXT = "";
     public static final Color DEFAULT_COLOR = Color.white;
 
+    /*
+     * TextSquare constructor.
+     */
     public TextSquare() {
         this(DEFAULT_FONT_FAMILY, DEFAULT_FONT_STYLE, DEFAULT_FONT_SIZE, DEFAULT_TEXT, DEFAULT_COLOR);
     }
@@ -28,10 +35,25 @@ public class TextSquare implements Drawable {
         this(new Font(fontFamily, fontStyle, fontSize), text, color);
     }
 
+    /*
+     * TextSquare constructor.
+     * 
+     * @param fontFamily The text font family.
+     * @param frontStyle The text font to be displayed eventually in GUI tiles.
+     * @param fontSize The text font size.
+     * @param text The text that will be rendered in a GUI tile. 
+     */
     public TextSquare(String fontFamily, int fontStyle, int fontSize,  String text) {
         this(new Font(fontFamily, fontStyle, fontSize), text, DEFAULT_COLOR);
     }
 
+    /*
+     * TextSquare constructor.
+     * 
+     * @param font Used to render text in visible way.
+     * @param text The text that will be rendered in a GUI tile.
+     * @param color Provide support for the sRGB values. 
+     */
     public TextSquare(Font font, String text, Color color) {
         this.font = font;
         this.boxSize = font.getSize();
@@ -39,10 +61,18 @@ public class TextSquare implements Drawable {
         this.color = color;
     }
 
+    /*
+     * TextSquare copy constuctor. 
+     */
     public TextSquare(TextSquare ts) {
         this(ts.font, ts.text, ts.color);
     }
 
+    /*
+     * Build a BufferedImage object that can hold image data. 
+     * 
+     *  @return Image A representation for a graphical image.
+     */
     public Image draw() {
         BufferedImage bufImg = new BufferedImage(boxSize, boxSize, 1);
         Graphics2D g2d = bufImg.createGraphics();

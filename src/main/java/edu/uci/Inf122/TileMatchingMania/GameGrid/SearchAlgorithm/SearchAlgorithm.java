@@ -6,16 +6,15 @@ import edu.uci.Inf122.TileMatchingMania.GameGrid.Tile;
 import edu.uci.Inf122.TileMatchingMania.GameGrid.ValidPaths;
 
 /*
- * A tile matching game will have a search heuristic which is defined
- * as a combination of a path search algorithm and a collection or 
- * matching condition.
+ * A tile matching game will have a search algorithm which is defined
+ * as a combination of a path search algorithm and a collection/matching condition.
  */
 public class SearchAlgorithm {
     private ContinuePath ct;
     private CollectionCondition cd;
 
     /*
-     * SearchHeuristic constructor.
+     * SearchAlgorithm constructor.
      * 
      * @param ct The way a game searches the grid.
      * @param The way the game collects or matches tiles.
