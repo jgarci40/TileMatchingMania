@@ -21,7 +21,7 @@ public class KeyToInputMap {
 
     public Input getInput(int keyCode) throws Exception {
         if(defaultInput != null) return defaultInput;
-        if(!keyInputMap.containsKey(keyCode)) throw new Exception("KeyToInputMap does not contain key code " + keyCode);
+        if(!keyInputMap.containsKey(keyCode)) return new NoInput();
         return keyInputMap.get(keyCode);
     }
 }
