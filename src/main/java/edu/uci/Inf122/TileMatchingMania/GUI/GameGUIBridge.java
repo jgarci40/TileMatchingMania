@@ -10,6 +10,7 @@ public class GameGUIBridge {
     protected KeyToInputMap keyToInputMap;
     protected ClickToInputMap clickToInputMap;
     protected String gameName;
+    protected ConverterGenerator converterGenerator;
 
     public int getMaxPlayers() { return maxPlayers; }
     public boolean getUsesKeyInput() { return usesKeyInput; }
@@ -17,18 +18,21 @@ public class GameGUIBridge {
     public KeyToInputMap getKeyToInputMap() { return keyToInputMap; }
     public ClickToInputMap getClickToInputMap() { return clickToInputMap; }
     public String getName() { return gameName; }
+    public ConverterGenerator getConverter() { return converterGenerator; }
 
     public GameGUIBridge(boolean usesKeyInput,
                          boolean usesClickInput,
                          int maxPlayers,
                          KeyToInputMap keyToInputMap,
                          ClickToInputMap clickToInputMap,
-                         String gameName) {
+                         String gameName,
+                         ConverterGenerator converterGenerator) {
         this.usesKeyInput = usesKeyInput;
         this.usesClickInput = usesClickInput;
         this.maxPlayers = maxPlayers;
         this.keyToInputMap = keyToInputMap;
         this.clickToInputMap = clickToInputMap;
         this.gameName = gameName;
+        this.converterGenerator = converterGenerator;
     }
 }
