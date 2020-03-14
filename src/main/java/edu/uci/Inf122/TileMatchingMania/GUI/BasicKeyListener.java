@@ -6,16 +6,32 @@ import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.GUI.PanelBrid
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 
 public class BasicKeyListener implements KeyListener {
     PanelBridgePair panelBridgePair;
+    List<PanelBridgePair> bridges;
     public BasicKeyListener(PanelBridgePair panelBridgePair) {
         this.panelBridgePair = panelBridgePair;
+    }
+
+    public BasicKeyListener(List<PanelBridgePair> bridges) {
+        this.bridges = bridges;
     }
 
     @Override
     public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
+        if(panelBridgePair != null) {
+           processBridge(panelBridgePair, keyCode);
+        } else {
+            for(var pair : bridges) {
+                processBridge(pair, keyCode);
+            }
+        }
+    }
+
+    private void processBridge(PanelBridgePair panelBridgePair, int keyCode) {
         Input input;
         try {
             input = panelBridgePair.getBridge().getBridge().getKeyToInputMap().getInput(keyCode);
@@ -25,6 +41,7 @@ public class BasicKeyListener implements KeyListener {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
+        panelBridgePair.getScorePanel().setScore(panelBridgePair.getBridge().getGame().getScore());
         panelBridgePair.getGamePanel().updateView();
     }
 

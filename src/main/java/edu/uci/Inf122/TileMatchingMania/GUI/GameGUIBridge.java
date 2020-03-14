@@ -19,6 +19,9 @@ public class GameGUIBridge {
     public ClickToInputMap getClickToInputMap() { return clickToInputMap; }
     public String getName() { return gameName; }
     public ConverterGenerator getConverter() { return converterGenerator; }
+    protected KeyToInputMap player2;
+    public KeyToInputMap getPlayer2() { return player2; }
+    public void setKeyToInputMap(KeyToInputMap keyToInputMap) { this.keyToInputMap = keyToInputMap; }
 
     public GameGUIBridge(boolean usesKeyInput,
                          boolean usesClickInput,

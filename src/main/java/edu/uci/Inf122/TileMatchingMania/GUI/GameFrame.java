@@ -1,6 +1,5 @@
 package edu.uci.Inf122.TileMatchingMania.GUI;
 
-import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.GUI.SameGameConverterGenerator;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.GUI.PanelBridgePair;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
@@ -21,7 +20,7 @@ public class GameFrame extends JFrame {
         ConverterGenerator converterGenerator = gameBridgePair.getBridge().getConverter();
         Map<String, StateToDrawableConverter> converters = converterGenerator.generate(collections);
 
-        panelBridgePair = new PanelBridgePair(gameBridgePair, new GamePanel(gameBridgePair.getGame(), boxSize, converters));
+        panelBridgePair = new PanelBridgePair(gameBridgePair, new GamePanel(gameBridgePair.getGame(), boxSize, converters), new ScorePanel());
 
         if(gameBridgePair.getBridge().getUsesKeyInput()) {
             BasicKeyListener bkl = new BasicKeyListener(panelBridgePair);

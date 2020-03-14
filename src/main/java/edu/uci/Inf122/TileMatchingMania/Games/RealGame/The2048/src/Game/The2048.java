@@ -63,6 +63,8 @@ public class The2048 extends Game {
     }
 
     public void nextInput(Input input) throws Exception {
+        System.out.println("AWDA");
+        if(!(input instanceof DirectionInput)) return;
         DirectionInput ki = (DirectionInput) input;
 
         if (makeMove(ki.getDirection())) {

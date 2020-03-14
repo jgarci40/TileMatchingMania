@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.function.Supplier;
 
 public class LoginPanel extends JPanel implements ActionListener {
 
@@ -18,7 +17,6 @@ public class LoginPanel extends JPanel implements ActionListener {
 
     public LoginPanel() {
         user_label = new JLabel();
-        user_label.setText(text);
         userName_text = new JTextField();
 
         // Password
@@ -52,6 +50,7 @@ public class LoginPanel extends JPanel implements ActionListener {
 
     public void setText(String text) {
         this.text = text;
+        user_label.setText(text);
     }
 
     @Override

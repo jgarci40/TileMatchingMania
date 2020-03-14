@@ -1,17 +1,12 @@
 package edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.*;
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.BlackSquare;
-import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.WhiteSquare;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.GUI.PanelBridgePair;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.GUI.MasonicConverterGenerator;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.GUI.MasonicGameBridgePair;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.State.BlackState;
-import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.State.WhiteState;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import javax.swing.*;
-import java.util.HashMap;
 import java.util.Map;
 
 public class MasonicV2Frame extends JFrame {
@@ -32,12 +27,11 @@ public class MasonicV2Frame extends JFrame {
 
 //        GamePanel gp2 = new GamePanel(gameBridge.getGame(), boxSize, converters);
 //        JPanel mainPanel = new JPanel();
-//        mainPanel.setBorder(null);
 //        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
 //        mainPanel.add(gp2);
 //        mainPanel.add(gamePanel);
 //        LoginDemo loginDemo = new LoginDemo();
-        panelBridgePair = new PanelBridgePair(tmpBridge, new GamePanel(tmpBridge.getGame(), boxSize, converters));
+        panelBridgePair = new PanelBridgePair(tmpBridge, new GamePanel(tmpBridge.getGame(), boxSize, converters), new ScorePanel());
 
         if(tmpBridge.getBridge().getUsesKeyInput()) {
             BasicKeyListener bkl = new BasicKeyListener(panelBridgePair);
