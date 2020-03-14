@@ -2,7 +2,9 @@ package edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.*;
 import edu.uci.Inf122.TileMatchingMania.GUI.GamePanel;
+import edu.uci.Inf122.TileMatchingMania.GUI.Input.DirectionInput;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
+import edu.uci.Inf122.TileMatchingMania.GUI.Input.NoInput;
 import edu.uci.Inf122.TileMatchingMania.GUI.StateToDrawableConverter;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.GUI.SameGameBridgePair;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.BlueState;
@@ -27,7 +29,19 @@ public class SameGameFrame extends JFrame {
 
     class BasicKeyListener implements KeyListener {
         @Override
-        public void keyPressed(KeyEvent event) {}
+        public void keyPressed(KeyEvent event) {
+            int keyCode = event.getKeyCode();
+            Input input;
+            try {
+                input = gameBridge.getBridge().getKeyToInputMap().getInput(keyCode);
+                if(input instanceof NoInput) return;
+                gameBridge.getGame().nextInput(input);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+            gamePanel.updateView();
+        }
         public void keyReleased(KeyEvent event) {}
         public void keyTyped(KeyEvent event) {}
     }
