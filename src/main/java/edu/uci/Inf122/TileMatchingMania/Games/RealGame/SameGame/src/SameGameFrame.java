@@ -24,7 +24,7 @@ public class SameGameFrame extends JFrame {
         SameGameConverterGenerator sameGameConverterGenerator = new SameGameConverterGenerator();
         Map<String, StateToDrawableConverter> converters = sameGameConverterGenerator.generate(collections);
 
-
+        panelBridgePair = new PanelBridgePair(tmpBridge, new GamePanel(tmpBridge.getGame(), boxSize, converters));
 
         if(tmpBridge.getBridge().getUsesKeyInput()) {
             BasicKeyListener bkl = new BasicKeyListener(panelBridgePair);
@@ -38,7 +38,6 @@ public class SameGameFrame extends JFrame {
 
         add(panelBridgePair.getGamePanel());
         pack();
-
         panelBridgePair.getGamePanel().updateView();
 
     }
