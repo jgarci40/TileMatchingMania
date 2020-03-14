@@ -7,6 +7,7 @@ import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.NoInput;
 import edu.uci.Inf122.TileMatchingMania.GUI.StateToDrawableConverter;
 
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.SameGameFrame;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.Drawable.*;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.GUI.PanelBridgePair;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.GUI.The2048GameBridgePair;
@@ -46,7 +47,18 @@ public class The2048Frame extends JFrame {
     }
 
     class BasicMouseListener implements MouseListener {
-        public void mousePressed(MouseEvent e) {}
+        public void mousePressed(MouseEvent event) {
+            int x = event.getX();
+            int y = event.getY();
+            try {
+                Input input = panelBridgePair.getBridge().getBridge().getClickToInputMap().getInput((y - (boxSize / 2) - 4) / boxSize, (x - 4) / boxSize);
+                panelBridgePair.getBridge().getGame().nextInput(input);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            panelBridgePair.getGamePanel().updateView();
+        }
+
         public void mouseReleased(MouseEvent e) {}
         public void mouseEntered(MouseEvent e) {}
         public void mouseExited(MouseEvent e) {}
@@ -59,12 +71,12 @@ public class The2048Frame extends JFrame {
         GameBridgePair tmpBridge = new The2048GameBridgePair();
 
         if(tmpBridge.getBridge().getUsesClickInput()) {
-            The2048Frame.BasicMouseListener bml = new The2048Frame.BasicMouseListener();
+            BasicMouseListener bml = new BasicMouseListener();
             this.addMouseListener(bml);
         }
 
         if(tmpBridge.getBridge().getUsesKeyInput()) {
-            The2048Frame.BasicKeyListener bkl = new The2048Frame.BasicKeyListener();
+            BasicKeyListener bkl = new BasicKeyListener();
             this.addKeyListener(bkl);
         }
 

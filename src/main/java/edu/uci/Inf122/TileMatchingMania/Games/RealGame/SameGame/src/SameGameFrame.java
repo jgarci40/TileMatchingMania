@@ -1,6 +1,7 @@
 package edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src;
 
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.*;
+import edu.uci.Inf122.TileMatchingMania.GUI.GameBridgePair;
 import edu.uci.Inf122.TileMatchingMania.GUI.GamePanel;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.DirectionInput;
 import edu.uci.Inf122.TileMatchingMania.GUI.Input.Input;
@@ -11,6 +12,9 @@ import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.BlueSt
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.EmptyState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.RedState;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.SameGame.src.State.GreenState;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.GUI.PanelBridgePair;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.GUI.The2048GameBridgePair;
+import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.The2048Frame;
 import edu.uci.Inf122.TileMatchingMania.State.StateCollection;
 
 import javax.swing.*;
@@ -23,9 +27,7 @@ import java.util.Map;
 
 public class SameGameFrame extends JFrame {
     int boxSize;
-    GamePanel gamePanel;
-    SameGameBridgePair gameBridge;
-
+    PanelBridgePair panelBridgePair;
 
     class BasicKeyListener implements KeyListener {
         @Override
@@ -33,14 +35,14 @@ public class SameGameFrame extends JFrame {
             int keyCode = event.getKeyCode();
             Input input;
             try {
-                input = gameBridge.getBridge().getKeyToInputMap().getInput(keyCode);
+                input = panelBridgePair.getBridge().getBridge().getKeyToInputMap().getInput(keyCode);
                 if(input instanceof NoInput) return;
-                gameBridge.getGame().nextInput(input);
+                panelBridgePair.getBridge().getGame().nextInput(input);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
             }
-            gamePanel.updateView();
+            panelBridgePair.getGamePanel().updateView();
         }
         public void keyReleased(KeyEvent event) {}
         public void keyTyped(KeyEvent event) {}
@@ -51,12 +53,12 @@ public class SameGameFrame extends JFrame {
             int x = event.getX();
             int y = event.getY();
             try {
-                Input input = gameBridge.getBridge().getClickToInputMap().getInput((y - (boxSize / 2) - 4) / boxSize, (x - 4) / boxSize);
-                gameBridge.getGame().nextInput(input);
+                Input input = panelBridgePair.getBridge().getBridge().getClickToInputMap().getInput((y - (boxSize / 2) - 4) / boxSize, (x - 4) / boxSize);
+                panelBridgePair.getBridge().getGame().nextInput(input);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            gamePanel.updateView();
+            panelBridgePair.getGamePanel().updateView();
         }
 
         public void mouseReleased(MouseEvent e) {}
@@ -68,20 +70,20 @@ public class SameGameFrame extends JFrame {
     public SameGameFrame() throws Exception {
         setResizable(false);
         boxSize = 64;
-        gameBridge = new SameGameBridgePair();
+        GameBridgePair tmpBridge = new The2048GameBridgePair();
 
-        if(gameBridge.getBridge().getUsesClickInput()) {
-            SameGameFrame.BasicMouseListener bml = new SameGameFrame.BasicMouseListener();
+        if(tmpBridge.getBridge().getUsesClickInput()) {
+            BasicMouseListener bml = new BasicMouseListener();
             this.addMouseListener(bml);
         }
 
-        if(gameBridge.getBridge().getUsesKeyInput()) {
-            SameGameFrame.BasicKeyListener bkl = new SameGameFrame.BasicKeyListener();
+        if(tmpBridge.getBridge().getUsesKeyInput()) {
+            BasicKeyListener bkl = new BasicKeyListener();
             this.addKeyListener(bkl);
         }
 
 
-        Map<String, StateCollection> collections = gameBridge.getGame().getCollections();
+        Map<String, StateCollection> collections = tmpBridge.getGame().getCollections();
         Map<String, StateToDrawableConverter> converters = new HashMap<>();
         for(String key : collections.keySet()) {
             StateCollection states = collections.get(key);
@@ -93,10 +95,10 @@ public class SameGameFrame extends JFrame {
             converters.put(key, converter);
         }
 
-        gamePanel = new GamePanel(gameBridge.getGame(), boxSize, converters);
-        add(gamePanel);
+        panelBridgePair = new PanelBridgePair(tmpBridge, new GamePanel(tmpBridge.getGame(), boxSize, converters));
+
+        add(panelBridgePair.getGamePanel());
         pack();
-        gamePanel.updateView();
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Same Game");
