@@ -70,7 +70,7 @@ public class SameGameFrame extends JFrame {
     public SameGameFrame() throws Exception {
         setResizable(false);
         boxSize = 64;
-        GameBridgePair tmpBridge = new The2048GameBridgePair();
+        GameBridgePair tmpBridge = new SameGameBridgePair();
 
         if(tmpBridge.getBridge().getUsesClickInput()) {
             BasicMouseListener bml = new BasicMouseListener();
@@ -102,6 +102,7 @@ public class SameGameFrame extends JFrame {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Same Game");
+        panelBridgePair.getGamePanel().updateView();
 
     }
 }
