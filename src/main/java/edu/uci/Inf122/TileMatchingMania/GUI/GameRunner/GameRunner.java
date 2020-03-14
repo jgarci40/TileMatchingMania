@@ -74,6 +74,11 @@ public class GameRunner extends JFrame {
 
     private void startSinglePlayer() throws Exception {
         JPanel firstPanel = new JPanel();
+        BasicMouseListener bml = new BasicMouseListener(activeGames, boxSize);
+        BasicKeyListener bkl = new BasicKeyListener(activeGames);
+        addKeyListener(bkl);
+        firstPanel.addMouseListener(bml);
+        firstPanel.addKeyListener(bkl);
         scorePanel1 = new ScorePanel();
         firstPanel.add(scorePanel1);
 
@@ -93,6 +98,8 @@ public class GameRunner extends JFrame {
     private void startSecondPlayer() throws Exception {
         JPanel secondPanel = new JPanel();
         scorePanel2 = new ScorePanel();
+        BasicKeyListener bkl = new BasicKeyListener(activeGames);
+        scorePanel2.addKeyListener(bkl);
         secondPanel.add(scorePanel2);
 
         Map<String, StateCollection> collections = player2.getGame().getCollections();
@@ -168,12 +175,6 @@ public class GameRunner extends JFrame {
         games = new ArrayList<>();
         games.add(new The2048GameBridgePair());
         games.add(new SameGameBridgePair());
-
-        BasicKeyListener bkl = new BasicKeyListener(activeGames);
-        addKeyListener(bkl);
-
-        BasicMouseListener bml = new BasicMouseListener(activeGames, boxSize);
-        addMouseListener(bml);
 
         setupPlayer1Login();
 
