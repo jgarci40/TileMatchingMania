@@ -5,6 +5,6 @@ import edu.uci.Inf122.TileMatchingMania.GUI.Input.ClickToInputMap;
 
 public class SameGameGUIBridge extends GameGUIBridge {
     public SameGameGUIBridge() {
-        super(false, true, 1, null, new ClickToInputMap());
+        super(false, true, 1, null, new ClickToInputMap(), "SameGame");
     }
 }

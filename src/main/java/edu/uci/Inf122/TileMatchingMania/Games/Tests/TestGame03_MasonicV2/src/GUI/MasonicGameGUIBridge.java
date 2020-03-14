@@ -9,6 +9,7 @@ public class MasonicGameGUIBridge extends GameGUIBridge {
                 true,
                 1,
                 new MasonicKeyToInputMap(),
-                new ClickToInputMap());
+                new ClickToInputMap(),
+                "Masonic");
     }
 }

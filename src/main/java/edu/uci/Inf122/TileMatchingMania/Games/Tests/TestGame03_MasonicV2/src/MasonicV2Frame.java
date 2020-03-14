@@ -4,6 +4,7 @@ import edu.uci.Inf122.TileMatchingMania.GUI.*;
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.BlackSquare;
 import edu.uci.Inf122.TileMatchingMania.GUI.Drawable.RGBSquare.WhiteSquare;
 import edu.uci.Inf122.TileMatchingMania.Games.RealGame.The2048.src.GUI.PanelBridgePair;
+import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.GUI.MasonicConverterGenerator;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.GUI.MasonicGameBridgePair;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.State.BlackState;
 import edu.uci.Inf122.TileMatchingMania.Games.Tests.TestGame03_MasonicV2.src.State.WhiteState;
@@ -18,19 +19,16 @@ public class MasonicV2Frame extends JFrame {
     PanelBridgePair panelBridgePair;
 
     public MasonicV2Frame() throws Exception {
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         boxSize = 64;
         GameBridgePair tmpBridge = new MasonicGameBridgePair();
+        setTitle(tmpBridge.getBridge().getName());
+
 
         Map<String, StateCollection> collections = tmpBridge.getGame().getCollections();
-        Map<String, StateToDrawableConverter> converters = new HashMap<>();
-        for(String key : collections.keySet()) {
-            StateCollection states = collections.get(key);
-            StateToDrawableConverter converter = new StateToDrawableConverter(states);
-            converter.addDrawable(new BlackState(), new BlackSquare());
-            converter.addDrawable(new WhiteState(), new WhiteSquare());
-            converters.put(key, converter);
-        }
+        MasonicConverterGenerator masonicConverterGenerator = new MasonicConverterGenerator();
+        Map<String, StateToDrawableConverter> converters = masonicConverterGenerator.generate(collections);
 
 //        GamePanel gp2 = new GamePanel(gameBridge.getGame(), boxSize, converters);
 //        JPanel mainPanel = new JPanel();
@@ -39,8 +37,6 @@ public class MasonicV2Frame extends JFrame {
 //        mainPanel.add(gp2);
 //        mainPanel.add(gamePanel);
 //        LoginDemo loginDemo = new LoginDemo();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Masonic");
         panelBridgePair = new PanelBridgePair(tmpBridge, new GamePanel(tmpBridge.getGame(), boxSize, converters));
 
         if(tmpBridge.getBridge().getUsesKeyInput()) {
