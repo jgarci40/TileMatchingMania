@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Block64 extends TextSquare {
     public Block64() {
-        super(DEFAULT_FONT_FAMILY, DEFAULT_FONT_STYLE, 64, "64", Color.YELLOW);
+        super(DEFAULT_FONT_FAMILY, DEFAULT_FONT_STYLE, 64, "64", new Color(47, 255, 143));
     }
 
     public Block64(String fontFamily, int fontStyle, int fontSize, String text, Color color) {
