@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Block1024 extends TextSquare {
     public Block1024() {
-        super(DEFAULT_FONT_FAMILY, DEFAULT_FONT_STYLE, 64, "1024", Color.orange);
+        super(DEFAULT_FONT_FAMILY, DEFAULT_FONT_STYLE, 64, "1024", new Color(255, 107, 32));
     }
 
     public Block1024(String fontFamily, int fontStyle, int fontSize, String text, Color color) {

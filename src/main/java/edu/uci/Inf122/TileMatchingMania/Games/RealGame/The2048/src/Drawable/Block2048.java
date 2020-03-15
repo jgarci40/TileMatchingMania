@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Block2048 extends TextSquare {
     public Block2048() {
-        super(DEFAULT_FONT_FAMILY, DEFAULT_FONT_STYLE, 64, "2046", Color.magenta);
+        super(DEFAULT_FONT_FAMILY, DEFAULT_FONT_STYLE, 64, "2048", Color.YELLOW);
     }
 
     public Block2048(String fontFamily, int fontStyle, int fontSize, String text, Color color) {
