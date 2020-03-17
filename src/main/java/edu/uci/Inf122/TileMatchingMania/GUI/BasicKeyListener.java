@@ -41,7 +41,7 @@ public class BasicKeyListener implements KeyListener {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        panelBridgePair.getScorePanel().setScore(panelBridgePair.getBridge().getGame().getScore());
+        panelBridgePair.getScorePanel().setScore(panelBridgePair.getBridge().getGame().getScore(), panelBridgePair.getBridge().getGame().getGameOver());
         panelBridgePair.getGamePanel().updateView();
     }
 
