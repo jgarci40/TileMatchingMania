@@ -74,13 +74,15 @@ public class GameRunner extends JFrame {
 
     private void startSinglePlayer() throws Exception {
         JPanel firstPanel = new JPanel();
+        firstPanel.setLayout(new BorderLayout());
         BasicMouseListener bml = new BasicMouseListener(activeGames, boxSize);
         BasicKeyListener bkl = new BasicKeyListener(activeGames);
         addKeyListener(bkl);
         firstPanel.addMouseListener(bml);
         firstPanel.addKeyListener(bkl);
         scorePanel1 = new ScorePanel();
-        firstPanel.add(scorePanel1);
+        firstPanel.add(scorePanel1, BorderLayout.NORTH);
+
 
         Map<String, StateCollection> collections = selectedGame.getGame().getCollections();
         ConverterGenerator converterGenerator = selectedGame.getBridge().getConverter();
@@ -98,9 +100,10 @@ public class GameRunner extends JFrame {
     private void startSecondPlayer() throws Exception {
         JPanel secondPanel = new JPanel();
         scorePanel2 = new ScorePanel();
+        secondPanel.setLayout(new BorderLayout());
         BasicKeyListener bkl = new BasicKeyListener(activeGames);
         scorePanel2.addKeyListener(bkl);
-        secondPanel.add(scorePanel2);
+        secondPanel.add(scorePanel2, BorderLayout.NORTH);
 
         Map<String, StateCollection> collections = player2.getGame().getCollections();
         ConverterGenerator converterGenerator = player2.getBridge().getConverter();
