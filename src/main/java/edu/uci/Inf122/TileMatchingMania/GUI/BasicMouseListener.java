@@ -42,7 +42,7 @@ public class BasicMouseListener implements MouseListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        panelBridgePair.getScorePanel().setScore(panelBridgePair.getBridge().getGame().getScore());
+        panelBridgePair.getScorePanel().setScore(panelBridgePair.getBridge().getGame().getScore(), panelBridgePair.getBridge().getGame().getGameOver());
         panelBridgePair.getGamePanel().updateView();
     }
 

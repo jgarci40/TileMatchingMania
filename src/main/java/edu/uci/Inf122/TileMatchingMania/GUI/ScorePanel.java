@@ -7,12 +7,18 @@ public class ScorePanel extends Panel {
     JLabel label;
 
     public ScorePanel() {
-        label = new JLabel("0");
+        label = new JLabel("Score: 0");
         add(label);
         setVisible(true);
     }
 
-    public void setScore(int i) {
-        label.setText(i + "");
+    public void setScore(int i, boolean gameOver) {
+        if (gameOver) {
+            label.setForeground(Color.RED);
+            label.setText("Score: " + i + " GAME OVER!");
+        }
+        else {
+            label.setText("Score: " + i);
+        }
     }
 }
